@@ -1,0 +1,1 @@
+import e from"./SectionAnnouncements-Dyipurpl.js";import{o,c as t,d as c}from"./index-BSVjMXHz.js";const n={class:"h-full"},l={__name:"news",setup(s){return(r,a)=>(o(),t("div",n,[c(e)]))}};export{l as default};

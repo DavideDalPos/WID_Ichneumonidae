@@ -1,0 +1,1 @@
+import e from"./SubfamilyAcaenitinae-BHBr6Kyu.js";import{o as a,c as t,d as c}from"./index-BSVjMXHz.js";const o={class:"h-full"},l={__name:"Acaenitinae",setup(n){return(r,s)=>(a(),t("div",o,[c(e)]))}};export{l as default};

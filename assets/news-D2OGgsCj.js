@@ -1,0 +1,1 @@
+import e from"./SectionAnnouncements-kckqyT5U.js";import{o,c as t,d as c}from"./index-CDzUkNRI.js";const n={class:"h-full"},l={__name:"news",setup(s){return(r,a)=>(o(),t("div",n,[c(e)]))}};export{l as default};

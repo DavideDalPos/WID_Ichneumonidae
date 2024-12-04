@@ -1,0 +1,1 @@
+import e from"./SectionAnnouncements-kckqyT5U.js";import{o as t,c as o,d as c}from"./index-CDzUkNRI.js";const n={class:"h-full"},i={__name:"cite",setup(s){return(r,a)=>(t(),o("div",n,[c(e)]))}};export{i as default};

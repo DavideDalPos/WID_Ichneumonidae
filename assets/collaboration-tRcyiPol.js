@@ -1,0 +1,1 @@
+import e from"./SectionAnnouncements-kckqyT5U.js";import{o,c as t,d as c}from"./index-CDzUkNRI.js";const n={class:"h-full"},m={__name:"collaboration",setup(a){return(r,s)=>(o(),t("div",n,[c(e)]))}};export{m as default};

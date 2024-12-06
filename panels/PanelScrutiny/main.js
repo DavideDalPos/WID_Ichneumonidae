@@ -1,4 +1,4 @@
-import PanelScrutiny from './PanelScrutiny'
+import PanelScrutiny from './PanelScrutiny.vue'
 
 export default {
   id: 'panel:scrutiy',

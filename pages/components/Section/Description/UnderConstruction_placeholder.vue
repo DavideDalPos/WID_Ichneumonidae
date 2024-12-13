@@ -21,9 +21,13 @@
 .symbol {
   font-size: 4rem; /* Large symbol size */
   margin-bottom: 10px; /* Space between the symbol and text */
+}
 
-  
-
+.text {
+  font-size: 2rem; /* Slightly smaller text size */
+  font-weight: bold;
+}
+</style>
 
 
 <template>

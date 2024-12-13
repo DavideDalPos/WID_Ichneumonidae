@@ -11,11 +11,11 @@ export default [
   },
   {
     id: 'Adelognathinae',
-    numberSpecies: 'Complete',
-    distribution: 'Complete',
-    citations: 'Complete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
+    numberSpecies: 'In Progress',
+    distribution: 'In Progress',
+    citations: 'In Progress',
+    biology: 'In Progress',
+    type: 'In Progress',
     anchor: 'Link',
     link: '/UnderConstruction'
   },

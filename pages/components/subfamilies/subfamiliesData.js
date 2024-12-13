@@ -17,7 +17,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/otus/659415'
+    link: '/UnderConstruction'
   },
   {
     id: 'Agriotypinae',

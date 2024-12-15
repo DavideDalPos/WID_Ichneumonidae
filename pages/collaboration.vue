@@ -1,8 +1,8 @@
 <template>
     <div class="h-full">
-      <SectionAnnouncements />
+      <SectionCollaboration />
     </div>
   </template>
   <script setup>
-  import SectionAnnouncements from './components/Section/SectionAnnouncements.vue';
+import SectionCollaboration from './components/Section/SectionCollaboration.vue';
   </script>

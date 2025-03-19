@@ -30,10 +30,10 @@
 
           <VCard>
             <VCardContent>
-              <h3 class="mt-2 mb-0">OSF Powered by TaxonWorks</h3>
+              <h3 class="mt-2 mb-0">WID Powered by TaxonWorks</h3>
               <span class="text-base-soft">2023-04-17</span>
               <p>
-                OSF lives in TaxonWorks, the new infrastructure that powers OSF.
+                World Ichneumonidae Database lives in TaxonWorks.
                 The interfaces of TaxonWorks include a wide range of additional
                 filtering and reporting functionalities. Please contact us
                 (<address-maker

@@ -16,7 +16,7 @@
           class="text-white"
           :to="{ name: 'otus-id', params: { id: currentImage.otuId } }"
         >
-          <i>{{ currentImage.label }}</i> © {{ currentImage.copyright }}
+          {{ currentImage.label }} © {{ currentImage.copyright }}
         </RouterLink>
       </span>
     </div>

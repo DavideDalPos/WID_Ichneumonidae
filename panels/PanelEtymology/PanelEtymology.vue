@@ -6,7 +6,7 @@
           v-html="humanTypeList"
           class="block"
         />
-  
+ 
         <span
           v-if="inSpeciesGroup && adjectiveOrParticiple && adjective"
           class="flex-col gap-2 mt-4"

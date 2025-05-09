@@ -12,6 +12,7 @@ taxa_page:
           - panel:scrutiny
           - panel:content
           - panel:keys
+          - panel:etymology
           - panel:statistics
           - panel:gbif
           - panel:statistics

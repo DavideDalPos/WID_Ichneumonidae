@@ -27,6 +27,5 @@
 </template>
 
 <script setup>
-import RecentTable from './components/Section/RecentTable.vue';
 import RecentTaxonTable from './components/Section/RecentTaxonTable.vue';
 </script>

@@ -22,3 +22,12 @@
     
     - label: How to Cite
       link: /cite
+
+    - label: TRIAL
+      sublinks:
+      - label: How to Cite
+        link: /recentreferences
+      - label: Data Policy
+        link: /datapolicy
+      - label: External Links
+        link: /externallinks

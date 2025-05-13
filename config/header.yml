@@ -11,8 +11,11 @@
     - label: Subfamilies
       link: /subfamilies
     
-    - label: New addition
+    - label: New Taxa
       link: /news
+
+    - label: New References
+      link: /RecentReferences
 
     - label: Collaborate with us
       link: /collaboration

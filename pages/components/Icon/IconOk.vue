@@ -3,7 +3,7 @@
     width="37"
     height="37"
     viewBox="0 0 37 37"
-    fill="currentColor"
+    style="enable-background: new 0 0 40 40; fill: rgb(var(--color-accent))"
     xmlns="http://www.w3.org/2000/svg"
   >
     <g clip-path="url(#clip0_318_33)">

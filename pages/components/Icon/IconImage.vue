@@ -7,9 +7,8 @@
     x="0px"
     y="0px"
     viewBox="0 0 42 42"
-    style="enable-background: new 0 0 42 42"
+    style="enable-background: new 0 0 40 40; fill: rgb(var(--color-accent))"
     xml:space="preserve"
-    fill="currentColor"
   >
     <path
       d="M31.5,39.5h-21c-2.1,0-4.1-0.8-5.7-2.3c-1.5-1.5-2.3-3.5-2.3-5.7v-21c0-2.1,0.8-4.1,2.3-5.7

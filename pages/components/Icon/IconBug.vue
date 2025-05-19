@@ -6,9 +6,8 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     x="0px"
     y="0px"
-    fill="currentColor"
     viewBox="0 0 40 40"
-    style="enable-background: new 0 0 40 40"
+    style="enable-background: new 0 0 40 40; fill: rgb(var(--color-accent))"
     xml:space="preserve"
   >
     <path

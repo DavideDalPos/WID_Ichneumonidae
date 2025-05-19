@@ -7,7 +7,7 @@
     x="0px"
     y="0px"
     viewBox="0 0 25.6 25.6"
-    style="enable-background: new 0 0 25.6 25.6"
+    style="enable-background: new 0 0 40 40; fill: rgb(var(--color-accent))"
     xml:space="preserve"
     fill="currentColor"
   >

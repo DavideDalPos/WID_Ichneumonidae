@@ -16,21 +16,21 @@
         </div>
       </div>
     </div>
-    <div class="bg-base-foreground">
+    <div class="bg-color-secondary">
       <div class="container mx-auto"></div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { shallowRef, triggerRef } from 'vue'
 import { makeAPIRequest } from '@/utils/request'
+import { shallowRef, triggerRef } from 'vue'
 
 import IconBug from '../Icon/IconBug.vue'
 import IconImage from '../Icon/IconImage.vue'
 import IconMicroscope from '../Icon/IconMicroscope.vue'
-import IconReference from '../Icon/IconReference.vue'
 import IconOk from '../Icon/IconOk.vue'
+import IconReference from '../Icon/IconReference.vue'
 import IconCitation from '../Icon/iconCitation.vue'
 
 import DataType from './Data/DataType.vue'

@@ -3,7 +3,7 @@
     width="29"
     height="39"
     viewBox="0 0 29 39"
-    fill="currentColor"
+    style="enable-background: new 0 0 40 40; fill: rgb(var(--color-accent))"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

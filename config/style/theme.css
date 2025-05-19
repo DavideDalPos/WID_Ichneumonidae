@@ -1,33 +1,40 @@
 :root {
-  --color-primary: 70, 85, 100;            /* Cool slate gray-blue */
-  --color-primary-content: 245, 245, 250;  /* Soft off-white */
+  /* Primary: deep heritage red */
+  --color-primary: 65, 140, 185;           /* Oxidized red / historic ink */
+  --color-primary-content: 250, 250, 252;    /* Soft near-white for contrast */
 
-  --color-secondary: 190, 70, 60;          /* Muted warm red - like old-school ink */
-  --color-secondary-content: 30, 30, 30;   /* Very dark gray for text */
+  /* Secondary: desaturated navy-gray (a grounding complement to red) */
+  --color-secondary: 	175, 50, 55;        /* Cool slate blue */
+  --color-secondary-content: 245, 245, 245;  /* Off-white */
 
-  --color-accent: 120, 30, 25;       /* Electric violet */
+  /* Accent: aged brass / antique gold */
+  --color-accent: 75, 110, 140;
 
-  --color-base-background: 245, 247, 250;   /* Very light cool gray */
-  --color-base-muted: 200, 205, 210;         /* Light gray-blue */
-  --color-base-soft: 150, 160, 170;          /* Medium gray-blue */
 
-  --color-base-content: 40, 40, 50;          /* Dark gray */
+  /* Base neutrals */
+  --color-base-background: 250, 250, 252;    /* Pale paper white with cool tint */
+  --color-base-muted: 220, 225, 230;         /* Pale bluish-gray */
+  --color-base-soft: 170, 180, 190;          /* Muted slate */
+  --color-base-content: 35, 35, 40;          /* Charcoal text */
+  --color-base-border: 175, 185, 190;        /* Subtle cool border */
 
-  --color-base-border: 160, 170, 180;        /* Muted steel blue */
+  /* Historical / map tones */
+  --color-map-georeference: 110, 90, 70;       /* Aged sepia */
+  --color-map-aggregate: 160, 135, 90;         /* Historic parchment gold */
+  --color-map-asserted: 190, 165, 120;         /* Warm sand */
+  --color-map-type-material: 105, 115, 125;    /* Desaturated slate gray */
+  --color-map-collection-object: 100, 35, 120; /* Deep scholarly purple */
 
-  /* Old cartography map colors could be tweaked or kept */
-  --color-map-georeference: 80, 70, 50;      /* Dull olive */
-  --color-map-aggregate: 120, 100, 70;        /* Muted bronze */
-  --color-map-asserted: 150, 140, 100;        /* Warm sand */
-  --color-map-type-material: 100, 110, 120;   /* Slate gray */
-  --color-map-collection-object: 110, 0, 90;  /* Deep purple */
+  /* UI elements */
+  --color-scrollbar-thumb: 165, 175, 185;
+  --color-scrollbar-track: 240, 240, 245;
 
-  --color-scrollbar-thumb: 150, 160, 170;
-  --color-scrollbar-track: 230, 230, 235;
-
-  --color-map-shape-opacity: 0.5;
-  --color-map-marker-opacity: 0.75;
+  /* Opacity settings */
+  --color-map-shape-opacity: 0.4;
+  --color-map-marker-opacity: 0.7;
 }
+
+
 
 .dark {
   --color-primary: 23, 23, 23;

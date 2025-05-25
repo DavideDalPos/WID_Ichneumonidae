@@ -12,10 +12,10 @@
       link: /subfamilies
     
     - label: New Taxa
-      link: /recenttaxa
+      link: /RecentTaxa
 
     - label: New References
-      link: /recentreferences
+      link: /RecentReferences
 
     - label: Collaborate with us
       link: /collaboration

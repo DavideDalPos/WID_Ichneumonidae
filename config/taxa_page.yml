@@ -13,7 +13,6 @@ taxa_page:
           - panel:content
           - panel:keys
           - panel:etymology
-          - panel:statistics
           - panel:gbif
           - panel:statistics
   specimen_records:

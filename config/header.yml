@@ -15,7 +15,9 @@
       link: /RecentTaxa
 
     - label: New References
-      link: /RecentReferences
+      submenu: 
+        - label: New References
+          link: /RecentReferences
 
     - label: Collaborate with us
       link: /collaboration

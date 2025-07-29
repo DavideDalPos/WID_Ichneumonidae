@@ -10,14 +10,13 @@
 
     - label: Subfamilies
       link: /subfamilies
-    
-    - label: New Taxa
-      link: /RecentTaxa
 
-    - label: New References
+    - label: News
       submenu: 
         - label: New References
           link: /RecentReferences
+        - label: New Taxa
+          link: /RecentTaxa
 
     - label: Collaborate with us
       link: /collaboration

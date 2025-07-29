@@ -1,6 +1,6 @@
 <template>
     <section>
-      <div class="mx-auto py-6 prose !container dark:prose-invert">
+      <div class="mx-auto mb-12 prose !container dark:prose-invert">
         <h2 class="px-4 sm:px-0 text-gray-900">Highlights</h2>
         <div class="flex gap-4 flex-col">
 <VCard>
@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const todayFormatted = ref('')
 

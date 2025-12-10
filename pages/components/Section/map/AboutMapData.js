@@ -11,7 +11,7 @@ export const collaborators = [
     orcid: 'https://orcid.org/0000-0002-9122-934X',
     researchgate: 'https://www.researchgate.net/profile/Davide-Dal-Pos-2',
     googlescholar: 'https://scholar.google.com/citations?user=wYj3d_oAAAAJ',
-    image: '/public/images/collaborators/DavideDalPos.jpg'
+    image: '/images/collaborators/DavideDalPos.jpg'
   },
   {
     first_name: 'Filippo',

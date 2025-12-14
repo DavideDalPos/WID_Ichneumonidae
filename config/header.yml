@@ -11,15 +11,22 @@
     - label: Subfamilies
       link: /subfamilies
 
-    - label: News
+    - label: Bibliography
+      link: /resources/tw/filter/bibliography
+
+    - label: Search DwC
+      link: /resources/tw/filter/dwc_otus
+
+    - label: Recent Addition
       submenu: 
-        - label: New References
-          link: /RecentReferences
-        - label: New Taxa
+        - label: Taxa Addition
           link: /RecentTaxa
+        - label: Reference Addition
+          link: /RecentReferences
 
     - label: Collaborate with us
       link: /collaboration
     
     - label: How to Cite
       link: /cite
+

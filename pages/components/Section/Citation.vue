@@ -29,32 +29,39 @@
         </VCard>
 
         <!-- Citation Guidance -->
-        <VCard class="shadow-md hover:shadow-lg transition-shadow duration-200">
-          <VCardContent class="p-6">
-            <h3 class="text-lg font-semibold mb-4">How to Cite WID</h3>
-            <p class="mb-3">
-              While a formal data paper is not yet available, you can cite WID in your work using the following format:
-            </p>
+<!-- Citation Guidance -->
+<VCard class="shadow-md hover:shadow-lg transition-shadow duration-200">
+  <VCardContent class="p-6">
+    <h3 class="text-lg font-semibold mb-4">How to Cite WID</h3>
 
-            <pre class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-black text-sm overflow-x-auto mb-4">
+    <p class="mb-2 text-sm italic text-gray-600 dark:text-gray-400">
+      A formal data paper for WID is currently in preparation.
+    </p>
+
+    <p class="mb-3">
+      While the data paper is not yet available, you can cite WID in your work using the following format:
+    </p>
+
+    <pre class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-black text-sm overflow-x-auto mb-4">
 {{ citationText }}
-            </pre>
+    </pre>
 
-            <p class="mb-4">
-              Replace <em>[insert date here]</em> with the date you accessed the database to reflect the exact version you used.
-            </p>
+    <p class="mb-4">
+      Replace <em>[insert date here]</em> with the date you accessed the database to reflect the exact version you used.
+    </p>
 
-            <h4 class="text-md font-semibold mb-2">Contact for Questions or Collaboration</h4>
-            <ul class="list-disc pl-5 text-sm space-y-1">
-              <li>
-                <address-maker class="font-medium" :items="['davide.dalpos', 'ucf', 'edu']" />
-              </li>
-              <li>
-                <address-maker class="font-medium" :items="['filippod', 'unisiena', 'edu']" />
-              </li>
-            </ul>
-          </VCardContent>
-        </VCard>
+    <h4 class="text-md font-semibold mb-2">Contact for Questions or Collaboration</h4>
+    <ul class="list-disc pl-5 text-sm space-y-1">
+      <li>
+        <address-maker class="font-medium" :items="['davide.dalpos', 'ucf', 'edu']" />
+      </li>
+      <li>
+        <address-maker class="font-medium" :items="['filippod', 'unisiena', 'edu']" />
+      </li>
+    </ul>
+  </VCardContent>
+</VCard>
+
 
       </div>
     </div>

@@ -7,7 +7,8 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/Acaenitinae'
+    link: '/Acaenitinae',
+    widLink: '/otus/659414/overview'
   },
   {
     id: 'Adelognathinae',
@@ -17,7 +18,7 @@ export default [
     biology: 'In Progress',
     type: 'In Progress',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Agriotypinae',
@@ -27,7 +28,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Alomyinae',
@@ -37,7 +38,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Anomaloninae',
@@ -47,7 +48,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Ateleutinae',
@@ -57,7 +58,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Banchinae',
@@ -67,7 +68,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Brachycyrtinae',
@@ -77,7 +78,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Campopleginae',
@@ -87,7 +88,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Claseinae',
@@ -97,7 +98,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Collyriinae',
@@ -107,7 +108,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Cremastinae',
@@ -117,7 +118,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Cryptinae',
@@ -127,7 +128,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Ctenopelmatinae',
@@ -137,7 +138,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Cylloceriinae',
@@ -147,7 +148,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Diacritinae',
@@ -157,7 +158,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Diplazontinae',
@@ -167,7 +168,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Eucerotinae',
@@ -177,7 +178,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Hybrizontinae',
@@ -187,7 +188,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Ichneumoninae',
@@ -197,7 +198,7 @@ export default [
     biology: 'Incomplete',
     type: 'Afrotropical',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Labeninae',
@@ -207,7 +208,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Lycorininae',
@@ -217,7 +218,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Mesochorinae',
@@ -227,7 +228,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Metopiinae',
@@ -237,7 +238,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Microleptinae',
@@ -247,7 +248,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Neorhacodinae',
@@ -257,7 +258,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Nesomesochorinae',
@@ -267,7 +268,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Ophioninae',
@@ -277,7 +278,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Orhtocentrinae',
@@ -287,7 +288,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Orthopelmatinae',
@@ -297,7 +298,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Oxytorinae',
@@ -307,7 +308,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Pedunculinae',
@@ -317,7 +318,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Phygadeuontinae',
@@ -327,7 +328,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Pimplinae',
@@ -337,7 +338,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Poemeniinae',
@@ -347,7 +348,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Rhyssinae',
@@ -357,7 +358,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Sisyrostolinae',
@@ -367,7 +368,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Stilbopinae',
@@ -377,7 +378,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Tatogastrinae',
@@ -387,7 +388,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Tersilochinae',
@@ -397,7 +398,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Tryphoninae',
@@ -407,7 +408,7 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   },
   {
     id: 'Xoridinae',
@@ -417,6 +418,6 @@ export default [
     biology: 'Incomplete',
     type: 'Incomplete',
     anchor: 'Link',
-    link: '/UnderConstruction'
+    link: ''
   }
 ]

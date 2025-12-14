@@ -1,8 +1,8 @@
 <template>
-    <div class="h-full">
-      <SubfamilyAcaenitinae />
-    </div>
-  </template>
-  <script setup>
- import SubfamilyAcaenitinae from './components/Section/Description/SubfamilyAcaenitinae.vue';
-  </script>
+  <SubfamilyLayout subfamilyKey="Acaenitinae" />
+</template>
+
+<script setup>
+import SubfamilyLayout from './components/Section/Description/SubfamilyLayout.vue';
+
+</script>

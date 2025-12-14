@@ -1,40 +1,35 @@
 :root {
-  /* Primary: deep heritage red */
-  --color-primary: 65, 140, 185;           /* Oxidized red / historic ink */
-  --color-primary-content: 250, 250, 252;    /* Soft near-white for contrast */
+  /* ------------------------ UI / Main Colors ------------------------ */
+  --color-primary: 42, 98, 183;        /* Vibrant royal blue — strong & elegant */
+  --color-primary-content: 255, 255, 255; /* White for contrast */
 
-  /* Secondary: desaturated navy-gray (a grounding complement to red) */
-  --color-secondary: 	175, 50, 55;        /* Cool slate blue */
-  --color-secondary-content: 245, 245, 245;  /* Off-white */
+  --color-secondary: 243, 182, 55;     /* Warm golden yellow — bright but classy */
+  --color-secondary-content: 34, 34, 34; /* Dark text for contrast */
 
-  /* Accent: aged brass / antique gold */
-  --color-accent: 75, 110, 140;
+  --color-accent: 243, 182, 55;        /* Magenta/purple — playful yet elegant */
 
+  /* ------------------------ Base / Background ------------------------ */
+  --color-base-background: 250, 250, 252; /* soft white */
+  --color-base-foreground: 255, 255, 255; /* cards, panels */
+  --color-base-muted: 220, 224, 230;      /* subtle gray for muted elements */
+  --color-base-soft: 180, 185, 195;       /* softer gray for text */
+  --color-base-content: 35, 35, 40;       /* main text */
+  --color-base-border: 185, 190, 200;     /* borders, subtle separation */
 
-  /* Base neutrals */
-  --color-base-background: 250, 250, 252;    /* Pale paper white with cool tint */
-  --color-base-muted: 220, 225, 230;         /* Pale bluish-gray */
-  --color-base-soft: 170, 180, 190;          /* Muted slate */
-  --color-base-content: 35, 35, 40;          /* Charcoal text */
-  --color-base-border: 175, 185, 190;        /* Subtle cool border */
+  /* ------------------------ MAP COLORS — DISTINCT ------------------------ */
+  --color-map-georeference: 28, 102, 112;       /* teal-blue, distinct */
+  --color-map-aggregate: 246, 184, 59;          /* amber-gold, distinct */
+  --color-map-asserted: 120, 180, 75;           /* green, distinct */
+  --color-map-type-material: 220, 45, 35;       /* red, very clear */
+  --color-map-collection-object: 130, 70, 180;  /* purple, distinct */
 
-  /* Historical / map tones */
-  --color-map-georeference: 110, 90, 70;       /* Aged sepia */
-  --color-map-aggregate: 160, 135, 90;         /* Historic parchment gold */
-  --color-map-asserted: 190, 165, 120;         /* Warm sand */
-  --color-map-type-material: 105, 115, 125;    /* Desaturated slate gray */
-  --color-map-collection-object: 100, 35, 120; /* Deep scholarly purple */
+  --color-map-shape-opacity: 0.4;
+  --color-map-marker-opacity: 0.7;
 
   /* UI elements */
   --color-scrollbar-thumb: 165, 175, 185;
   --color-scrollbar-track: 240, 240, 245;
-
-  /* Opacity settings */
-  --color-map-shape-opacity: 0.4;
-  --color-map-marker-opacity: 0.7;
 }
-
-
 
 .dark {
   --color-primary: 23, 23, 23;

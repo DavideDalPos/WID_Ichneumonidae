@@ -7,7 +7,7 @@
         <VTable>
           <VTableHeader>
             <VTableHeaderRow>
-              <VTableHeaderCell class="bg-blue-100 rounded-lg">Taxon name</VTableHeaderCell>
+              <VTableHeaderCell class="bg-blue-100 dark:bg-amber-600 rounded-lg">Taxon name</VTableHeaderCell>
             </VTableHeaderRow>
           </VTableHeader>
           <VTableBody>

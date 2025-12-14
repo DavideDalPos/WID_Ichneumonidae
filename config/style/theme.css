@@ -32,20 +32,35 @@
 }
 
 .dark {
-  --color-primary: 23, 23, 23;
-  --color-primary-content: 255, 255, 255;
-  
-  --color-secondary: 14, 165, 233;
-  --color-secondary-content: 255, 255, 255;
+  /* ------------------------ UI / Main Colors ------------------------ */
+  --color-primary: 42, 98, 183;           /* keep your royal blue */
+  --color-primary-content: 255, 255, 255; /* white for contrast */
 
-  --color-base-background: 23, 23, 23;
-  --color-base-foreground: 38,38,38;
-  --color-base-muted: 48, 48, 48;
-  --color-base-soft: 200, 200, 200;
-  --color-base-lighter: 220, 220, 220;
-  --color-base-border: 38, 38, 38;
-  --color-base-content: 255, 255, 255;
+  --color-secondary: 243, 182, 55;        /* golden yellow still pops on dark */
+  --color-secondary-content: 23, 23, 23;  /* darker text on bright secondary */
 
-  --color-scrollbar-thumb: 156, 163, 175;
-  --color-scrollbar-track: 55, 65, 81;
+  --color-accent: 243, 182, 55;           /* same accent for consistency */
+
+  /* ------------------------ Base / Background ------------------------ */
+  --color-base-background: 18, 18, 20;    /* very dark gray, almost black */
+  --color-base-foreground: 28, 28, 32;    /* card/panel background slightly lighter */
+  --color-base-muted: 48, 48, 55;         /* subtle muted elements */
+  --color-base-soft: 120, 120, 130;       /* soft gray text for readability */
+  --color-base-content: 230, 230, 235;    /* main text light */
+  --color-base-border: 50, 50, 60;        /* subtle borders */
+
+  /* ------------------------ MAP COLORS — DISTINCT ------------------------ */
+  --color-map-georeference: 28, 102, 112;       /* teal-blue remains readable */
+  --color-map-aggregate: 246, 184, 59;          /* amber-gold still visible */
+  --color-map-asserted: 120, 180, 75;           /* green clear on dark */
+  --color-map-type-material: 220, 45, 35;       /* red stands out */
+  --color-map-collection-object: 130, 70, 180;  /* purple distinct */
+
+  --color-map-shape-opacity: 0.4;
+  --color-map-marker-opacity: 0.7;
+
+  /* UI elements */
+  --color-scrollbar-thumb: 90, 90, 100;
+  --color-scrollbar-track: 28, 28, 32;
 }
+

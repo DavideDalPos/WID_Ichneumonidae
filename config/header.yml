@@ -23,9 +23,6 @@
           link: /RecentTaxa
         - label: Reference Addition
           link: /RecentReferences
-
-    - label: Collaborate with us
-      link: /collaboration
     
     - label: How to Cite
       link: /cite

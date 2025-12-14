@@ -7,7 +7,7 @@
         <VTable>
           <VTableHeader>
             <VTableHeaderRow>
-              <VTableHeaderCell class="bg-blue-100 rounded-lg"
+              <VTableHeaderCell class="bg-blue-100 dark:bg-amber-700 rounded-lg"
                 v-for="header in Object.values(attributes)"
                 :key="header"
                 >{{ header }}</VTableHeaderCell

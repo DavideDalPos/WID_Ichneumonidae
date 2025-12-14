@@ -1,8 +1,8 @@
 <template>
     <div class="h-full">
-      <SectionAnnouncements />
+      <Citation />
     </div>
   </template>
   <script setup>
-  import SectionAnnouncements from './components/Section/SectionAnnouncements.vue';
+  import Citation from './components/Section/Citation.vue';
   </script>

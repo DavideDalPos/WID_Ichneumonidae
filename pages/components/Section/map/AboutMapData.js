@@ -56,8 +56,8 @@ export const collaborators = [
     image: ''
   },
   {
-    first_name: 'Alvaro',
-    last_name: 'Doria dos Santos',
+    first_name: 'Alvaro Doria dos',
+    last_name: 'Santos',
     institution: 'Federal University of Tocantins',
     country: 'Brazil',
     lat: -10.1790,

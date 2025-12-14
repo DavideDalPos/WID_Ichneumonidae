@@ -1,6 +1,7 @@
 export default [
   {
     id: 'Acaenitinae',
+    numberGenera: 'Complete',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -12,6 +13,7 @@ export default [
   },
   {
     id: 'Adelognathinae',
+    numberGenera: 'Complete',
     numberSpecies: 'In Progress',
     distribution: 'In Progress',
     citations: 'In Progress',
@@ -22,6 +24,7 @@ export default [
   },
   {
     id: 'Agriotypinae',
+    numberGenera: 'Complete',
     numberSpecies: 'Complete',
     distribution: 'Complete',
     citations: 'Complete',
@@ -32,6 +35,7 @@ export default [
   },
   {
     id: 'Alomyinae',
+    numberGenera: 'Complete',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -42,6 +46,7 @@ export default [
   },
   {
     id: 'Anomaloninae',
+    numberGenera: 'Complete',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -52,6 +57,7 @@ export default [
   },
   {
     id: 'Ateleutinae',
+    numberGenera: 'Complete',
     numberSpecies: 'Complete',
     distribution: 'Complete',
     citations: 'Complete',
@@ -62,6 +68,7 @@ export default [
   },
   {
     id: 'Banchinae',
+    numberGenera: 'Complete',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -72,6 +79,7 @@ export default [
   },
   {
     id: 'Brachycyrtinae',
+    numberGenera: 'Complete',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -82,6 +90,7 @@ export default [
   },
   {
     id: 'Campopleginae',
+    numberGenera: 'Complete',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -92,6 +101,7 @@ export default [
   },
   {
     id: 'Claseinae',
+    numberGenera: 'Complete',
     numberSpecies: 'Complete',
     distribution: 'Complete',
     citations: 'Complete',
@@ -102,6 +112,7 @@ export default [
   },
   {
     id: 'Collyriinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -112,6 +123,7 @@ export default [
   },
   {
     id: 'Cremastinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -122,6 +134,7 @@ export default [
   },
   {
     id: 'Cryptinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -132,6 +145,7 @@ export default [
   },
   {
     id: 'Ctenopelmatinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -142,6 +156,7 @@ export default [
   },
   {
     id: 'Cylloceriinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -152,6 +167,7 @@ export default [
   },
   {
     id: 'Diacritinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -162,6 +178,7 @@ export default [
   },
   {
     id: 'Diplazontinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -172,6 +189,7 @@ export default [
   },
   {
     id: 'Eucerotinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Complete',
     distribution: 'Complete',
     citations: 'Complete',
@@ -182,6 +200,7 @@ export default [
   },
   {
     id: 'Hybrizontinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -192,6 +211,7 @@ export default [
   },
   {
     id: 'Ichneumoninae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Afrotropical; Nearctic; Palearctic; Australian; Indian',
     distribution: 'Afrotropical',
     citations: 'Afrotropical',
@@ -202,6 +222,7 @@ export default [
   },
   {
     id: 'Labeninae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -212,6 +233,7 @@ export default [
   },
   {
     id: 'Lycorininae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -222,6 +244,7 @@ export default [
   },
   {
     id: 'Mesochorinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -232,6 +255,7 @@ export default [
   },
   {
     id: 'Metopiinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -242,6 +266,7 @@ export default [
   },
   {
     id: 'Microleptinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -252,6 +277,7 @@ export default [
   },
   {
     id: 'Neorhacodinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Complete',
     distribution: 'Complete',
     citations: 'Complete',
@@ -262,6 +288,7 @@ export default [
   },
   {
     id: 'Nesomesochorinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -272,6 +299,7 @@ export default [
   },
   {
     id: 'Ophioninae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -282,6 +310,7 @@ export default [
   },
   {
     id: 'Orhtocentrinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -292,6 +321,7 @@ export default [
   },
   {
     id: 'Orthopelmatinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -302,6 +332,7 @@ export default [
   },
   {
     id: 'Oxytorinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -312,6 +343,7 @@ export default [
   },
   {
     id: 'Pedunculinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Complete',
     distribution: 'Complete',
     citations: 'Complete',
@@ -322,6 +354,7 @@ export default [
   },
   {
     id: 'Phygadeuontinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -332,6 +365,7 @@ export default [
   },
   {
     id: 'Pimplinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -342,6 +376,7 @@ export default [
   },
   {
     id: 'Poemeniinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -352,6 +387,7 @@ export default [
   },
   {
     id: 'Rhyssinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -362,6 +398,7 @@ export default [
   },
   {
     id: 'Sisyrostolinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -372,6 +409,7 @@ export default [
   },
   {
     id: 'Stilbopinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -382,6 +420,7 @@ export default [
   },
   {
     id: 'Tatogastrinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Complete',
     distribution: 'Complete',
     citations: 'Complete',
@@ -392,6 +431,7 @@ export default [
   },
   {
     id: 'Tersilochinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -402,6 +442,7 @@ export default [
   },
   {
     id: 'Tryphoninae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -412,6 +453,7 @@ export default [
   },
   {
     id: 'Xoridinae',
+    numberGenera: 'In Progress',
     numberSpecies: 'Incomplete',
     distribution: 'Incomplete',
     citations: 'Incomplete',
@@ -420,4 +462,4 @@ export default [
     anchor: 'Link',
     link: ''
   }
-]
+];

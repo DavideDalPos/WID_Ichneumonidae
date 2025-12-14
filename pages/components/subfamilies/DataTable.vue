@@ -93,144 +93,159 @@ const sortedList = computed(() => {
       </div>
     </div>
 
-    <!-- Table Content -->
-    <table class="w-full text-sm text-left text-gray-500">
-      <thead class="text-xs text-base-content uppercase bg-base-background">
-        <tr>
-          <th class="px-4 py-3">Subfamily</th>
-          <th class="px-4 py-3 cursor-pointer" @click="sortBy('numberSpecies')">
-            Species
-          </th>
-          <th class="px-4 py-3 cursor-pointer" @click="sortBy('distribution')">
-            Distribution
-          </th>
-          <th class="px-4 py-3 cursor-pointer" @click="sortBy('citations')">
-            Taxonomic History
-          </th>
-          <th class="px-4 py-3 cursor-pointer" @click="sortBy('type')">
-            Original Type Series
-          </th>
-          <th class="px-4 py-3 cursor-pointer" @click="sortBy('biology')">
-            Biological Association
-          </th>
- <th class="px-4 py-3 text-left">Subfamily Pages
-  <span class="sr-only">Link</span>
-</th>
-        </tr>
-      </thead>
+<div class="overflow-x-hidden md:overflow-x-auto">
+  <table class="w-full text-sm text-left text-gray-500 md:table-fixed">
+    <thead class="text-xs text-base-content uppercase bg-base-background hidden md:table-header-group">
+      <tr>
+        <th class="px-4 py-3">Subfamily</th>
+        <th class="px-4 py-3 cursor-pointer" @click="sortBy('numberGenera')">Genera</th>
+        <th class="px-4 py-3 cursor-pointer" @click="sortBy('numberSpecies')">Species</th>
+        <th class="px-4 py-3 cursor-pointer" @click="sortBy('distribution')">Distribution</th>
+        <th class="px-4 py-3 cursor-pointer" @click="sortBy('citations')">Taxonomic History</th>
+        <th class="px-4 py-3 cursor-pointer" @click="sortBy('type')">Original Type Series</th>
+        <th class="px-4 py-3 cursor-pointer" @click="sortBy('biology')">Biological Association</th>
+        <th class="px-4 py-3 text-left">Subfamily Pages</th>
+      </tr>
+    </thead>
 
-      <tbody>
-        <tr
-          v-for="item in sortedList"
-          :key="item.id"
-          class="border-b border-base-muted"
-        >
-          <!-- Subfamily Name -->
-        <td class="px-4 py-3 wrap-content bg-green-50 rounded text-base-content font-medium shadow-sm">{{ item.id }}</td>
-
-
-          <!-- Number of Species -->
-          <td class="px-4 py-3 wrap-content">
-<div class="w-full bg-gray-200 rounded-full h-6 relative">
-  <div
-    class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
-    :class="getStatusColor(item.numberSpecies)"
-    :style="{ width: getStatusWidth(item.numberSpecies) }"
-    :title="item.numberSpecies"
+   <tbody>
+  <tr
+    v-for="item in sortedList"
+    :key="item.id"
+    class="border-b border-base-muted block md:table-row mb-4 md:mb-0 bg-base-foreground rounded-lg p-4 md:p-0"
   >
-    {{ item.numberSpecies }}
-  </div>
+    <!-- Subfamily -->
+    <td class="block md:table-cell mb-2 md:mb-0">
+      <span class="font-semibold md:hidden">Subfamily:</span>
+      <span class="bg-green-50 text-center dark:bg-green-700 rounded text-base-content font-medium shadow-sm px-2 py-1">{{ item.id }}</span>
+    </td>
+
+    <!-- Number of Species -->
+    <td class="block md:table-cell mb-2 md:mb-0">
+      <span class="font-semibold md:hidden">Species:</span>
+      <div class="w-full bg-gray-200 rounded-full h-6 relative">
+        <div
+          class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
+          :class="getStatusColor(item.numberSpecies)"
+          :style="{ width: getStatusWidth(item.numberSpecies) }"
+          :title="item.numberSpecies"
+        >
+          {{ item.numberSpecies }}
+        </div>
+      </div>
+    </td>
+
+    <!-- Number of Genera -->
+    <td class="block md:table-cell mb-2 md:mb-0">
+      <span class="font-semibold md:hidden">Genera:</span>
+      <div class="w-full bg-gray-200 rounded-full h-6 relative">
+        <div
+          class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
+          :class="getStatusColor(item.numberGenera)"
+          :style="{ width: getStatusWidth(item.numberGenera) }"
+          :title="item.numberGenera"
+        >
+          {{ item.numberGenera }}
+        </div>
+      </div>
+    </td>
+
+    <!-- Distribution -->
+    <td class="block md:table-cell mb-2 md:mb-0">
+      <span class="font-semibold md:hidden">Distribution:</span>
+      <div class="w-full bg-gray-200 rounded-full h-6 relative">
+        <div
+          class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
+          :class="getStatusColor(item.distribution)"
+          :style="{ width: getStatusWidth(item.distribution) }"
+          :title="item.distribution"
+        >
+          {{ item.distribution }}
+        </div>
+      </div>
+    </td>
+
+    <!-- Taxonomic History -->
+    <td class="block md:table-cell mb-2 md:mb-0">
+      <span class="font-semibold md:hidden">Taxonomic History:</span>
+      <div class="w-full bg-gray-200 rounded-full h-6 relative">
+        <div
+          class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
+          :class="getStatusColor(item.citations)"
+          :style="{ width: getStatusWidth(item.citations) }"
+          :title="item.citations"
+        >
+          {{ item.citations }}
+        </div>
+      </div>
+    </td>
+
+    <!-- Original Type Series -->
+    <td class="block md:table-cell mb-2 md:mb-0">
+      <span class="font-semibold md:hidden">Original Type Series:</span>
+      <div class="w-full bg-gray-200 rounded-full h-6 relative">
+        <div
+          class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
+          :class="getStatusColor(item.type)"
+          :style="{ width: getStatusWidth(item.type) }"
+          :title="item.type"
+        >
+          {{ item.type }}
+        </div>
+      </div>
+    </td>
+
+    <!-- Biological Association -->
+    <td class="block md:table-cell mb-2 md:mb-0">
+      <span class="font-semibold md:hidden">Biological Association:</span>
+      <div class="w-full bg-gray-200 rounded-full h-6 relative">
+        <div
+          class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
+          :class="getStatusColor(item.biology)"
+          :style="{ width: getStatusWidth(item.biology) }"
+          :title="item.biology"
+        >
+          {{ item.biology }}
+        </div>
+      </div>
+    </td>
+
+    <!-- Links -->
+    <td class="block md:table-cell">
+      <span class="font-semibold md:hidden">Pages:</span>
+      <div class="flex gap-2 mt-1 md:mt-0">
+        <router-link
+          :to="item.link || '#'"
+          :class="[
+            'inline-block px-3 py-1 rounded-md text-sm font-semibold transition-colors duration-200',
+            item.link 
+              ? 'bg-green-100 text-green-800 hover:bg-green-300'
+              : 'bg-gray-200 text-gray-500 cursor-not-allowed pointer-events-none'
+          ]"
+        >
+          View
+        </router-link>
+
+        <router-link
+          :to="item.widLink || '#'"
+          :class="[
+            'inline-block px-3 py-1 rounded-md text-sm font-semibold transition-colors duration-200',
+            item.widLink 
+              ? 'bg-blue-100 text-blue-800 hover:bg-blue-300'
+              : 'bg-gray-200 text-gray-500 cursor-not-allowed pointer-events-none'
+          ]"
+        >
+          WID
+        </router-link>
+      </div>
+    </td>
+  </tr>
+</tbody>
+
+  </table>
 </div>
 
-          </td>
 
-          <!-- Distribution -->
-          <td class="px-4 py-3 wrap-content">
-<div class="w-full bg-gray-200 rounded-full h-6 relative">
-  <div
-    class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
-                :class="getStatusColor(item.distribution)"
-                :style="{ width: getStatusWidth(item.distribution) }"
-                :title="item.distribution"
-              >    {{ item.distribution }}</div>
-            </div>
-          </td>
-
-          <!-- Taxonomic History (Citations) -->
-          <td class="px-4 py-3 wrap-content">
-<div class="w-full bg-gray-200 rounded-full h-6 relative">
-  <div
-    class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
-                :class="getStatusColor(item.citations)"
-                :style="{ width: getStatusWidth(item.citations) }"
-                :title="item.citations"
-              >    {{ item.citations }}</div>
-            </div>
-          </td>
-
-          <!-- Primary Type -->
-          <td class="px-4 py-3 wrap-content">
-<div class="w-full bg-gray-200 rounded-full h-6 relative">
-  <div
-    class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
-                :class="getStatusColor(item.type)"
-                :style="{ width: getStatusWidth(item.type) }"
-                :title="item.type"
-              >{{ item.type }}</div>
-            </div>
-          </td>
-
-          <!-- Biological Association -->
-          <td class="px-4 py-3 wrap-content">
-<div class="w-full bg-gray-200 rounded-full h-6 relative">
-  <div
-    class="h-6 rounded-full transition-all duration-500 ease-out flex items-center justify-center text-xs text-white font-semibold"
-                :class="getStatusColor(item.biology)"
-                :style="{ width: getStatusWidth(item.biology) }"
-                :title="item.biology"
-              >{{ item.biology }}</div>
-            </div>
-          </td>
-
-          <!-- Taxa Page Link -->
-<!-- Taxa Page Link -->
-<td class="px-4 py-3 text-end flex gap-2 justify-left">
-  <!-- Main subfamily page -->
-  <router-link
-    :to="item.link || '#'"
-    :class="[
-      'inline-block px-3 py-1 rounded-md text-sm font-semibold transition-colors duration-200',
-      item.link 
-        ? 'bg-green-100 text-green-800 hover:bg-green-300'
-        : 'bg-gray-200 text-gray-500 cursor-not-allowed pointer-events-none'
-    ]"
-  >
-    View
-  </router-link>
-
-  <!-- WID link -->
-  <router-link
-    :to="item.widLink || '#'"
-    :class="[
-      'inline-block px-3 py-1 rounded-md text-sm font-semibold transition-colors duration-200',
-      item.widLink 
-        ? 'bg-blue-100 text-blue-800 hover:bg-blue-300'
-        : 'bg-gray-200 text-gray-500 cursor-not-allowed pointer-events-none'
-    ]"
-  >
-    WID
-  </router-link>
-</td>
-
-
-
-
-
-
-
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 

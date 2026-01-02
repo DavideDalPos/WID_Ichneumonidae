@@ -19,7 +19,7 @@
   /* ------------------------ MAP COLORS — DISTINCT ------------------------ */
   --color-map-georeference: 28, 102, 112;       /* teal-blue, distinct */
   --color-map-aggregate: 246, 184, 59;          /* amber-gold, distinct */
-  --color-map-asserted: 120, 180, 75;           /* green, distinct */
+  --color-map-asserted: 0, 200, 200;  /* fresh, bright, separates from teal-blue */
   --color-map-type-material: 220, 45, 35;       /* red, very clear */
   --color-map-collection-object: 130, 70, 180;  /* purple, distinct */
 

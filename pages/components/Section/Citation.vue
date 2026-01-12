@@ -42,21 +42,17 @@
       While the data paper is not yet available, you can cite WID in your work using the following format:
     </p>
 
-    <pre class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-black text-sm overflow-x-auto mb-4">
-{{ citationText }}
-    </pre>
-
     <p class="mb-4">
-      Replace <em>[insert date here]</em> with the date you accessed the database to reflect the exact version you used.
+      <CitationBlock />
     </p>
 
     <h4 class="text-md font-semibold mb-2">Contact for Questions or Collaboration</h4>
     <ul class="list-disc pl-5 text-sm space-y-1">
       <li>
-        <address-maker class="font-medium" :items="['davide.dalpos', 'ucf', 'edu']" />
+        Davide Dal Pos - <address-maker class="font-medium" :items="['daveliga', 'gmail', 'com']" />
       </li>
       <li>
-        <address-maker class="font-medium" :items="['filippod', 'unisiena', 'edu']" />
+        Filippo Di Giovanni - <address-maker class="font-medium" :items="['aphelocheirus', 'gmail', 'come']" />
       </li>
     </ul>
   </VCardContent>
@@ -70,6 +66,8 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+
+import CitationBlock from './CitationBlock.vue';
 
 const todayFormatted = ref('')
 const collaborators = ref([]) // reactive array for collaborators
@@ -90,21 +88,7 @@ onMounted(async () => {
   collaborators.value = data.collaborators
 })
 
-// Generate citation dynamically in "LastName FirstInitial." format
-const citationText = computed(() => {
-  if (!collaborators.value.length) return 'Loading citation...'
 
-  // Separate Filippo
-  const others = collaborators.value.filter(c => c.first_name !== 'Filippo')
-  const filippo = collaborators.value.find(c => c.first_name === 'Filippo')
-
-  // Map to "LastName FirstInitial."
-  const formatName = c => `${c.last_name} ${c.first_name.charAt(0)}.`
-
-  const names = [...others.map(formatName), formatName(filippo)].join('; ')
-
-  return `${names} (2025). World Ichneumonidae Database (WID). Accessed [insert date here]. URL: https://worldichneumonidae.org`
-})
 </script>
 
 

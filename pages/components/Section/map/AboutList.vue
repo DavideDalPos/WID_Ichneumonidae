@@ -43,7 +43,7 @@
             </span>
             <span
               v-if="c.administrator === 'yes'"
-              class="text-xs font-medium uppercase px-2 py-0.5 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded"
+              class="text-xs font-medium uppercase px-2 py-0.5 bg-red-200 dark:bg-red-800 text-gray-800 dark:text-gray-200 rounded"
             >
               Admin
             </span>

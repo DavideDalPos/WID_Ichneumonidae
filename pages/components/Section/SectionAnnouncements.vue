@@ -61,10 +61,10 @@
     </p>
     <ul class="list-disc pl-5 text-sm">
       <li>
-        <address-maker class="font-medium" :items="['davide.dalpos', 'ucf', 'edu']" />
+        Davide Dal Pos (<address-maker class="font-medium" :items="['daveliga', 'gmail', 'com']" />)
       </li>
       <li>
-        <address-maker class="font-medium" :items="['filippod', 'unisiena', 'edu']" />
+        Filippo Di Giovanni (<address-maker class="font-medium" :items="['aphelocheirus', 'gmail', 'com']" />)
       </li>
     </ul>
     <p class="mt-3">

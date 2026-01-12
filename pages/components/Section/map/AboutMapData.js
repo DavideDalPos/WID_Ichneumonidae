@@ -22,9 +22,9 @@ export const collaborators = [
     lng: 11.3328,
     leader: 'no',
     administrator: 'yes',
-    orcid: '',
-    researchgate: '',
-    googlescholar: '',
+    orcid: 'https://orcid.org/0000-0002-9811-5599',
+    researchgate: 'https://www.researchgate.net/profile/Filippo-Di-Giovanni-2',
+    googlescholar: 'https://scholar.google.com/citations?hl=en&user=ksm0jfoAAAAJ',
     image: ''
   },
   {

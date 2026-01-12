@@ -2,15 +2,14 @@
   <section class="bg-base-foreground p-4 py-10">
     <div class="prose !container mx-auto dark:prose-invert">
       <h2>Referencing this website</h2>
-      <p>
-        When referencing this website, please use the following format:
-        Dal Pos <i>et al</i>. The World Ichneumonidae Database
-        [retrieval date]. &lt;
-        <a :href="project_url">
-          {{ project_url }}
-        </a>
-        &gt;
-      </p>
+<p>
+  We kindly ask that any use of data or content from this website be acknowledged using the citation below:
+  <br><br>
+
+  <CitationBlock />
+</p>
+
+<hr class="my-10 border-gray-300 dark:border-gray-700" />
 
       <h2>Terms of use</h2>
 
@@ -25,6 +24,7 @@
         >, unless stated otherwise
       </p>
 
+<hr class="my-10 border-gray-300 dark:border-gray-700" />
       <h2>Find out more</h2>
       <p>
       Learn how to collaborate with the 
@@ -38,5 +38,7 @@
 </template>
 
 <script setup>
+import CitationBlock from './CitationBlock.vue';
+
 const { project_url } = __APP_ENV__
 </script>

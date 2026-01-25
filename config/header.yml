@@ -24,6 +24,9 @@
         - label: Reference Addition
           link: /RecentReferences
     
+    - label: News
+      link: /news
+    
     - label: How to Cite
       link: /cite
 

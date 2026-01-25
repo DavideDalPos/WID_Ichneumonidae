@@ -1,465 +1,77 @@
 export default [
   {
     id: 'Acaenitinae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
+
+    genera: {
+      valid: true,
+      synonyms: true,
+      literature: true
+    },
+
+    typeSpecies: {
+      present: true,
+      references: true,
+      photo: false
+    },
+
+    species: {
+      valid: 'in-progress',
+      synonyms: 'in-progress',
+      references: 'in-progress',
+      citations: 'in-progress'
+    },
+
+    otus: {
+      distribution: 'in-progress',
+      photographs: 'in-progress',
+      originaltypeinfo: 'in-progress'
+    },
+
+    biology: {
+      citations: false,
+      references: false, 
+      biology: false
+    },
+
     link: '/Acaenitinae',
     widLink: '/otus/659414/overview'
   },
+ 
   {
     id: 'Adelognathinae',
-    numberGenera: 'Complete',
-    numberSpecies: 'In Progress',
-    distribution: 'In Progress',
-    citations: 'In Progress',
-    biology: 'In Progress',
-    type: 'In Progress',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Agriotypinae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Complete',
-    distribution: 'Complete',
-    citations: 'Complete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Alomyinae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Anomaloninae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Ateleutinae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Complete',
-    distribution: 'Complete',
-    citations: 'Complete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Banchinae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Brachycyrtinae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Campopleginae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Claseinae',
-    numberGenera: 'Complete',
-    numberSpecies: 'Complete',
-    distribution: 'Complete',
-    citations: 'Complete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Collyriinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Cremastinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Cryptinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Ctenopelmatinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Cylloceriinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Diacritinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Diplazontinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Eucerotinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Complete',
-    distribution: 'Complete',
-    citations: 'Complete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Hybrizontinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Ichneumoninae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Afrotropical; Nearctic; Palearctic; Australian; Indian',
-    distribution: 'Afrotropical',
-    citations: 'Afrotropical',
-    biology: 'Incomplete',
-    type: 'Afrotropical',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Labeninae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Lycorininae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Mesochorinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Metopiinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Microleptinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Neorhacodinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Complete',
-    distribution: 'Complete',
-    citations: 'Complete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Nesomesochorinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Ophioninae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Orhtocentrinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Orthopelmatinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Oxytorinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Pedunculinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Complete',
-    distribution: 'Complete',
-    citations: 'Complete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Phygadeuontinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Pimplinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Poemeniinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Rhyssinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Sisyrostolinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Stilbopinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Tatogastrinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Complete',
-    distribution: 'Complete',
-    citations: 'Complete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Tersilochinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Tryphoninae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
-  },
-  {
-    id: 'Xoridinae',
-    numberGenera: 'In Progress',
-    numberSpecies: 'Incomplete',
-    distribution: 'Incomplete',
-    citations: 'Incomplete',
-    biology: 'Incomplete',
-    type: 'Incomplete',
-    anchor: 'Link',
-    link: ''
+
+    genera: {
+      valid: true,
+      synonyms: true,
+      literature: true
+    },
+
+    typeSpecies: {
+      present: true,
+      references: true,
+      photo: false
+    },
+
+    species: {
+      valid: 'in-progress',
+      synonyms: 'in-progress',
+      references: 'in-progress',
+      citations: 'in-progress'
+    },
+
+    otus: {
+      distribution: 'in-progress',
+      photographs: 'in-progress',
+      originaltypeinfo: 'in-progress'
+    },
+
+    biology: {
+      citations: false,
+      references: false, 
+      biology: false
+    },
+
+    link: '',
+    widLink: '/otus/659415/overview'
   }
-];
+]

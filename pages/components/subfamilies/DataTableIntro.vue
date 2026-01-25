@@ -23,25 +23,54 @@
           </VCardContent>
         </VCard>
 
-        <VCard>
-          <VCardContent>
-            <h3 class="mt-0 mb-2">Abbreviations</h3>
-            <ul class="flex flex-col gap-2">
-              <li class="flex items-center gap-2">
-                <span class="inline-block w-3 h-3 rounded-full bg-green-500"></span>
-                <strong>Complete:</strong> The information for this subfamily is fully updated.
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="inline-block w-3 h-3 rounded-full bg-yellow-400"></span>
-                <strong>In Progress:</strong> Updates are ongoing.
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="inline-block w-3 h-3 rounded-full bg-red-500"></span>
-                <strong>Incomplete:</strong> No updates have been added yet.
-              </li>
-            </ul>
-          </VCardContent>
-        </VCard>
+<VCard>
+  <VCardContent>
+    <h3 class="mt-0 mb-4 text-lg font-semibold">Abbreviations used in the table</h3>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div 
+        v-for="({ abbr, label, description }, index) in sortedABBR" 
+        :key="abbr" 
+        class="flex gap-3 items-start p-3 border rounded-lg bg-gray-50 dark:bg-gray-800"
+      >
+        <!-- Abbreviation box -->
+        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-blue-400 text-white font-bold rounded">
+          {{ abbr }}
+        </div>
+
+        <!-- Label and description -->
+        <div>
+          <div class="font-semibold text-sm text-gray-800 dark:text-gray-200">
+            {{ label }}
+          </div>
+          <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+            {{ description }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Symbol legend with intro -->
+<div class="mt-4 text-xs text-gray-600 dark:text-gray-400 italic">
+  <p class="mb-2">
+    Each subfamily in the table shows a progress status using the following symbols:
+  </p>
+  <span class="flex items-center gap-1"><span>✅</span> Complete</span>
+  <span class="flex items-center gap-1"><span>⏳</span> In progress</span>
+  <span class="flex items-center gap-1"><span>❌</span> Not started</span>
+</div>
+
+
+    <p class="mt-3 text-xs text-gray-600 dark:text-gray-400 italic">
+      Clicking on any abbreviation in the table header will display its definition.
+    </p>
+  </VCardContent>
+</VCard>
+
+
+
+
+
 
         <VCard>
           <VCardContent>
@@ -58,3 +87,25 @@
     </div>
   </section>
 </template>
+
+<script setup>
+const ABBR = {
+  V: { label: 'Valid names', description: 'Shows whether the valid names for the taxon are recorded in WID.' },
+  S: { label: 'Synonyms, Homonyms & Other Unavailable/Invalid Names', description: 'Indicates whether synonyms, homonyms, and unavailable/invalid names are documented.' },
+  L: { label: 'Literature coverage', description: 'Shows whether the primary literature for the taxon has been reviewed.' },
+  T: { label: 'Type species designation status', description: 'Indicates if the type species has been designated and recorded.' },
+  R: { label: 'References (Main Citations)', description: 'Indicates if the main references for the taxon are available.' },
+  P: { label: 'Photographs', description: 'Indicates whether photos of the taxa are available.' },
+  C: { label: 'Citations (Full Taxonomic History)', description: 'Shows if the full taxonomic history and citations are documented.' },
+  D: { label: 'Geographic distribution', description: 'Indicates whether geographic distribution data is available.' },
+  B: { label: 'Biological association', description: 'Indicates whether biological and ecological information is recorded.' },
+  O: { label: 'Original Type Series Info', description: 'Indicates if original type series information (specimens, repositories) is available.' }
+};
+
+// Convert to an array and sort alphabetically by abbreviation
+const sortedABBR = Object.entries(ABBR)
+  .map(([abbr, info]) => ({ abbr, ...info }))
+  .sort((a, b) => a.abbr.localeCompare(b.abbr));
+
+
+</script>

@@ -67,6 +67,17 @@ const computeProgress = (item) => {
   return Math.round((completed / tasks.length) * 100);
 };
 
+const getProgressColor = (item) => {
+  const p = computeProgress(item);
+
+  if (p >= 85) return 'bg-green-500';
+  if (p >= 60) return 'bg-emerald-400';
+  if (p >= 35) return 'bg-yellow-400';
+  if (p > 0)   return 'bg-red-400';
+  return 'bg-red-500';
+};
+
+
 
 const overallProgress = computed(() => {
   if (!props.items.length) return 0;
@@ -208,11 +219,20 @@ const sortedList = computed(() => {
         </thead>
 
         <tbody>
-          <tr v-for="item in sortedList" :key="item.id" class="border-b border-base-muted">
+          <tr
+  v-for="item in sortedList"
+  :key="item.id"
+  class="border-b border-base-muted transition hover:bg-green-50 dark:hover:bg-green-800/40"
+>
             <td class="px-3 py-2 text-gray-800 dark:text-white font-semibold">
-  <span class="bg-red-100 dark:bg-red-800 px-2 py-1 rounded">
-    {{ item.id }}
-  </span>
+<span
+  class="px-2 py-1 rounded-md
+         bg-blue-50 text-slate-800
+         dark:bg-blue-800 dark:text-slate-200
+         font-semibold tracking-wide"
+>
+  {{ item.id }}
+</span>
 </td>
 
 
@@ -375,7 +395,7 @@ const sortedList = computed(() => {
               <div class="w-full bg-gray-200 rounded-full h-4">
                 <div
                   class="h-4 rounded-full text-[10px] text-white text-center transition-all duration-500"
-                  :class="getStatusColor(computeStatus(item))"
+                  :class="getProgressColor(item)"
                   :style="{ width: getProgressWidth(computeProgress(item)) }"
                 >
                   {{ computeProgress(item) }}%
@@ -387,41 +407,43 @@ const sortedList = computed(() => {
             <td class="px-3 py-2 text-gray-700 dark:text-white font-semibold">{{ computeStatus(item) }}</td>
 
 
-            <!-- Links -->
 <!-- Links -->
-<td class="px-3 py-2 gap-3 flex-wrap">
-  <!-- View button -->
-  <router-link
-    v-if="item.link"
-    :to="item.link"
-    class="rounded-full px-2 bg-green-100 text-green-700 hover:bg-green-200"
-  >
-    View
-  </router-link>
-  <span
-    v-else
-    class="rounded-full px-2 bg-gray-200 text-gray-400 cursor-not-allowed"
-    title="No link available"
-  >
-    View
-  </span>
+<td class="px-3 py-2">
+  <div class="flex gap-1">
+    <!-- Overview button -->
+    <router-link
+      v-if="item.link"
+      :to="item.link"
+      class="px-2 py-1 rounded-md bg-rose-100 text-rose-800 text-xs font-semibold hover:bg-rose-200"
+    >
+      Overview
+    </router-link>
+    <span
+      v-else
+      class="px-2 py-1 rounded-md bg-gray-200 text-gray-400 text-xs cursor-not-allowed"
+      title="No Overview available"
+    >
+      Overview
+    </span>
 
-  <!-- WID button -->
-  <router-link
-    v-if="item.widLink"
-    :to="item.widLink"
-    class="rounded-full bg-blue-100 px-2 text-blue-700 hover:bg-blue-200"
-  >
-    WID
-  </router-link>
-  <span
-    v-else
-    class="rounded-full px-2 bg-gray-200 text-gray-400 cursor-not-allowed"
-    title="No WID link"
-  >
-    WID
-  </span>
+    <!-- Taxon Page button -->
+    <router-link
+      v-if="item.widLink"
+      :to="item.widLink"
+      class="px-2 py-1 rounded-md bg-indigo-200 text-indigo-800 text-xs font-semibold hover:bg-blue-300"
+    >
+      Taxon
+    </router-link>
+    <span
+      v-else
+      class="px-2 py-1 rounded-md bg-gray-200 text-gray-400 text-xs cursor-not-allowed"
+      title="No WID link"
+    >
+      Taxon
+    </span>
+  </div>
 </td>
+
 
           </tr>
         </tbody>

@@ -2,14 +2,14 @@ export default {
     id: 'Oxytorinae',
 
     genera: {
-      valid: false,
-      synonyms: false,
-      literature: false
+      valid: true,
+      synonyms: true,
+      literature: true
     },
 
     typeSpecies: {
-      present: false,
-      references: false,
+      present: true,
+      references: true,
       photo: false
     },
 

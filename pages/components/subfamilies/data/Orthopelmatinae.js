@@ -2,14 +2,14 @@ export default {
     id: 'Orthopelmatinae',
 
     genera: {
-      valid: 'in-progress',
-      synonyms: 'in-progress',
-      literature: 'in-progress'
+      valid: true,
+      synonyms: true,
+      literature: true
     },
 
     typeSpecies: {
-      present: 'in-progress',
-      references: 'in-progress',
+      present: true,
+      references: true,
       photo: false
     },
 

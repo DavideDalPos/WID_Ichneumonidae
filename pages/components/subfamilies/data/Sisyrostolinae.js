@@ -2,15 +2,15 @@ export default {
     id: 'Sisyrostolinae',
 
     genera: {
-      valid: false,
-      synonyms: false,
-      literature: false
+      valid: true,
+      synonyms: true,
+      literature: true
     },
 
     typeSpecies: {
-      present: false,
-      references: false,
-      photo: false
+      present: true,
+      references: true,
+      photo: true
     },
 
     species: {

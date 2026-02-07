@@ -14,9 +14,9 @@ export default {
     },
 
     species: {
-      valid: 'in-progress',
-      synonyms: 'in-progress',
-      references: 'in-progress',
+      valid: true,
+      synonyms: true,
+      references: true,
       citations: 'in-progress'
     },
 

@@ -1,6 +1,6 @@
 <template>
   <VCard>
-    <VCardHeader>iNaturalist</VCardHeader>
+    <VCardHeader class="text-gray-800">Observations (Research Grade)</VCardHeader>
 <VCardContent class="min-h-[6rem]">
       <ClientOnly>
         <VSpinner v-if="isLoading" />

@@ -60,8 +60,8 @@
 </template>
 
 <script setup>
+import { computed, ref, onMounted } from 'vue'
 import axios from 'axios'
-import { onMounted, ref } from 'vue'
 
 const props = defineProps({
   taxon: {
@@ -71,7 +71,7 @@ const props = defineProps({
 
   perPage: {
     type: Number,
-    default: 12
+    default: 60
   },
 
   parameters: {
@@ -82,111 +82,33 @@ const props = defineProps({
 
 const isLoading = ref(false)
 const observations = ref([])
-
-/**
- * taxonId states:
- *   undefined = not yet looked up (initial state)
- *   null      = lookup done but taxon not found on iNaturalist
- *   number    = valid iNaturalist taxon ID
- */
-const taxonId = ref(undefined)
-
 const pagination = ref({
   page: 1,
   per_page: props.perPage,
   total_results: 0
 })
 
-function parseName(expandedName) {
-  const subgenusMatch = expandedName.match(/^(\S+)\s+\((\S+)\)(?:\s+(\S+))?$/)
-  if (subgenusMatch) {
-    return {
-      genus: subgenusMatch[1],
-      subgenus: subgenusMatch[2],
-      epithet: subgenusMatch[3] || null
-    }
-  }
-  const parts = expandedName.trim().split(/\s+/)
-  return {
-    genus: parts[0],
-    subgenus: null,
-    epithet: parts[1] || null
-  }
-}
-async function resolveInatTaxonId() {
-  const { genus, subgenus, epithet } = parseName(props.taxon.expanded_name)
+const taxonName = computed(() =>
+  props.taxon.expanded_name.replace(/\s*\([^)]+\)/g, '')
+)
 
-  if (subgenus && !epithet) {
-    // Subgenus page: extract subgenus name from parentheses, verify parent genus
-    const { data } = await axios.get('https://api.inaturalist.org/v1/taxa', {
-      params: { q: subgenus, rank: 'subgenus', per_page: 10, all_names: true }
-    })
-
-    const match = data.results.find((t) => {
-      if (t.name.toLowerCase() !== subgenus.toLowerCase()) return false
-      // Verify parent genus via ancestors to avoid false matches
-      if (t.ancestors?.length) {
-        return t.ancestors.some(
-          (a) => a.rank === 'genus' && a.name.toLowerCase() === genus.toLowerCase()
-        )
-      }
-      return true // no ancestors returned, trust the name match
-    })
-
-    return match ? match.id : null
-  }
-const plainName = subgenus && epithet ? `${genus} ${epithet}` : props.taxon.expanded_name
-
-  const { data } = await axios.get('https://api.inaturalist.org/v1/taxa', {
-    params: { q: plainName, rank: props.taxon.rank, per_page: 10 }
-  })
-
-  const match = data.results.find(
-    (t) => t.name.toLowerCase() === plainName.toLowerCase()
-  )
-  return match ? match.id : null
-}
-
-
-
-function loadObservations(parameters = {}) {
+function loadObservations(params = {}) {
   isLoading.value = true
 
-  // Step 1: resolve the taxon ID first
   axios
-    .get(`https://api.inaturalist.org/v1/taxa`, {
+    .get(`https://api.inaturalist.org/v1/observations`, {
       params: {
-        q: props.taxon.expanded_name,
-        per_page: 1
+        taxon_name: taxonName.value,
+        ...params,
+        ...props.parameters
       }
     })
     .then(({ data }) => {
-      const taxonId = data.results[0]?.id
-      if (!taxonId) {
-        observations.value = []
-        pagination.value.total_results = 0
-        return
-      }
-
-      // Step 2: fetch observations with taxon_id and research grade only
-      return axios.get(`https://api.inaturalist.org/v1/observations`, {
-        params: {
-          taxon_id: taxonId,
-          quality_grade: 'research', // only research-grade
-          per_page: props.perPage,
-          ...parameters
-        }
-      })
-    })
-    .then((response) => {
-      if (response) {
-        const data = response.data
-        observations.value = data.results
-        pagination.value = {
-          page: data.page,
-          per_page: data.per_page,
-          total_results: data.total_results
-        }
+      observations.value = data.results
+      pagination.value = {
+        page: data.page,
+        per_page: data.per_page,
+        total_results: data.total_results
       }
     })
     .finally(() => {

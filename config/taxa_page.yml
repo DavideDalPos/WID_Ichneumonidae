@@ -25,9 +25,6 @@ taxa_page:
       - - - panel:field-occurrences
   inaturalist:
     label: 'iNaturalist'
-    rank_group: ['FamilyGroup', 'SubfamilyGroup', 'TribeGroup', 'GenusGroup', 'SpeciesGroup']
     panels:
       - - - id: panel:inaturalist
-            bind:
-              parameters:
-                taxon_id: 47201
+

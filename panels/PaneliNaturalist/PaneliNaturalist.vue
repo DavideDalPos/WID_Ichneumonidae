@@ -8,7 +8,7 @@
         v-if="!isLoading && taxonId === null"
   class="mx-auto my-8 px-2 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg border border-gray-300 shadow-sm w-max text-center"
 >
-        No iNaturalist taxon found
+        No iNaturalist records found
       </div>
 
 <!-- Upper section: curated taxon photos from /taxa/:id -->
@@ -61,10 +61,11 @@
     <VCardContent class="min-h-[6rem]">
       <div
         v-if="!isLoading && taxonId !== null && !observations.length"
-        class="text-xl text-center my-8 w-full"
-      >
-        No records found.
+  class="mx-auto my-8 px-2 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg border border-gray-300 shadow-sm w-max text-center"
+>
+        No iNaturalist records found
       </div>
+
 
       <div class="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-3">
         <div

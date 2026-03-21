@@ -28,3 +28,9 @@ taxa_page:
     panels:
       - - - id: panel:inaturalist
 
+  asserted_distributions:
+    label: 'Asserted Distributions (List)'
+    rank_group: ['SpeciesGroup']
+    panels:
+      - - - id: panel:asserted-distributions
+

@@ -19,6 +19,11 @@ taxa_page:
     rank_group: ['SpeciesGroup']
     panels:
       - - - panel:specimen-records
+  asserted_distributions:
+    label: 'Asserted Distributions (List)'
+    rank_group: ['SpeciesGroup']
+    panels:
+      - - - id: panel:asserted-distributions  
   field_occurrences:
     rank_group: ['SpeciesGroup']
     panels:
@@ -28,9 +33,5 @@ taxa_page:
     panels:
       - - - id: panel:inaturalist
 
-  asserted_distributions:
-    label: 'Asserted Distributions (List)'
-    rank_group: ['SpeciesGroup']
-    panels:
-      - - - id: panel:asserted-distributions
+
 

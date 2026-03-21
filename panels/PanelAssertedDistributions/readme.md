@@ -50,6 +50,33 @@ Groups and areas within groups are sorted alphabetically, derived from `asserted
 
 Clicking an area name opens a modal with a Leaflet map showing the geographic area polygon. GeoJSON is pre-fetched in the background for all OTUs after the table loads, so popups are typically instant. The data comes from `/otus/:otuId/inventory/distribution.geojson`. If no polygon is available for an area, a "No map data available" message is shown instead.
 
+### Map panel
+
+In addition to the per-area map popups, the panel includes a persistent map view displayed alongside the table.
+
+The map is rendered using the PanelDistribution component.
+It displays the overall distribution for the currently selected OTU.
+The map is shown in a right-hand column on desktop and stacked below the table on smaller screens.
+The map container is fixed (sticky) so it remains visible while scrolling the table.
+Behavior
+When multiple OTUs are present:
+The map updates based on the selected tab.
+In the "All" tab, the map defaults to the first available OTU.
+When a single OTU is present:
+The map reflects that OTU directly.
+Layout
+Desktop: two-column layout
+Left (2/3 width): distribution table
+Right (1/3 width): map panel
+Mobile: stacked layout (table above map)
+Data source
+
+The map uses the same GeoJSON endpoint as the popups:
+
+/otus/:otuId/inventory/distribution.geojson
+
+Data is pre-fetched and cached per OTU to ensure fast rendering and avoid duplicate requests.
+
 ## API calls
 
 1. **`/asserted_distributions`** — `taxon_name_id[]=X&descendants=true&per=500`

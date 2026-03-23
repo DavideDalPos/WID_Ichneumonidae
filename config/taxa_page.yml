@@ -7,7 +7,8 @@ taxa_page:
           - panel:nomenclature
           - panel:nomenclature-references
 
-        - - panel:map
+        - - panel:map-v2
+        # - panel:map
           - panel:descendants
           - panel:scrutiny
           - panel:content
@@ -15,6 +16,8 @@ taxa_page:
           - panel:etymology
           - panel:gbif
           - panel:statistics
+          
+      - - - panel:biological-associations-v2
   specimen_records:
     rank_group: ['SpeciesGroup']
     panels:

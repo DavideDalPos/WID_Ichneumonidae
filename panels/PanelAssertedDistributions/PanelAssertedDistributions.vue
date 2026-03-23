@@ -114,12 +114,13 @@
   <!-- RIGHT: MAP -->
   <div class="md:col-span-1">
     <div class="sticky top-4 h-[500px]">
-      <PanelDistribution
-        v-if="otuId"
-        class="h-full"
-        :otu-id="otuId"
-        :taxon="props.taxon"
-      />
+<PanelMapV2
+  v-if="otuId"
+  class="h-full"
+  :otu-id="otuId"
+  :otu="{ id: otuId }"
+  :taxon="props.taxon"
+/>
     </div>
   </div>
  </div>     
@@ -233,7 +234,7 @@
  */
 
 import { convertUrlsToLinks } from '@/modules/bibliography/utils/convertUrlsToLinks.js'
-import PanelDistribution from '@/modules/otus/components/Panel/PanelMap/PanelMap.vue'
+import PanelMapV2 from '../PanelMapV2/PanelMapV2.vue'
 import { useOtuPageRequest } from '@/modules/otus/helpers/useOtuPageRequest.js'
 import { makeAPIRequest } from '@/utils'
 import { computed, onMounted, ref } from 'vue'

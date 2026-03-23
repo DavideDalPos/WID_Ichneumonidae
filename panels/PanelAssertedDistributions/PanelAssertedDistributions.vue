@@ -1,77 +1,103 @@
+```html
 <template>
-  <VCard>
-    <ClientOnly>
-      <VSpinner v-if="isLoading" />
-    </ClientOnly>
-    <VCardHeader>
-      Asserted distributions ({{ totalCount }})
-    </VCardHeader>
-    <VCardContent class="min-h-[6rem] overflow-x-auto">
+  <div class="flex flex-col gap-4">
 
-      <!-- Taxon tabs: only shown when records span multiple OTUs (species + subspecies) -->
-      <div
-        v-if="showTabs"
-        class="flex flex-wrap gap-x-1 mb-4 border-b"
-      >
-        <button
-          v-for="tab in tabs"
-          :key="tab.id"
-          class="px-3 py-1.5 text-sm -mb-px border-b-2 transition-colors"
-          :class="selectedOtuId === tab.id
-            ? 'border-current text-secondary-color font-medium'
-            : 'border-transparent opacity-50 hover:opacity-100'"
-          @click="selectedOtuId = tab.id"
+    <!-- ========================= -->
+    <!-- TOP PANEL: MAP -->
+    <!-- ========================= -->
+<div v-if="otuId" class="w-full mb-4">
+  <div class="w-full">
+    <PanelMapV2
+      class="h-full w-full"
+      :otu-id="otuId"
+      :otu="{ id: otuId }"
+      :taxon="props.taxon"
+    />
+  </div>
+</div>
+
+    <!-- ========================= -->
+    <!-- BOTTOM PANEL: ASSERTED DISTRIBUTIONS -->
+    <!-- ========================= -->
+    <VCard>
+      <ClientOnly>
+        <VSpinner v-if="isLoading" />
+      </ClientOnly>
+
+      <VCardHeader>
+        Asserted distributions ({{ totalCount }})
+      </VCardHeader>
+
+      <VCardContent class="min-h-[6rem] overflow-x-auto">
+
+        <!-- Tabs -->
+        <div
+          v-if="showTabs"
+          class="flex flex-wrap gap-x-1 mb-4 border-b"
         >
-          <template v-if="tab.id === 'all'">All</template>
-          <em v-else>{{ tab.label }}</em>
-          <span class="ml-1 text-xs opacity-60">({{ tab.count }})</span>
-        </button>
-      </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-  <div class="md:col-span-2">
-      <VTable v-if="groupedDistributions.length">
-        <VTableHeader class="normal-case">
-          <VTableHeaderRow>
-            <VTableHeaderCell>Area</VTableHeaderCell>
-            <VTableHeaderCell v-if="isMergedView">Taxa</VTableHeaderCell>
-            <VTableHeaderCell>Absent</VTableHeaderCell>
-            <VTableHeaderCell>Citation</VTableHeaderCell>
-          </VTableHeaderRow>
-        </VTableHeader>
-        <VTableBody>
-          <template
-            v-for="group in groupedDistributions"
-            :key="group.parent"
+          <button
+            v-for="tab in tabs"
+            :key="tab.id"
+            class="px-3 py-1.5 text-sm -mb-px border-b-2 transition-colors"
+            :class="selectedOtuId === tab.id
+              ? 'border-current text-secondary-color font-medium'
+              : 'border-transparent opacity-50 hover:opacity-100'"
+            @click="selectedOtuId = tab.id"
           >
-            <!-- Group header -->
-            <tr>
-              <td
-                :colspan="isMergedView ? 4 : 3"
-                class="px-4 pt-5 pb-1 text-sm font-bold border-b text-base-content"
-              >
-                {{ group.label }}
-                <span class="font-normal opacity-50 ml-1">({{ group.items.length }})</span>
-              </td>
-            </tr>
+            <template v-if="tab.id === 'all'">All</template>
+            <em v-else>{{ tab.label }}</em>
+            <span class="ml-1 text-xs opacity-60">({{ tab.count }})</span>
+          </button>
+        </div>
 
-            <VTableBodyRow
-              v-for="item in group.items"
-              :key="item.id"
+        <!-- TABLE -->
+        <VTable v-if="groupedDistributions.length">
+          <VTableHeader class="normal-case">
+            <VTableHeaderRow>
+              <VTableHeaderCell>Area</VTableHeaderCell>
+              <VTableHeaderCell v-if="isMergedView">Taxa</VTableHeaderCell>
+              <VTableHeaderCell>Absent</VTableHeaderCell>
+              <VTableHeaderCell>Citation</VTableHeaderCell>
+            </VTableHeaderRow>
+          </VTableHeader>
+
+          <VTableBody>
+            <template
+              v-for="group in groupedDistributions"
+              :key="group.parent"
             >
-              <!-- Area name (bold) with type (small, muted).
-                   Always a button; GeoJSON is pre-fetched in background. -->
-              <VTableBodyCell class="pl-8">
-                <button
-                  class="font-semibold hover:underline cursor-pointer text-left text-primary-color"
-                  @click="openMapModal(item)"
-                >{{ item.areaName }}</button>
+              <tr>
+                <td
+                  :colspan="isMergedView ? 4 : 3"
+                  class="px-4 pt-5 pb-1 text-sm font-bold border-b text-base-content"
+                >
+                  {{ group.label }}
+                  <span class="font-normal opacity-50 ml-1">
+                    ({{ group.items.length }})
+                  </span>
+                </td>
+              </tr>
+
+              <VTableBodyRow
+                v-for="item in group.items"
+                :key="item.id"
+              >
+                <VTableBodyCell class="pl-8">
+                  <button
+                    class="font-semibold hover:underline cursor-pointer text-left text-primary-color"
+                    @click="openMapModal(item)"
+                  >
+                    {{ item.areaName }}
+                  </button>
+
                   <span
                     v-if="item.areaType"
                     class="text-xs opacity-50 ml-1.5"
-                  >{{ item.areaType }}</span>
+                  >
+                    {{ item.areaType }}
+                  </span>
                 </VTableBodyCell>
 
-                <!-- Taxa column: OTU names for this area (merged / All tab only) -->
                 <VTableBodyCell
                   v-if="isMergedView"
                   class="text-sm"
@@ -80,7 +106,8 @@
                     v-for="(entry, i) in item.otuEntries"
                     :key="entry.otuId"
                   >
-                    <em>{{ entry.otuName }}</em><span v-if="i < item.otuEntries.length - 1">; </span>
+                    <em>{{ entry.otuName }}</em>
+                    <span v-if="i < item.otuEntries.length - 1">; </span>
                   </template>
                 </VTableBodyCell>
 
@@ -88,10 +115,11 @@
                   <span
                     v-if="item.isAbsent"
                     class="text-red-600 text-sm font-medium"
-                  >Absent</span>
+                  >
+                    Absent
+                  </span>
                 </VTableBodyCell>
 
-                <!-- Citations inline, separated by "; " -->
                 <VTableBodyCell class="text-sm">
                   <template
                     v-for="(citation, i) in item.citationList"
@@ -105,90 +133,89 @@
                     <span v-if="i < item.citationList.length - 1">; </span>
                   </template>
                 </VTableBodyCell>
-            </VTableBodyRow>
-          </template>
-        </VTableBody>
-      </VTable>
-    </div>
+              </VTableBodyRow>
+            </template>
+          </VTableBody>
+        </VTable>
 
-  <!-- RIGHT: MAP -->
-  <div class="md:col-span-1">
-    <div class="sticky top-4 h-[500px]">
-<PanelMapV2
-  v-if="otuId"
-  class="h-full"
-  :otu-id="otuId"
-  :otu="{ id: otuId }"
-  :taxon="props.taxon"
-/>
-    </div>
-  </div>
- </div>     
- 
- <!-- Citation modal: full reference for clicked citation -->
-      <Teleport to="body">
-        <VModal
-          v-if="activeCitation"
-          @close="activeCitation = null"
+        <!-- Empty -->
+        <div
+          v-if="!isLoading && !groupedDistributions.length"
+          class="mx-auto my-8 px-2 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg border border-gray-300 shadow-sm w-max text-center"
         >
-          <template #header>
-            <div class="text-sm font-medium">Reference</div>
-          </template>
-          <div
-            class="px-4 pb-4 text-sm leading-relaxed"
-            v-html="convertUrlsToLinks(activeCitation.full)"
-          />
-        </VModal>
-      </Teleport>
+          No records added yet
+        </div>
 
-      <!-- Map modal: geographic area polygon for clicked area name -->
-      <Teleport to="body">
-        <VModal
-          v-if="mapModal.open"
-          @close="mapModal = { open: false }"
+        <!-- Footer -->
+        <p
+          v-if="groupedDistributions.length"
+          class="text-xs opacity-50 mt-4 text-center"
         >
-          <template #header>
-            <div class="text-sm font-medium">
-              {{ mapModal.areaName }}
-            </div>
-          </template>
-          <div class="p-4">
-            <div
-              v-if="mapModal.loading"
-              class="min-h-[200px] flex items-center justify-center"
-            >
-              <VSpinner />
-            </div>
-            <p
-              v-else-if="!mapModal.feature"
-              class="min-h-[200px] flex items-center justify-center text-sm opacity-50"
-            >No map data available for this area.</p>
-            <VMap
-              v-else
-              :geojson="{ type: 'FeatureCollection', features: [mapModal.feature] }"
-              height="400px"
-            />
+          The same distribution data can also be viewed on the map in the Overview panel.<br>
+          You can also download a Darwin Core (DwC) spreadsheet with all asserted distributions and specimen records.
+        </p>
+
+      </VCardContent>
+    </VCard>
+
+    <!-- ========================= -->
+    <!-- MODALS (unchanged) -->
+    <!-- ========================= -->
+
+    <Teleport to="body">
+      <VModal
+        v-if="activeCitation"
+        @close="activeCitation = null"
+      >
+        <template #header>
+          <div class="text-sm font-medium">Reference</div>
+        </template>
+        <div
+          class="px-4 pb-4 text-sm leading-relaxed"
+          v-html="convertUrlsToLinks(activeCitation.full)"
+        />
+      </VModal>
+    </Teleport>
+
+    <Teleport to="body">
+      <VModal
+        v-if="mapModal.open"
+        @close="mapModal = { open: false }"
+      >
+        <template #header>
+          <div class="text-sm font-medium">
+            {{ mapModal.areaName }}
           </div>
-        </VModal>
-      </Teleport>
+        </template>
 
-      <div
-        v-if="!isLoading && !groupedDistributions.length"
-        class="mx-auto my-8 px-2 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg border border-gray-300 shadow-sm w-max text-center"
-      >
-        No records added yet
-      </div>
+        <div class="p-4">
+          <div
+            v-if="mapModal.loading"
+            class="min-h-[200px] flex items-center justify-center"
+          >
+            <VSpinner />
+          </div>
 
-      <p
-        v-if="groupedDistributions.length"
-        class="text-xs opacity-50 mt-4 text-center"
-      >
-        The same distribution data can also be viewed on the map in the Overview panel.<br>
-        You can also download a Darwin Core (DwC) spreadsheet with all asserted distributions and specimen records.
-      </p>
-    </VCardContent>
-  </VCard>
+          <p
+            v-else-if="!mapModal.feature"
+            class="min-h-[200px] flex items-center justify-center text-sm opacity-50"
+          >
+            No map data available for this area.
+          </p>
+
+          <VMap
+            v-else
+            :geojson="{ type: 'FeatureCollection', features: [mapModal.feature] }"
+            height="400px"
+          />
+        </div>
+      </VModal>
+    </Teleport>
+
+  </div>
 </template>
+
+
 
 <script setup>
 /**

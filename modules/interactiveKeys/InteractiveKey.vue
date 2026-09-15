@@ -124,7 +124,7 @@ function parseOtuId(otuId) {
 }
 
 .distinguish-btn {
-  @apply px-2 py-1.25 rounded-md;
+  @apply px-2 py-1.5 rounded-md;
 }
 
 .distinguish-title {

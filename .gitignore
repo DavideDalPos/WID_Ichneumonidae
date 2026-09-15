@@ -11,3 +11,5 @@
 config/**/*.development.yml
 !src
 !src/**
+!modules
+!modules/**

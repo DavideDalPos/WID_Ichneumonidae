@@ -6,29 +6,31 @@
       link: /
 
     - label: About
-      link: /about
+      submenu:
+        - label: About WID
+          link: /about
+        - label: How to Cite
+          link: /cite
 
-    - label: Subfamilies
-      link: /subfamilies
-
+    - label: Taxa & Keys
+      submenu:
+        - label: Subfamily Table
+          link: /subfamilies
+        - label: Taxa Addition
+          link: /RecentTaxa
+        - label: Keys
+          link: /keys
+          
     - label: Bibliography
-      link: /resources/tw/filter/bibliography
+      submenu:
+        - label: Search Bibliography
+          link: /resources/tw/filter/bibliography
+        - label: Latest Addition
+          link: /RecentReferences
 
     - label: Search DwC
       link: /resources/tw/filter/dwc_otus
 
-    - label: Recent Addition
-      submenu: 
-        - label: Taxa Addition
-          link: /RecentTaxa
-        - label: Reference Addition
-          link: /RecentReferences
-    
     - label: News
       link: /news
-    
-    - label: How to Cite
-      link: /cite
-
-#    - label: Taxonomy
-#      link: /taxonomy
+  

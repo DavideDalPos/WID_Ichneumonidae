@@ -9,3 +9,5 @@
 !public/**
 !README.md
 config/**/*.development.yml
+!src
+!src/**

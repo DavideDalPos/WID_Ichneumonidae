@@ -1,0 +1,5 @@
+export const HIGHER_CLASSIFICATION_GROUP = 'HigherClassificationGroup'
+export const FAMILY_GROUP = 'FamilyGroup'
+export const GENUS_GROUP = 'GenusGroup'
+export const SPECIES_GROUP = 'SpeciesGroup'
+export const SPECIES_AND_INFRASPECIES_GROUP = 'SpeciesAndInfraspeciesGroup'

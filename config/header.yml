@@ -6,11 +6,8 @@
       link: /
 
     - label: About
-      submenu:
-        - label: About WID
-          link: /about
-        - label: How to Cite
-          link: /cite
+      link: /about
+
 
     - label: Taxa & Keys
       submenu:
@@ -33,4 +30,13 @@
 
     - label: News
       link: /news
+
+    - label: How to
+      submenu:
+        - label: How to Cite
+          link: /cite
+        - label: How to Help
+          link: /help
+
+
   

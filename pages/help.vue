@@ -33,18 +33,43 @@
                 </p>
                 <p class="!mb-0">
                   Know of a published paper that is not yet included in WID? Please let us know. No account is needed —
-                  just paste the full citation or a DOI, and we will take care of the rest.
+                  just fill in the citation details and an optional DOI, and we will take care of the rest.
                 </p>
               </div>
             </div>
 
-            
-            <a  href="https://benevolent-cuchufli-47bd77.netlify.app"
+            <a href="https://benevolent-cuchufli-47bd77.netlify.app"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-block mt-4 ml-9 rounded-md bg-red-800 px-6 py-3 text-white font-medium no-underline hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
             >
               Submit a published paper
+            </a>
+          </div>
+
+          <!-- Correction callout -->
+          <div class="bg-gray-100 border-l-4 border-red-800 p-4 rounded-md shadow-sm">
+            <div class="flex items-start space-x-3">
+              <svg class="w-6 h-6 text-red-700 flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              <div>
+                <p class="text-gray-800 font-semibold text-lg !my-0">
+                  Report an error or correction
+                </p>
+                <p class="!mb-0">
+                  Spotted a wrong authorship, a misspelled name, an outdated synonymy, or a distribution that looks off?
+                  Let us know what should be fixed and, if you can, a reference to back it up.
+                </p>
+              </div>
+            </div>
+
+            <a href="https://benevolent-cuchufli-47bd77.netlify.app/correction.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block mt-4 ml-9 rounded-md bg-red-800 px-6 py-3 text-white font-medium no-underline hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+            >
+              Report a correction
             </a>
           </div>
 
@@ -56,5 +81,5 @@
 </template>
 
 <script setup>
-// nothing needed — the button is a simple link
+// nothing needed — the buttons are simple links
 </script>

@@ -1,108 +1,81 @@
 <template>
-  <VCard class="mb-4">
-    <VCardContent>
-      <div class="flex flex-col gap-2">
-        <div
-          class="flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-2 text-sm"
-        >
-          <div class="text-sm w-full">
-            <label>Scientific name</label>
-            <InputText
-              class="block w-full"
-              type="text"
-              placeholder="Type name..."
-              v-model="parameters.scientificName"
-              @keypress.enter="() => emit('search')"
-            />
-          </div>
-          <div class="w-full lg:w-96">
-            <label>Author</label>
-            <InputText
-              class="block w-full"
-              type="text"
-              placeholder="Type author..."
-              v-model="parameters.scientificNameAuthorship"
-              @keypress.enter="() => emit('search')"
-            />
-          </div>
-          <FacetDistribution v-model="parameters" />
-          <div
-            class="hidden md:flex flex-row gap-2 justify-center md:self-end text-sm"
-          >
-            <VButton
-              class="py-1.5 border border-primary-color"
-              primary
-              @click="() => emit('search')"
-            >
-              Search
-            </VButton>
-            <VButton
-              class="py-1.5 border border-primary-color"
-              primary
-              @click="() => emit('reset')"
-            >
-              Reset
-            </VButton>
-          </div>
-        </div>
-
-        <div>
-          <div
-            class="text-sm mt-2"
-            @click="
-              () => {
-                showMoreFilters = !showMoreFilters
-              }
-            "
-          >
-            <div
-              class="text-secondary-color flex flex-row gap-1 cursor-pointer"
-            >
-              <IconMinusCircle
-                v-if="showMoreFilters"
-                class="w-5 h-5"
-              />
-              <IconPlusCircle
-                v-else
-                class="w-5 h-5"
-              />
-              <span>More filters</span>
-            </div>
-          </div>
-        </div>
-        <div
-          v-if="showMoreFilters"
-          class="text-sm pt-4 flex gap-4"
-        >
-          <FacetOrder v-model="parameters" />
-          <div class="flex flex-col gap-2">
-            <h3 class="text-base font-medium">Specimen records</h3>
-            <FacetInstitutionCode v-model="parameters" />
-            <FacetTypeStatus v-model="parameters" />
-          </div>
-        </div>
-
-        <div
-          class="flex md:hidden flex-row gap-2 justify-center md:self-end text-sm"
-        >
-          <VButton
-            class="py-1.5 border border-primary-color"
-            primary
-            @click="() => emit('search')"
-          >
-            Search
-          </VButton>
-          <VButton
-            class="py-1.5 border border-primary-color"
-            primary
-            @click="() => emit('reset')"
-          >
-            Reset
-          </VButton>
-        </div>
+  <form
+    class="rounded-2xl bg-base-foreground p-5 sm:p-6 ring-1 ring-base-border/40 shadow-xl shadow-black/5"
+    @submit.prevent="emit('search')"
+  >
+    <div class="grid gap-4 lg:grid-cols-12 items-end">
+      <label class="lg:col-span-4 block">
+        <span class="wid-label">Scientific name</span>
+        <input
+          v-model="parameters.scientificName"
+          type="search"
+          placeholder="e.g. Ophion luteus"
+          class="wid-input"
+        />
+      </label>
+      <label class="lg:col-span-3 block">
+        <span class="wid-label">Author</span>
+        <input
+          v-model="parameters.scientificNameAuthorship"
+          type="search"
+          placeholder="e.g. Gravenhorst"
+          class="wid-input"
+        />
+      </label>
+      <div class="lg:col-span-5">
+        <FacetDistribution
+          v-model="parameters"
+          class="wid-facet"
+        />
       </div>
-    </VCardContent>
-  </VCard>
+    </div>
+
+    <div
+      v-if="showMoreFilters"
+      class="mt-5 pt-5 border-t border-base-border/30 grid gap-6 lg:grid-cols-12 wid-facet"
+    >
+      <div class="lg:col-span-8">
+        <FacetOrder v-model="parameters" />
+      </div>
+      <div class="lg:col-span-4 flex flex-col gap-4">
+        <p class="text-sm font-semibold text-base-content">Specimen records</p>
+        <FacetInstitutionCode v-model="parameters" />
+        <FacetTypeStatus v-model="parameters" />
+      </div>
+    </div>
+
+    <div class="mt-5 flex flex-wrap items-center gap-2">
+      <button
+        type="submit"
+        class="inline-flex items-center gap-2 rounded-lg bg-primary-color px-5 py-2.5 text-sm font-semibold text-primary-content hover:opacity-90"
+      >
+        Search
+      </button>
+      <button
+        type="button"
+        class="rounded-lg px-4 py-2.5 text-sm font-semibold text-base-content ring-1 ring-base-border hover:bg-base-muted/40"
+        @click="emit('reset')"
+      >
+        Reset
+      </button>
+      <button
+        type="button"
+        class="ml-auto inline-flex items-center gap-1.5 text-sm font-semibold text-primary-color dark:text-secondary-color"
+        :aria-expanded="showMoreFilters"
+        @click="showMoreFilters = !showMoreFilters"
+      >
+        <IconMinusCircle
+          v-if="showMoreFilters"
+          class="w-5 h-5"
+        />
+        <IconPlusCircle
+          v-else
+          class="w-5 h-5"
+        />
+        {{ showMoreFilters ? 'Fewer filters' : 'More filters' }}
+      </button>
+    </div>
+  </form>
 </template>
 
 <script setup>
@@ -117,7 +90,55 @@ const parameters = defineModel({
   required: true
 })
 
-const emit = defineEmits(['search'])
+const emit = defineEmits(['search', 'reset'])
 
 const showMoreFilters = ref(false)
 </script>
+
+<style scoped>
+.wid-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(var(--color-base-content), 0.55);
+  margin-bottom: 0.375rem;
+}
+
+.wid-input,
+.wid-facet :deep(input),
+.wid-facet :deep(select) {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 0;
+  background: rgb(var(--color-base-background));
+  box-shadow: inset 0 0 0 1px rgba(var(--color-base-border), 0.7);
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  color: rgb(var(--color-base-content));
+  box-sizing: border-box;
+}
+
+.wid-input:focus,
+.wid-facet :deep(input:focus),
+.wid-facet :deep(select:focus) {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgb(var(--color-primary));
+}
+
+.wid-facet :deep(.tp-autocomplete input) {
+  padding-left: 2.5rem;
+}
+
+.wid-facet :deep(label),
+.wid-facet :deep(h3) {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(var(--color-base-content), 0.55);
+  margin-bottom: 0.375rem;
+}
+</style>

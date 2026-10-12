@@ -1,14 +1,14 @@
 <template>
   <div>
-    <label class="text-base font-medium">Classification</label>
+    <p class="text-sm font-semibold text-base-content mb-3">Classification</p>
 
-    <div class="flex flex-col flex-wrap gap-2 mt-2">
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
       <div
         v-for="rank in DWC_CLASSIFICATION_HIERARCHY"
         :key="rank"
         class="flex flex-col"
       >
-        <label class="capitalize">{{ rank }}</label>
+        <label>{{ LABELS[rank] || rank }}</label>
         <InputText
           placeholder="Type name..."
           v-model="parameters[rank]"
@@ -30,6 +30,11 @@ const DWC_CLASSIFICATION_HIERARCHY = [
   'specificEpithet',
   'infraspecificEpithet'
 ]
+
+const LABELS = {
+  specificEpithet: 'Species epithet',
+  infraspecificEpithet: 'Infraspecific epithet'
+}
 
 const parameters = defineModel({
   type: Object,

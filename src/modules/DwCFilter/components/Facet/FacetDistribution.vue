@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <label>Distribution</label>
-    <div class="flex flex-col md:flex-row gap-2 w-full">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full">
       <Autocomplete
         class="w-full"
         url="/dwc_occurrences/area_autocomplete"

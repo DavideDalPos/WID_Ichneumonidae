@@ -1,84 +1,197 @@
 <template>
-  <div class="container mx-auto py-6">
-    <h1 class="text-2xl font-semibold text-base-content mb-4">Keys</h1>
+  <div class="wid-home bg-base-background">
+    <header class="wid-keys-header text-white">
+      <div class="container mx-auto px-4 py-12 sm:py-16">
+        <p class="text-xs font-semibold uppercase tracking-wider text-secondary-color">
+          Identify
+        </p>
+        <h1 class="mt-2 text-3xl sm:text-4xl font-bold tracking-tight">
+          Identification keys
+        </h1>
+        <p class="mt-3 max-w-2xl text-lg text-white/75">
+          Interactive dichotomous keys from the published literature. Step
+          through them couplet by couplet, or view the whole key at once.
+        </p>
+        <ul
+          v-if="keys.length"
+          class="mt-6 flex flex-wrap gap-2 text-sm"
+        >
+          <li
+            v-for="s in totals"
+            :key="s.label"
+            class="rounded-full bg-white/10 ring-1 ring-white/15 px-3 py-1.5 text-white/80"
+          >
+            <strong class="text-white tabular-nums">{{ s.value }}</strong>
+            {{ s.label }}
+          </li>
+        </ul>
+      </div>
+    </header>
 
-    <KeySearchBar
-      v-model="searchQuery"
-      placeholder="Search keys by taxon name…"
-      class="mb-4"
-    />
-
-    <VSpinner v-if="loading" />
-    <p
-      v-else-if="!keys.length"
-      class="text-base-soft"
-    >No public keys in this project.</p>
-    <p
-      v-else-if="!filteredKeys.length"
-      class="text-base-soft"
-    >No keys match “{{ searchQuery }}”.</p>
-
-    <ul
-      v-else
-      class="space-y-4"
-    >
-      <li
-        v-for="k in filteredKeys"
-        :key="k.id"
-        class="rounded-lg border border-base-muted bg-base-foreground p-4 sm:p-5"
-      >
-        <RouterLink
-          :to="{ name: 'dichotomous-key', params: { id: k.id } }"
-          class="text-lg text-secondary hover:underline [&_i]:italic"
-          v-html="k.titleHtml"
+    <section class="container mx-auto px-4 py-10 sm:py-12">
+      <div class="relative max-w-md">
+        <svg
+          class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-base-content/50 pointer-events-none"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.2-5.2m0 0A7.5 7.5 0 1 0 5.2 5.2a7.5 7.5 0 0 0 10.6 10.6Z"
+          />
+        </svg>
+        <input
+          v-model="searchQuery"
+          type="search"
+          placeholder="Search keys by taxon, title or description…"
+          aria-label="Search keys"
+          class="w-full rounded-lg bg-base-foreground ring-1 ring-base-border/60 focus:ring-2 focus:ring-primary-color outline-none border-0 py-2.5 pl-9 pr-3 text-sm text-base-content"
         />
-        <p
-          v-if="k.scope"
-          class="mt-1 text-sm text-base-content [&_i]:italic"
-        >
-          <span class="text-base-soft">Scope: </span><RouterLink
-            v-if="k.otuId"
-            :to="{ name: 'otus-id', params: { id: k.otuId } }"
-            target="_blank"
-            rel="noopener"
-            class="text-secondary hover:underline"
-          ><span
-            v-if="k.scopeHtml"
-            v-html="k.scopeHtml"
-          /><template v-else>{{ k.scope }}</template></RouterLink><span
-            v-else-if="k.scopeHtml"
-            v-html="k.scopeHtml"
-          /><template v-else>{{ k.scope }}</template>
-        </p>
-        <p
-          v-if="k.citation"
-          class="mt-1 text-sm text-base-content [&_i]:italic"
-        >
-          <span class="text-base-soft">Primary source: </span><span v-html="sanitizeAndLinkifyHtml(k.citation)" />
-        </p>
-        <p
-          v-if="k.description"
-          class="mt-1 text-sm text-base-content"
-        >
-          <span class="text-base-soft">Description: </span>{{ k.description }}
-        </p>
+      </div>
 
-        <div class="mt-2 flex flex-wrap gap-2 text-xs text-base-soft">
-          <span
-            v-if="k.coupletsCount"
-            class="border border-base-muted rounded px-2 py-0.5"
-          >{{ k.coupletsCount }} couplets</span>
-          <span
-            v-if="k.taxaCount"
-            class="border border-base-muted rounded px-2 py-0.5"
-          >{{ k.taxaCount }} taxa</span>
-          <span
-            v-if="k.updatedInWords"
-            class="border border-base-muted rounded px-2 py-0.5"
-          >updated {{ k.updatedInWords }} ago</span>
-        </div>
-      </li>
-    </ul>
+      <div
+        v-if="loading"
+        class="mt-8 grid gap-5 md:grid-cols-2"
+      >
+        <div
+          v-for="n in 4"
+          :key="n"
+          class="h-48 rounded-2xl bg-base-foreground ring-1 ring-base-border/40 animate-pulse"
+        />
+      </div>
+      <p
+        v-else-if="!keys.length"
+        class="mt-8 text-base-content/60"
+      >
+        No public keys in this project yet.
+      </p>
+      <p
+        v-else-if="!filteredKeys.length"
+        class="mt-8 text-base-content/60"
+      >
+        No keys match “{{ searchQuery }}”.
+      </p>
+
+      <ul
+        v-else
+        class="mt-8 grid gap-5 md:grid-cols-2"
+      >
+        <li
+          v-for="k in filteredKeys"
+          :key="k.id"
+          class="group flex flex-col rounded-2xl bg-base-foreground ring-1 ring-base-border/40 hover:ring-primary-color/50 dark:hover:ring-secondary-color/50 hover:shadow-lg transition-all overflow-hidden"
+        >
+          <div class="p-6 flex-grow">
+            <div class="flex items-start justify-between gap-4">
+              <div class="min-w-0">
+                <p
+                  v-if="k.scope"
+                  class="text-xs font-semibold uppercase tracking-wider text-primary-color dark:text-secondary-color [&_i]:normal-case [&_i]:italic [&_i]:text-sm"
+                >
+                  <span
+                    v-if="k.scopeHtml"
+                    v-html="k.scopeHtml"
+                  /><template v-else>{{ k.scope }}</template>
+                </p>
+                <h2 class="mt-1 text-lg font-semibold leading-snug text-base-content [&_i]:italic">
+                  <RouterLink
+                    :to="{ name: 'dichotomous-key', params: { id: k.id } }"
+                    class="text-base-content hover:text-primary-color dark:hover:text-secondary-color"
+                    v-html="k.titleHtml"
+                  />
+                </h2>
+              </div>
+              <span
+                class="flex-shrink-0 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary-color text-primary-content"
+                aria-hidden="true"
+              >
+                <svg
+                  class="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.03 5.91c-.56-.1-1.16.03-1.56.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.82c0-.6.24-1.17.66-1.59l5.16-5.16c.4-.4.52-1 .43-1.56A6 6 0 1 1 21.75 8.25Z"
+                  />
+                </svg>
+              </span>
+            </div>
+
+            <p
+              v-if="k.description"
+              class="mt-3 text-sm text-base-content/75"
+            >
+              {{ k.description }}
+            </p>
+
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span
+                v-if="k.coupletsCount"
+                class="rounded-full bg-base-muted/50 px-2.5 py-1 font-medium text-base-content/75"
+                >{{ k.coupletsCount }} couplet{{ k.coupletsCount === 1 ? '' : 's' }}</span
+              >
+              <span
+                v-if="k.taxaCount"
+                class="rounded-full bg-base-muted/50 px-2.5 py-1 font-medium text-base-content/75"
+                >{{ k.taxaCount }} taxa</span
+              >
+              <span
+                v-if="k.updatedInWords"
+                class="rounded-full px-2.5 py-1 text-base-content/55"
+                >Updated {{ k.updatedInWords }} ago</span
+              >
+            </div>
+
+            <p
+              v-if="k.citation"
+              class="mt-4 text-xs leading-relaxed text-base-content/60 line-clamp-3 [&_i]:italic [&_a]:text-primary-color dark:[&_a]:text-secondary-color [&_a]:break-all"
+              v-html="sanitizeAndLinkifyHtml(k.citation)"
+            />
+          </div>
+
+          <div class="flex items-center gap-2 border-t border-base-border/30 px-6 py-3 bg-base-background/50">
+            <RouterLink
+              :to="{ name: 'dichotomous-key', params: { id: k.id } }"
+              class="inline-flex items-center gap-1.5 rounded-lg bg-primary-color px-3.5 py-2 text-sm font-semibold text-primary-content hover:opacity-90"
+            >
+              Start key
+              <svg
+                class="h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </RouterLink>
+            <RouterLink
+              v-if="k.otuId"
+              :to="{ name: 'otus-id', params: { id: k.otuId } }"
+              class="inline-flex items-center rounded-lg px-3.5 py-2 text-sm font-semibold text-base-content ring-1 ring-base-border hover:bg-base-muted/40"
+            >
+              Taxon page
+            </RouterLink>
+          </div>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -87,11 +200,20 @@ import { ref, computed, onMounted } from 'vue'
 import { makeAPIRequest } from '@/utils/request'
 import { sanitizeAndLinkifyHtml } from '@/utils'
 import { rankIndex } from './lib/completeness.js'
-import KeySearchBar from './KeySearchBar.vue'
 
 const loading = ref(true)
 const keys = ref([])
 const searchQuery = ref('')
+
+const totals = computed(() => {
+  const couplets = keys.value.reduce((n, k) => n + (k.coupletsCount || 0), 0)
+  const taxa = keys.value.reduce((n, k) => n + (k.taxaCount || 0), 0)
+  return [
+    { value: keys.value.length, label: keys.value.length === 1 ? 'key' : 'keys' },
+    { value: couplets, label: 'couplets' },
+    { value: taxa, label: 'taxa covered' }
+  ]
+})
 
 // Strip HTML tags so a search for "Ilma" matches the stored "<i>Ilma</i>".
 function plain(s) {
@@ -221,3 +343,10 @@ onMounted(async () => {
   }
 })
 </script>
+<style scoped>
+.wid-keys-header {
+  background:
+    radial-gradient(50rem 20rem at 90% 0%, rgba(42, 98, 183, 0.45), transparent 60%),
+    linear-gradient(180deg, #0f1b33 0%, #13223f 100%);
+}
+</style>

@@ -1,85 +1,92 @@
 <template>
-  <section class="bg-base-foreground mb-10">
-    <div class="container mx-auto p-4 sm:pt-10 sm:pb-2 relative box-border">
+  <div class="wid-home bg-base-background">
+    <PageHeader
+      eyebrow="Get involved"
+      title="How can you help?"
+      subtitle="WID grows through the expertise and generosity of the entomological community. Every correction, record and reference keeps it accurate and useful to researchers worldwide."
+    />
 
-      <!-- Title section -->
-      <div class="text-center mb-8">
-        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-base-content">
-          How can you help?
-        </h1>
-        <p class="mt-2 text-lg text-base-soft">
-          The database grows through its community — here is how you can contribute
-        </p>
-      </div>
-
-      <div class="prose !container dark:prose-invert">
-        <div class="text-lg text-justify text-gray-600 space-y-6 leading-relaxed max-w-7xl mx-auto px-4">
-
-          <p>
-            The <strong class="text-gray-800 font-semibold">World Ichneumonidae Database (WID)</strong> depends on the
-            expertise and generosity of the entomological community. Every correction, record, and reference helps keep
-            the database accurate, complete, and useful to researchers worldwide.
+    <section class="container mx-auto px-4 py-12 sm:py-16">
+      <div class="grid gap-6 md:grid-cols-2">
+        <article
+          v-for="action in actions"
+          :key="action.href"
+          class="flex flex-col rounded-2xl bg-base-foreground p-6 sm:p-8 ring-1 ring-base-border/40"
+        >
+          <span
+            class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-color text-primary-content"
+          >
+            <HomeIcon
+              :name="action.icon"
+              class="h-6 w-6"
+            />
+          </span>
+          <h2 class="mt-5 text-xl font-semibold text-base-content">
+            {{ action.title }}
+          </h2>
+          <p class="mt-2 leading-relaxed text-base-content/70 flex-grow">
+            {{ action.text }}
           </p>
-
-          <!-- Submission callout -->
-          <div class="bg-gray-100 border-l-4 border-red-800 p-4 rounded-md shadow-sm">
-            <div class="flex items-start space-x-3">
-              <svg class="w-6 h-6 text-red-700 flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <div>
-                <p class="text-gray-800 font-semibold text-lg !my-0">
-                  Submit a missing publication
-                </p>
-                <p class="!mb-0">
-                  Know of a published paper that is not yet included in WID? Please let us know. No account is needed —
-                  just fill in the citation details and an optional DOI, and we will take care of the rest.
-                </p>
-              </div>
-            </div>
-
-            <a href="https://benevolent-cuchufli-47bd77.netlify.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block mt-4 ml-9 rounded-md bg-red-800 px-6 py-3 text-white font-medium no-underline hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
-            >
-              Submit a published paper
-            </a>
-          </div>
-
-          <!-- Correction callout -->
-          <div class="bg-gray-100 border-l-4 border-red-800 p-4 rounded-md shadow-sm">
-            <div class="flex items-start space-x-3">
-              <svg class="w-6 h-6 text-red-700 flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-              <div>
-                <p class="text-gray-800 font-semibold text-lg !my-0">
-                  Report an error or correction
-                </p>
-                <p class="!mb-0">
-                  Spotted a wrong authorship, a misspelled name, an outdated synonymy, or a distribution that looks off?
-                  Let us know what should be fixed and, if you can, a reference to back it up.
-                </p>
-              </div>
-            </div>
-
-            <a href="https://benevolent-cuchufli-47bd77.netlify.app/correction.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block mt-4 ml-9 rounded-md bg-red-800 px-6 py-3 text-white font-medium no-underline hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
-            >
-              Report a correction
-            </a>
-          </div>
-
-        </div>
+          <a
+            :href="action.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-6 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-primary-color px-5 py-3 font-semibold text-primary-content hover:opacity-90 transition"
+          >
+            {{ action.cta }}
+            <HomeIcon
+              name="arrow"
+              class="h-4 w-4"
+            />
+          </a>
+        </article>
       </div>
 
-    </div>
-  </section>
+      <div
+        class="mt-6 rounded-2xl p-6 sm:p-8 ring-1 ring-base-border/40 flex flex-col sm:flex-row sm:items-center gap-4 justify-between"
+      >
+        <div>
+          <h2 class="text-lg font-semibold text-base-content">
+            Have specimen records or images to share?
+          </h2>
+          <p class="mt-1 text-base-content/70">
+            Get in touch with the WID administrators and we will help you add
+            them to the database.
+          </p>
+        </div>
+        <RouterLink
+          to="/about"
+          class="inline-flex items-center gap-2 rounded-lg px-5 py-3 font-semibold text-base-content ring-1 ring-base-border hover:bg-base-muted/40 transition whitespace-nowrap"
+        >
+          <HomeIcon
+            name="users"
+            class="h-5 w-5"
+          />
+          Contact the team
+        </RouterLink>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script setup>
-// nothing needed — the buttons are simple links
+import PageHeader from './components/Home/PageHeader.vue'
+import HomeIcon from './components/Home/HomeIcon.vue'
+
+const actions = [
+  {
+    icon: 'document',
+    title: 'Submit a missing publication',
+    text: 'Know of a published paper that is not yet in WID? No account is needed: fill in the citation details and an optional DOI, and we will take care of the rest.',
+    href: 'https://benevolent-cuchufli-47bd77.netlify.app',
+    cta: 'Submit a published paper'
+  },
+  {
+    icon: 'pencil',
+    title: 'Report an error or correction',
+    text: 'Spotted a wrong authorship, a misspelled name, an outdated synonymy, or a distribution that looks off? Tell us what should be fixed and, if you can, a reference to back it up.',
+    href: 'https://benevolent-cuchufli-47bd77.netlify.app/correction.html',
+    cta: 'Report a correction'
+  }
+]
 </script>

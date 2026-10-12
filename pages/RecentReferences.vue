@@ -1,70 +1,40 @@
 <template>
-  <div class="container mx-auto py-10">
-    <section
-      class="border-b border-gray-300 pb-6 mb-8"
-      style="opacity: 0; animation: fadeIn 0.8s ease forwards;"
+  <div class="wid-home bg-base-background">
+    <PageHeader
+      eyebrow="What's new"
+      title="Recently added references"
+      subtitle="Publications most recently entered into WID. For access to PDFs of the listed references, please contact the team."
     >
-      <h1
-        class="text-4xl font-semibold text-gray-900 tracking-tight mb-3 relative inline-block"
-      >
-        Recent References
-        <span
-          class="absolute left-0 -bottom-1 h-[2px] w-16 bg-gray-900 rounded"
-          aria-hidden="true"
-        ></span>
-      </h1>
-      <p class="mt-3 text-lg text-gray-700 leading-relaxed max-w-full">
-        This section shows the most recently added references in the
-        <span class="font-medium text-gray-900">World Ichneumonidae Database (WID)</span>,
-        offering a snapshot of current activity and updates across the project.
-      </p>
-      <p class="mt-4 text-sm text-gray-500 italic">
-        For access to PDFs of the listed references, please <RouterLink to="about" class="text-gray-700 underline hover:text-gray-900">contact us</RouterLink>.
-      </p>
-    </section>
+      <WeeklyActivity />
+    </PageHeader>
 
-    <div class="flex flex-col gap-6 mb-10 -mt-2">
-      <RecentTaxonTable
-        :parameters="{
-          validity: true,
-          recent: true,
-          taxon_name_type: 'Protonym',
-          recent_target: 'created_at'
-        }"
-      />
-      <RecentTable
-        :attributes="{ cached: 'Source' }"
-        route="/sources"
-        :parameters="{
-          in_project: true,
-          recent: true,
-          recent_target: 'created_at'
-        }"
-      />
-    </div>
+    <section class="container mx-auto px-4 py-10 sm:py-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <div class="min-w-0 lg:col-span-7 xl:col-span-8">
+        <RecentSourcesList :per="15" />
+      </div>
+
+      <aside class="min-w-0 lg:col-span-5 xl:col-span-4">
+        <div class="flex items-end justify-between gap-3">
+          <h2 class="text-lg font-semibold text-base-content">Latest taxa</h2>
+          <RouterLink
+            to="/RecentTaxa"
+            class="text-sm font-semibold text-primary-color dark:text-secondary-color hover:underline"
+          >
+            See all
+          </RouterLink>
+        </div>
+        <RecentTaxaList
+          class="mt-4"
+          :per="10"
+        />
+      </aside>
+    </section>
   </div>
 </template>
 
-
-<style>
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-</style>
-
-
-
-
-
-
-
-
-
-
-
-
 <script setup>
-import RecentTable from './components/Section/RecentTable.vue';
+import PageHeader from './components/Home/PageHeader.vue'
+import RecentTaxaList from './components/Recent/RecentTaxaList.vue'
+import RecentSourcesList from './components/Recent/RecentSourcesList.vue'
+import WeeklyActivity from './components/Recent/WeeklyActivity.vue'
 </script>

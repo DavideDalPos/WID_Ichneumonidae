@@ -52,7 +52,7 @@
         Davide Dal Pos - <address-maker class="font-medium" :items="['daveliga', 'gmail', 'com']" />
       </li>
       <li>
-        Filippo Di Giovanni - <address-maker class="font-medium" :items="['aphelocheirus', 'gmail', 'come']" />
+        Filippo Di Giovanni - <address-maker class="font-medium" :items="['aphelocheirus', 'gmail', 'com']" />
       </li>
     </ul>
   </VCardContent>

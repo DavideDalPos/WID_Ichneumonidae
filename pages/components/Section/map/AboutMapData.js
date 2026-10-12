@@ -2,10 +2,10 @@ export const collaborators = [
   {
     first_name: 'Davide',
     last_name: 'Dal Pos',
-    institution: 'University of Central Florida',
+    institution: 'University of Missouri',
     country: 'USA',
-    lat: 28.6026,
-    lng: -81.2001,
+    lat: 38.9404,
+    lng: -92.3277,
     leader: 'yes',
     administrator: 'yes',
     orcid: 'https://orcid.org/0000-0002-9122-934X',
@@ -86,7 +86,7 @@ export const collaborators = [
   {
     first_name: 'Augustijn',
     last_name: 'De Ketelaere',
-    institution: 'Indipendent Resaercher',
+    institution: 'Independent Researcher',
     country: 'Belgium',
     lat: 51.2194,
     lng: 4.4025,

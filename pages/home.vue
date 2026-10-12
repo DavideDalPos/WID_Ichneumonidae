@@ -1,17 +1,20 @@
 <template>
-    <div class="h-full">
-      <SectionLandscape />
-      <SectionData />
-      <hr class="border-base-muted" />
-      <SectionDescription class="border-b"/>
-      <SectionAnnouncements />
-      <SectionTerms class="drop-shadow" />
-    </div>
-  </template>
-  <script setup>
-  import SectionAnnouncements from './components/Section/SectionAnnouncements.vue'
-import SectionData from './components/Section/SectionData.vue'
-import SectionDescription from './components/Section/SectionDescription.vue'
-import SectionLandscape from './components/Section/SectionLandscape.vue'
-import SectionTerms from './components/Section/SectionTerms.vue'
-  </script>
+  <div class="wid-home bg-base-background">
+    <HomeHero />
+    <HomeStats />
+    <HomeExplore />
+    <HomeAbout />
+    <HomeNews />
+    <HomeCite />
+  </div>
+</template>
+
+<script setup>
+import HomeHero from './components/Home/HomeHero.vue'
+import HomeStats from './components/Home/HomeStats.vue'
+import HomeExplore from './components/Home/HomeExplore.vue'
+import HomeAbout from './components/Home/HomeAbout.vue'
+import HomeNews from './components/Home/HomeNews.vue'
+import HomeCite from './components/Home/HomeCite.vue'
+</script>
+

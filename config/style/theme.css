@@ -64,3 +64,19 @@
   --color-scrollbar-track: 28, 28, 32;
 }
 
+
+/* ------------------------ Header ------------------------ */
+/* Deep navy header that blends into the home-page hero */
+.tp-header {
+  background-color: #0f1b33 !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ------------------------ Redesigned pages ------------------------ */
+/* TaxonPages does not apply border-box globally; padded containers would overflow */
+.wid-home,
+.wid-home *,
+.wid-home *::before,
+.wid-home *::after {
+  box-sizing: border-box;
+}

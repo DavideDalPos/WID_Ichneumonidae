@@ -1,8 +1,12 @@
 <template>
-  <IconPlusCircle
-    class="size-6 text-secondary-color cursor-pointer"
+  <button
+    type="button"
+    class="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-base-content/80 ring-1 ring-base-border/60 hover:bg-base-muted/40 transition"
     @click="() => (isModalVisible = true)"
-  />
+  >
+    <IconPlusCircle class="size-4 text-primary-color dark:text-secondary-color" />
+    Records
+  </button>
   <VModal
     v-if="isModalVisible"
     @close="() => (isModalVisible = false)"

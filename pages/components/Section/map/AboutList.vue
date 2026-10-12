@@ -1,125 +1,148 @@
 <template>
-  <section class="container max-w-screen-xl mx-auto py-10 px-4 sm:px-10 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg mt-12 mb-10">
-    <h1 class="text-4xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight relative inline-block mb-8">
-      Meet the Team
-      <span class="absolute left-0 -bottom-1 h-[3px] w-16 bg-amber-400 rounded" aria-hidden="true"></span>
-    </h1>
+  <section class="container mx-auto px-4 py-14 sm:py-16">
+    <h2 class="text-sm font-semibold uppercase tracking-wider text-primary-color dark:text-secondary-color">
+      Meet the team
+    </h2>
+    <p class="mt-2 text-3xl font-bold tracking-tight text-base-content">
+      Coordinators
+    </p>
 
-    <div class="flex justify-center">
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 w-fit mx-auto">
-        <div
-          v-for="c in sortedCollaborators"
-          :key="c.last_name || c.first_name"
-          class="flex flex-col items-center text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
-        >
-          <!-- Collaborator image / initials -->
-          <div v-if="!c.image" class="w-28 h-28 rounded-full bg-gray-400 flex items-center justify-center text-xl font-semibold text-white mb-4">
-            {{ (c.first_name[0] || '') + (c.last_name[0] || '') }}
-          </div>
-          <img
-            v-else
-            :src="c.image"
-            :alt="c.first_name + ' ' + c.last_name"
-            class="w-28 h-28 rounded-full object-cover border-2 border-gray-300 mb-4"
+    <div class="mt-6 grid gap-5 md:grid-cols-2">
+      <article
+        v-for="c in coordinators"
+        :key="fullName(c)"
+        class="flex gap-5 rounded-2xl bg-base-foreground p-6 ring-1 ring-base-border/40"
+      >
+        <Avatar
+          :person="c"
+          :size="88"
+        />
+        <div class="min-w-0">
+          <h3 class="text-lg font-semibold text-base-content">{{ fullName(c) }}</h3>
+          <p class="text-sm text-base-content/60">{{ c.institution }}, {{ c.country }}</p>
+          <RoleBadges
+            :person="c"
+            class="mt-3"
           />
-
-          <!-- Name -->
-          <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
-            {{ c.first_name }} {{ c.last_name }}
-          </h4>
-
-          <!-- Institution + Country -->
-          <p v-if="c.institution || c.country" class="text-sm text-gray-500 dark:text-gray-300 mb-2">
-            {{ c.institution }} ({{ c.country }})
-          </p>
-
-          <!-- Badges line -->
-          <div class="flex flex-wrap justify-center gap-2 mb-2">
-            <span
-              v-if="c.leader === 'yes'"
-              class="text-xs font-medium uppercase px-2 py-0.5 bg-yellow-400 text-gray-900 rounded"
-            >
-              Founder
-            </span>
-            <span
-              v-if="c.administrator === 'yes'"
-              class="text-xs font-medium uppercase px-2 py-0.5 bg-red-200 dark:bg-red-800 text-gray-800 dark:text-gray-200 rounded"
-            >
-              Admin
-            </span>
-            <span
-              class="text-xs font-medium uppercase px-2 py-0.5 bg-green-200 dark:bg-amber-700 text-gray-900 dark:text-gray-100 rounded"
-            >
-              Curator
-            </span>
-          </div>
-
-          <!-- Links -->
-          <div class="flex gap-4 mb-1">
-            <!-- ORCID -->
-            <a
-              :href="c.orcid || '#'"
-              :class="c.orcid ? 'text-[#A6CE39] hover:text-[#7AA32C]' : 'text-gray-400 cursor-not-allowed'"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <OrcidIcon />
-            </a>
-
-            <!-- ResearchGate -->
-            <a
-              :href="c.researchgate || '#'"
-              :class="c.researchgate ? 'text-[#00CCBB] hover:text-[#009988]' : 'text-gray-400 cursor-not-allowed'"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ResearchGateIcon />
-            </a>
-
-            <!-- Google Scholar -->
-            <a
-              :href="c.googlescholar || '#'"
-              :class="c.googlescholar ? 'text-blue-500 hover:text-blue-600' : 'text-gray-400 cursor-not-allowed'"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <GoogleScholarIcon />
-            </a>
-          </div>
+          <ProfileLinks
+            :person="c"
+            class="mt-4"
+          />
         </div>
-      </div>
+      </article>
+    </div>
+
+    <p class="mt-12 text-3xl font-bold tracking-tight text-base-content">Curators</p>
+    <p class="mt-2 text-base-content/65 max-w-2xl">
+      Specialists who curate names, literature and data for their groups of
+      expertise.
+    </p>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <article
+        v-for="c in curators"
+        :key="fullName(c)"
+        class="flex items-center gap-4 rounded-xl bg-base-foreground p-4 ring-1 ring-base-border/40"
+      >
+        <Avatar
+          :person="c"
+          :size="52"
+        />
+        <div class="min-w-0 flex-1">
+          <h3 class="font-semibold text-base-content truncate">{{ fullName(c) }}</h3>
+          <p class="text-sm text-base-content/60 truncate">{{ c.institution }}</p>
+          <p class="text-xs text-base-content/45">{{ c.country }}</p>
+        </div>
+        <ProfileLinks
+          :person="c"
+          compact
+        />
+      </article>
     </div>
   </section>
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
-import GoogleScholarIcon from '../Icons/GoogleScholarIcon.vue'
+import { computed, h } from 'vue'
+import { collaborators } from './AboutMapData.js'
+import { avatarColor, fullName, initials, isCoordinator, roles, sortTeam } from './teamUtils.js'
 import OrcidIcon from '../Icons/OrcidIcon.vue'
 import ResearchGateIcon from '../Icons/ResearchGateIcon.vue'
+import GoogleScholarIcon from '../Icons/GoogleScholarIcon.vue'
 
-const defaultImage = 'https://via.placeholder.com/112?text=Photo'
-const collaborators = ref([])
+const team = sortTeam(collaborators)
+const coordinators = computed(() => team.filter(isCoordinator))
+const curators = computed(() => team.filter((c) => !isCoordinator(c)))
 
-onMounted(async () => {
-  const data = await import('/pages/components/Section/map/AboutMapData.js')
-  collaborators.value = data.collaborators
-})
+const Avatar = (p) => {
+  const style = { width: `${p.size}px`, height: `${p.size}px` }
+  return p.person.image
+    ? h('img', {
+        src: p.person.image,
+        alt: fullName(p.person),
+        class: 'rounded-full object-cover flex-shrink-0 ring-4 ring-base-background',
+        style
+      })
+    : h(
+        'span',
+        {
+          class: 'rounded-full flex-shrink-0 flex items-center justify-center font-semibold text-white ring-4 ring-base-background',
+          style: { ...style, background: avatarColor(p.person), fontSize: `${Math.round(p.size / 2.8)}px` },
+          'aria-hidden': 'true'
+        },
+        initials(p.person)
+      )
+}
+Avatar.props = ['person', 'size']
 
-// Sort collaborators: Founder/Admin first, others alphabetically by last_name
-const sortedCollaborators = computed(() => {
-  const top = collaborators.value.filter(c => c.leader === 'yes' || c.administrator === 'yes')
-  const rest = collaborators.value
-    .filter(c => c.leader !== 'yes' && c.administrator !== 'yes')
-    .sort((a, b) => {
-      const lastA = a.last_name?.toLowerCase() || ''
-      const lastB = b.last_name?.toLowerCase() || ''
-      return lastA.localeCompare(lastB)
-    })
-  return [...top, ...rest]
-})
+const ROLE_CLASS = {
+  Founder: 'bg-secondary-color/20 text-amber-800 dark:text-secondary-color',
+  Administrator: 'bg-primary-color/10 text-primary-color dark:bg-primary-color/30 dark:text-blue-200',
+  Curator: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-400/15 dark:text-emerald-300'
+}
+
+const RoleBadges = (p) =>
+  h(
+    'div',
+    { class: 'flex flex-wrap gap-1.5' },
+    roles(p.person).map((r) =>
+      h('span', { class: `rounded-full px-2.5 py-0.5 text-xs font-semibold ${ROLE_CLASS[r]}` }, r)
+    )
+  )
+RoleBadges.props = ['person']
+
+const LINKS = [
+  { key: 'orcid', label: 'ORCID', icon: OrcidIcon, cls: 'text-[#A6CE39]' },
+  { key: 'researchgate', label: 'ResearchGate', icon: ResearchGateIcon, cls: 'text-[#00CCBB]' },
+  { key: 'googlescholar', label: 'Google Scholar', icon: GoogleScholarIcon, cls: 'text-blue-500' }
+]
+
+const ProfileLinks = (p) => {
+  const items = LINKS.filter((l) => p.person[l.key])
+  if (!items.length) return null
+  return h(
+    'div',
+    { class: 'flex flex-wrap items-center gap-2' },
+    items.map((l) =>
+      h(
+        'a',
+        {
+          href: p.person[l.key],
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          title: `${fullName(p.person)} on ${l.label}`,
+          'aria-label': `${fullName(p.person)} on ${l.label}`,
+          class: `inline-flex items-center gap-1.5 hover:opacity-80 transition ${l.cls} ${
+            p.compact ? '' : 'rounded-lg ring-1 ring-base-border/50 px-2.5 py-1.5'
+          }`
+        },
+        [
+          h(l.icon, { style: { width: '20px', height: '20px' } }),
+          p.compact ? null : h('span', { class: 'text-xs font-medium text-base-content/80' }, l.label)
+        ]
+      )
+    )
+  )
+}
+ProfileLinks.props = ['person', 'compact']
 </script>
-
-<style scoped>
-/* Tailwind handles colors and hover effects */
-</style>

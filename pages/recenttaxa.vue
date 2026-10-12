@@ -1,57 +1,49 @@
 <template>
-  <div class="container mx-auto py-10">
-    <section
-      class="border-b border-gray-300 pb-6 mb-8"
-      style="opacity: 0; animation: fadeIn 0.8s ease forwards;"
+  <div class="wid-home bg-base-background">
+    <PageHeader
+      eyebrow="What's new"
+      title="Recently added taxa"
+      subtitle="The latest valid names entered into WID, newest first. Names with a taxon page link straight to it."
     >
-      <h1
-        class="text-4xl font-semibold text-gray-900 tracking-tight mb-3 relative inline-block"
-      >
-        Recent taxa added
-        <span
-          class="absolute left-0 -bottom-1 h-[2px] w-16 bg-gray-900 rounded"
-          aria-hidden="true"
-        ></span>
-      </h1>
-      <p class="mt-3 text-lg text-gray-700 leading-relaxed max-w-full">
-        Below is a curated list of the most recently added taxa to the database, reflecting the latest additions to our taxonomic records and ongoing research efforts.
-      </p>
-<p class="mt-4 text-sm text-gray-500 italic">
-  If you have additional information, images, or corrections for any taxa listed, please <RouterLink to="about" class="text-gray-700 underline hover:text-gray-900">get in touch with us</RouterLink>.
-</p>
+      <WeeklyActivity />
+    </PageHeader>
 
+    <section class="container mx-auto px-4 py-10 sm:py-12 grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <div class="min-w-0 lg:col-span-7 xl:col-span-8">
+        <RecentTaxaList />
+      </div>
+
+      <aside class="min-w-0 lg:col-span-5 xl:col-span-4">
+        <div class="flex items-end justify-between gap-3">
+          <h2 class="text-lg font-semibold text-base-content">Latest references</h2>
+          <RouterLink
+            to="/RecentReferences"
+            class="text-sm font-semibold text-primary-color dark:text-secondary-color hover:underline"
+          >
+            See all
+          </RouterLink>
+        </div>
+        <RecentSourcesList
+          class="mt-4"
+          :per="6"
+          compact
+        />
+        <p class="mt-6 text-sm text-base-content/60">
+          Have images, records or corrections for any of these taxa?
+          <RouterLink
+            to="/help"
+            class="font-semibold text-primary-color dark:text-secondary-color hover:underline"
+            >Let us know</RouterLink
+          >.
+        </p>
+      </aside>
     </section>
-
-    <div class="flex flex-col gap-6 mb-5 mt-10">
-      <RecentTaxonTable
-        :parameters="{
-          validity: true,
-          recent: true,
-          taxon_name_type: 'Protonym',
-          recent_target: 'created_at'
-        }"
-      />
-      <RecentTable
-        :attributes="{ cached: 'Source' }"
-        route="/sources"
-        :parameters="{
-          in_project: true,
-          recent: true,
-          recent_target: 'created_at'
-        }"
-      />
-    </div>
   </div>
 </template>
 
 <script setup>
-import RecentTaxonTable from './components/Section/RecentTaxonTable.vue';
+import PageHeader from './components/Home/PageHeader.vue'
+import RecentTaxaList from './components/Recent/RecentTaxaList.vue'
+import RecentSourcesList from './components/Recent/RecentSourcesList.vue'
+import WeeklyActivity from './components/Recent/WeeklyActivity.vue'
 </script>
-
-<style>
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-</style>

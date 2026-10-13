@@ -5,7 +5,6 @@
     <HomeExplore />
     <HomeAbout />
     <HomeNews />
-    <HomeCite />
   </div>
 </template>
 
@@ -15,6 +14,5 @@ import HomeStats from './components/Home/HomeStats.vue'
 import HomeExplore from './components/Home/HomeExplore.vue'
 import HomeAbout from './components/Home/HomeAbout.vue'
 import HomeNews from './components/Home/HomeNews.vue'
-import HomeCite from './components/Home/HomeCite.vue'
 </script>
 

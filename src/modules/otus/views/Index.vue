@@ -1,6 +1,6 @@
 <template>
   <div class="wid-home bg-base-background min-h-full">
-    <div class="wid-otu-header text-white print:text-black print:bg-none">
+    <div class="wid-otu-header relative z-[1200] text-white print:text-black print:bg-none">
       <div class="container mx-auto px-4">
         <div class="pt-6 pb-6 sm:pt-8">
           <div
@@ -14,14 +14,10 @@
                 :current="taxon"
               />
             </VSkeleton>
-            <Autocomplete
-              class="wid-otu-search print:hidden min-w-full md:min-w-fit md:w-80 flex-shrink-0"
-              url="/otus/autocomplete"
-              query-param="term"
-              label="label_html"
-              placeholder="Search another taxon…"
-              :params="{ having_taxon_name_only: true }"
-              @select="loadOtu"
+            <GlobalSearch
+              class="print:hidden md:!w-80 flex-shrink-0"
+              variant="dark"
+              placeholder="Search taxa, references, authors…"
             />
           </div>
 
@@ -38,6 +34,7 @@
               <ClientOnly>
                 <DataMap />
               </ClientOnly>
+              <CiteButton v-if="isReady" />
               <DWCDownload
                 v-if="isReady"
                 :otu="otu"
@@ -97,6 +94,8 @@ import DataMap from '../components/DataMap.vue'
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb.vue'
 import TaxaInfo from '../components/TaxaInfo.vue'
 import DWCDownload from '../components/DWCDownload.vue'
+import CiteButton from '../components/CiteButton.vue'
+import GlobalSearch from '~/pages/components/Search/GlobalSearch.vue'
 
 const head = injectHead()
 const route = useRoute()
@@ -180,9 +179,24 @@ function redirectOnError(error) {
 }
 
 function updateMetadata() {
+  const plainName = taxon.value.full_name
+  const parentName = taxon.value.parent?.full_name
+  const description = [
+    `${plainName}${taxon.value.rank ? ` (${taxon.value.rank})` : ''}`,
+    parentName ? `in ${parentName}` : '',
+    '— nomenclature, references, distribution, specimens and images in the World Ichneumonidae Database.'
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   useHead(
     {
-      title: `${__APP_ENV__.project_name} - ${taxon.value.full_name}`
+      title: `${plainName} - ${__APP_ENV__.project_name}`,
+      meta: [
+        { name: 'description', content: description },
+        { property: 'og:title', content: `${plainName} - ${__APP_ENV__.project_name}` },
+        { property: 'og:description', content: description }
+      ]
     },
     { head }
   )
@@ -224,30 +238,6 @@ function loadOtu({ id, otu_valid_id }) {
   background:
     radial-gradient(50rem 20rem at 90% 0%, rgba(42, 98, 183, 0.45), transparent 60%),
     linear-gradient(180deg, #0f1b33 0%, #13223f 100%);
-}
-
-/* Search box on the dark band */
-.wid-otu-search :deep(input) {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border-radius: 0.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.wid-otu-search :deep(input::placeholder) {
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.wid-otu-search :deep(input:focus) {
-  outline: none;
-  border-color: rgb(var(--color-secondary));
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.wid-otu-search :deep(svg) {
-  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Datamap / DwC buttons as ghost buttons on the dark band */

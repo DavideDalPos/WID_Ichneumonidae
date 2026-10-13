@@ -81,6 +81,7 @@
           >
             <option value="name">Name (A–Z)</option>
             <option value="species">Valid species</option>
+            <option value="coverage">Species coverage</option>
             <option value="genera">Valid genera</option>
             <option value="progress">Curation progress</option>
           </select>
@@ -103,7 +104,7 @@
     >
       <span>Subfamily</span>
       <span class="text-right">Genera</span>
-      <span>Valid species</span>
+      <span>Valid species <span class="normal-case font-normal">(in WID / world)</span></span>
       <span class="text-right">All names</span>
       <span class="text-right">Specimens</span>
       <span class="text-right">Images</span>
@@ -131,24 +132,36 @@
             <span class="block text-xs text-base-content/50 truncate">{{ row.author || ' ' }}</span>
           </span>
 
-          <!-- Genera -->
-          <span class="lg:text-right">
+          <!-- Genera: in WID vs. described in the world -->
+          <span class="lg:text-right whitespace-nowrap text-sm tabular-nums">
             <span class="lg:hidden block text-[11px] uppercase tracking-wide text-base-content/50">Genera</span>
             <Num :value="row.genera" />
+            <span
+              v-if="row.worldGenera && !row.generaExceedsWorld"
+              class="text-base-content/45"
+              > / {{ row.worldApprox ? '~' : '' }}{{ fmt(row.worldGenera) }}</span
+            >
           </span>
 
-          <!-- Species with relative bar -->
-          <span>
+          <!-- Species: in WID vs. described in the world -->
+          <span :title="coverageTitle(row)">
             <span class="lg:hidden block text-[11px] uppercase tracking-wide text-base-content/50">Species</span>
             <span class="flex items-center gap-2">
-              <Num
-                :value="row.species"
-                class="w-12 lg:text-right"
-              />
-              <span class="hidden lg:block flex-1 h-1.5 rounded-full bg-base-muted/50 overflow-hidden">
+              <span class="whitespace-nowrap text-sm tabular-nums">
+                <Num :value="row.species" />
+                <span
+                  v-if="row.world && !row.exceedsWorld"
+                  class="text-base-content/45"
+                  > / {{ row.worldApprox ? '~' : '' }}{{ fmt(row.world) }}</span
+                >
+              </span>
+              <span
+                v-if="row.world"
+                class="hidden lg:block flex-1 h-1.5 rounded-full bg-base-muted/50 overflow-hidden"
+              >
                 <span
                   class="block h-full rounded-full bg-primary-color/70"
-                  :style="{ width: speciesShare(row) + '%' }"
+                  :style="{ width: (row.coverage ?? 0) + '%' }"
                 />
               </span>
             </span>
@@ -277,6 +290,12 @@
       <span class="flex items-center gap-1.5"><StateDot state="progress" /> In progress</span>
       <span class="flex items-center gap-1.5"><StateDot state="todo" /> Not started</span>
       <span>
+        World totals after
+        <span :title="WORLD_SPECIES_SOURCE.full">{{ WORLD_SPECIES_SOURCE.short }}</span><template v-if="otherSources.length">
+          and {{ otherSources.join('; ') }}</template
+        >; where WID already has more, WID's count is used instead.
+      </span>
+      <span>
         Curation bars, left to right:
         {{ CURATION_GROUPS.map((g) => g.label).join(' · ') }}
       </span>
@@ -288,6 +307,7 @@
 import { computed, h, reactive, ref } from 'vue'
 import HomeIcon from '../Home/HomeIcon.vue'
 import { useSubfamilyStats } from './useSubfamilyStats.js'
+import WORLD_SPECIES, { WORLD_SPECIES_SOURCE } from './data/worldSpecies.js'
 import {
   CURATION_GROUPS,
   groupProgress,
@@ -350,7 +370,21 @@ const merged = computed(() => {
     const curation = curationByName[name] || {}
     const live = stats.value[name] || {}
     const progress = itemProgress(curation)
+    const world = WORLD_SPECIES[name] || null
+    const species = live.species ?? null
     return {
+      world: world?.species ?? null,
+      // WID already has as many or more species than the published total:
+      // that figure is out of date, so treat WID's own count as the best total.
+      exceedsWorld: !!world?.species && species !== null && species > world.species,
+      worldGenera: world?.genera ?? null,
+      generaExceedsWorld: !!world?.genera && live.genera != null && live.genera > world.genera,
+      bestTotal: world?.species ? Math.max(world.species, species || 0) : null,
+      worldApprox: !!world?.approx,
+      worldNote: world?.note || '',
+      worldSource: world?.source || '',
+      coverage:
+        world?.species && species !== null ? Math.min(100, Math.round((species / world.species) * 100)) : null,
       name,
       curation,
       author: live.author || '',
@@ -367,8 +401,21 @@ const merged = computed(() => {
   })
 })
 
-const maxSpecies = computed(() => Math.max(1, ...merged.value.map((r) => r.species || 0)))
-const speciesShare = (row) => Math.round(((row.species || 0) / maxSpecies.value) * 100)
+// Non-default sources, e.g. "D. Dal Pos (WID), 2026 (Phygadeuontinae, Sisyrostolinae)"
+const otherSources = computed(() => {
+  const bySource = {}
+  merged.value.forEach((r) => {
+    if (r.worldSource) (bySource[r.worldSource] ||= []).push(r.name)
+  })
+  return Object.entries(bySource).map(([src, names]) => `${src} (${names.join(', ')})`)
+})
+
+const coverageTitle = (row) => {
+  if (!row.world) return 'No world total available'
+  if (row.exceedsWorld) return `WID has ${fmt(row.species)} valid species`
+  if (row.species === null) return ''
+  return `WID has ${fmt(row.species)} of ${row.worldApprox ? 'about ' : ''}${fmt(row.world)} described species (${row.coverage}%)${row.worldNote ? ' — ' + row.worldNote : ''}${row.worldSource ? ' — total: ' + row.worldSource : ''}`
+}
 
 /* Filters & sorting */
 const query = ref('')
@@ -415,13 +462,36 @@ const overallProgress = computed(() => {
   return list.length ? Math.round(list.reduce((s, r) => s + r.progress, 0) / list.length) : 0
 })
 
+// Count in WID vs. described in the world, for species or genera. Where WID
+// already has more than the published total, WID's own count is used.
+function coverage(key, worldKey) {
+  const rows = merged.value.filter((r) => r[worldKey])
+  const loadingNow = loading.value && rows.every((r) => r[key] === null)
+  const world = rows.reduce((n, r) => n + Math.max(r[worldKey], r[key] || 0), 0)
+  const inWid = rows.reduce((n, r) => n + (r[key] || 0), 0)
+  const missing = merged.value.filter((r) => !r[worldKey]).map((r) => r.name)
+  return { loadingNow, world, inWid, missing, pct: world ? Math.round((inWid / world) * 100) : 0 }
+}
+
+function coverageCard(label, key, worldKey, noun) {
+  const total = sum(key)
+  const c = coverage(key, worldKey)
+  return {
+    label,
+    value: total === null ? null : fmt(total),
+    note: c.loadingNow
+      ? 'Live from TaxonWorks'
+      : `${c.pct}% of ~${fmt(c.world)} described ${noun}` +
+        (c.missing.length ? ` (excl. ${c.missing.join(', ')})` : ''),
+    progress: c.loadingNow ? undefined : c.pct
+  }
+}
+
 const summary = computed(() => {
-  const species = sum('species')
-  const genera = sum('genera')
   return [
     { label: 'Subfamilies', value: merged.value.length, note: 'Recognised in WID' },
-    { label: 'Valid genera', value: genera === null ? null : fmt(genera), note: 'Live from TaxonWorks' },
-    { label: 'Valid species', value: species === null ? null : fmt(species), note: 'Live from TaxonWorks' },
+    coverageCard('Valid genera', 'genera', 'worldGenera', 'genera'),
+    coverageCard('Valid species', 'species', 'world', 'species'),
     {
       label: 'Overall curation',
       value: `${overallProgress.value}%`,
@@ -440,7 +510,7 @@ const summary = computed(() => {
   .lg\:wid-cols,
   .wid-cols {
     grid-template-columns:
-      minmax(10rem, 1.6fr) 4.5rem minmax(8rem, 1.6fr) 5rem 5.5rem 4.5rem
+      minmax(10rem, 1.6fr) 6.5rem minmax(8rem, 1.6fr) 5rem 5.5rem 4.5rem
       minmax(9rem, 1.4fr) 1rem;
   }
 }

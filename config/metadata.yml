@@ -1,8 +1,22 @@
 ---
 metadata:
   - name: description
-    content: TaxonPages is a tool to serve taxon pages.
+    content: The World Ichneumonidae Database (WID) is an open, expert-curated catalogue of the Darwin wasps (Hymenoptera, Ichneumonidae) of the world, with names, literature, distribution, images, specimen records and identification keys.
   - name: keywords
-    content: taxonpages, species, sfg
+    content: Ichneumonidae, Darwin wasps, parasitoid wasps, Hymenoptera, taxonomy, catalogue, distribution, identification keys, TaxonWorks
   - name: robots
     content: follow
+  - property: og:type
+    content: website
+  - property: og:site_name
+    content: World Ichneumonidae Database (WID)
+  - property: og:title
+    content: World Ichneumonidae Database (WID)
+  - property: og:description
+    content: An open, expert-curated catalogue of the Darwin wasps of the world.
+  - property: og:image
+    content: https://worldichneumonidae.com/images/og-wid.jpg
+  - name: twitter:card
+    content: summary_large_image
+  - name: twitter:image
+    content: https://worldichneumonidae.com/images/og-wid.jpg

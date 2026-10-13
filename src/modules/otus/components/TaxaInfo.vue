@@ -43,6 +43,25 @@
     >
       <CommonNames />
     </p>
+
+    <!-- At a glance -->
+    <dl
+      v-if="facts.length"
+      class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm"
+    >
+      <div
+        v-for="fact in facts"
+        :key="fact.label"
+        class="flex items-baseline gap-1.5"
+        :title="fact.title || ''"
+      >
+        <dt class="text-white/50">{{ fact.label }}</dt>
+        <dd
+          class="text-white/90 font-medium [&_i]:italic"
+          v-html="fact.value"
+        />
+      </div>
+    </dl>
   </div>
 </template>
 
@@ -53,4 +72,44 @@ import CommonNames from './CommonNames.vue'
 
 const store = useOtuStore()
 const commonNames = computed(() => store.taxonomy.commonNames?.length)
+
+const plain = (s) => String(s || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim()
+const fmt = (n) => Number(n).toLocaleString('en-US')
+
+const facts = computed(() => {
+  const t = store.taxon || {}
+  const c = store.catalog || {}
+  const out = []
+
+  // Original combination, only when it differs from the current name
+  if (t.original_combination && plain(t.original_combination) !== plain(t.full_name_tag)) {
+    out.push({ label: 'Original combination', value: t.original_combination })
+  }
+
+  // For genera and above: how many valid species sit below this taxon
+  const speciesRow = (Array.isArray(c.stats) ? c.stats : []).find((s) => s.rank === 'species')
+  const isSpeciesGroup = /SpeciesGroup/.test(t.rank_string || '')
+  if (!isSpeciesGroup && speciesRow?.names?.valid) {
+    out.push({ label: 'Valid species', value: fmt(speciesRow.names.valid) })
+  }
+
+  const synonyms = store.taxonomy?.synonyms?.length || 0
+  if (synonyms) out.push({ label: 'Synonyms & combinations', value: fmt(synonyms) })
+
+  if (c.timeline?.length) out.push({ label: 'Nomenclatural acts', value: fmt(c.timeline.length) })
+  if (c.sources?.length) out.push({ label: 'References', value: fmt(c.sources.length) })
+
+  // Type depositories, e.g. [[["ANSP", "Academy of Natural Sciences of Philadelphia"]]]
+  const repos = (Array.isArray(c.repositories) ? c.repositories : []).flat().filter((r) => Array.isArray(r) && r[0])
+  if (repos.length) {
+    const unique = [...new Map(repos.map((r) => [r[0], r[1]])).entries()]
+    out.push({
+      label: unique.length > 1 ? 'Type depositories' : 'Type depository',
+      value: unique.map(([code]) => code).join(', '),
+      title: unique.map(([code, name]) => `${code}: ${name}`).join('\n')
+    })
+  }
+
+  return out
+})
 </script>

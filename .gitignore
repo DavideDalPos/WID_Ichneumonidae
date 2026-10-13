@@ -13,3 +13,4 @@ config/**/*.development.yml
 !src/**
 !modules
 !modules/**
+!index.html

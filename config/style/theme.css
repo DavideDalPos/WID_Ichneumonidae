@@ -134,3 +134,9 @@
 .dark {
   --color-ui-accent: 96, 165, 250;
 }
+
+/* Panel loading overlays stay inside their card (the core spinner uses z-index 4000,
+   which would otherwise cover the header search dropdown) */
+.tp-card .box-spinner {
+  z-index: 10 !important;
+}

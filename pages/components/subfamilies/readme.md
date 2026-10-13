@@ -1,70 +1,15 @@
-# Ichneumonidae Project Progress Dashboard
+# Subfamilies page
 
-This page documents the **Vue component used to track the progress of the Ichneumonidae data compilation project**.
+`pages/subfamilies.vue` → `SubfamilyExplorer.vue`
 
-The interface allows filtering by subfamily, displays progress across several data categories, and provides links to overview and taxon pages.
+- **Live counts** (`useSubfamilyStats.js`): for every valid subfamily directly under
+  Ichneumonidae (taxon name 762910) it asks TaxonWorks for valid genera, valid species,
+  all names, specimens and images. Results are cached in `sessionStorage` for 6 hours.
+- **Curation status** comes from the hand-edited files in `data/*.js` (one per
+  subfamily). Each task is `true` (complete), `'in-progress'` or `false`
+  (not started). Groups and labels are defined in `curation.js`.
+- Rows can be filtered by name and status, sorted, and expanded to show the full
+  checklist and a link to the taxon page.
 
----
-
-## Features
-
-- 🔎 **Search filter** for subfamily names  
-- 📊 **Automatic progress calculation** based on completed data tasks  
-- 📈 **Visual progress bars** with color coding  
-- 📚 **Abbreviation pop-ups** explaining each data category  
-- 🔗 **Links to overview and WID taxon pages**  
-- ⬆️ **Sortable table** by progress or status  
-
----
-
-## Data Categories
-
-The dashboard tracks progress across several taxonomic data components:
-
-| Category | Description |
-|--------|-------------|
-| Genera | Valid genera, synonyms, and supporting literature |
-| Type species | Presence, references, and specimen photographs |
-| Species | Valid species, synonyms, references, and citations |
-| OTU data | Distribution data, type series information, and photographs |
-| Biology | Biological traits, host records, and supporting citations |
-
----
-
-## Status Indicators
-
-The system uses three status states:
-
-| Symbol | Meaning |
-|------|--------|
-| ✔ | Completed |
-| ⏳ | In progress |
-| ✘ | Not started |
-
-Progress is automatically calculated based on completed tasks.
-
----
-
-## Example Component Code
-
-Below is the main Vue component used to generate the progress table.
-
-```vue
-// TableProgress.vue
-<script setup>
-import { computed, onMounted, ref } from 'vue';
-import SearchForm from './SearchForm.vue';
-
-/* Abbreviation dictionary */
-const ABBR = {
-  V: { label: 'Valid names', description: 'Names currently considered valid.' },
-  S: { label: 'Synonyms', description: 'Synonyms or invalid names.' },
-  R: { label: 'References', description: 'Main supporting references.' },
-  C: { label: 'Citations', description: 'Full taxonomic citation history.' },
-  T: { label: 'Type species', description: 'Status of type species designation.' },
-  P: { label: 'Photographs', description: 'Availability of specimen photographs.' },
-  D: { label: 'Geographic distribution', description: 'Known geographic range.' },
-  B: { label: 'Biological association', description: 'Host and ecological associations.' },
-  O: { label: 'Original Type Series', description: 'Information on original type specimens.' }
-};
-</script>
+To add a subfamily, create `data/<Name>.js` (copy an existing one) and import it in
+`data/index.js`.

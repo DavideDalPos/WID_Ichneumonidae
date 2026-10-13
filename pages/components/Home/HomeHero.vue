@@ -1,9 +1,9 @@
 <template>
-  <section class="wid-hero relative overflow-hidden text-white">
+  <section class="wid-hero relative overflow-x-clip text-white">
     <div
       class="container mx-auto px-4 pt-12 pb-28 sm:pt-16 lg:pt-20 lg:pb-36 grid lg:grid-cols-12 gap-10 items-center relative"
     >
-      <div class="lg:col-span-6 xl:col-span-6 relative z-10">
+      <div class="lg:col-span-6 xl:col-span-6 relative z-20">
         <p
           class="inline-flex items-center gap-2 rounded-full bg-white/10 ring-1 ring-white/15 px-3 py-1 text-xs font-medium uppercase tracking-wider text-secondary-color"
         >
@@ -25,10 +25,9 @@
         </p>
 
         <div class="wid-search mt-8 max-w-xl">
-          <AutocompleteOtu
+          <GlobalSearch
             autofocus
-            class="w-full"
-            placeholder="Search a genus or species, e.g. Ichneumon"
+            placeholder="Search a taxon, reference or author, e.g. Ichneumon or Townes"
           />
         </div>
 
@@ -70,6 +69,7 @@
 
 <script setup>
 import HomeIcon from './HomeIcon.vue'
+import GlobalSearch from '../Search/GlobalSearch.vue'
 
 const { base_url = '/' } = __APP_ENV__
 const waspUrl = (base_url + '/images/logoWid_wasp.png').replace('//', '/')
@@ -90,34 +90,4 @@ const quickLinks = [
     linear-gradient(180deg, #0f1b33 0%, #13223f 100%);
 }
 
-.wid-search :deep(.tp-autocomplete) {
-  width: 100%;
-}
-
-.wid-search :deep(.tp-autocomplete__item) {
-  font-size: 0.875rem;
-  padding: 0.6rem 1rem;
-}
-
-.wid-search :deep(.tp-autocomplete__list) {
-  border-radius: 0.75rem;
-  margin-top: 0.5rem !important;
-  max-height: 20rem;
-}
-
-/* Make the shared TaxonPages autocomplete feel at home on the dark hero */
-.wid-search :deep(input) {
-  height: 3.25rem;
-  font-size: 1rem;
-  border-radius: 0.75rem;
-  border: 0;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-
-.wid-search :deep(input:focus) {
-  outline: none;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6),
-    0 0 0 3px rgb(var(--color-secondary));
-}
 </style>

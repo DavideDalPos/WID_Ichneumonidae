@@ -16,9 +16,9 @@
         />
         <p class="text-sm leading-relaxed text-amber-900/90 dark:text-amber-100/80">
           Ichneumonidae is extremely diverse and has a vast literature, so
-          fully updating a subfamily can take years. Counts reflect what has
-          been entered in WID so far, not the known world fauna. Open a row to
-          see exactly what has been curated.
+          fully updating a subfamily can take years. The species column compares
+          the valid species entered in WID so far with the number of described
+          species in the world. Open a row to see exactly what has been curated.
         </p>
       </div>
 

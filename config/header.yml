@@ -9,10 +9,11 @@
       link: /about
 
 
+    - label: Subfamilies
+      link: /subfamilies
+
     - label: Taxa & Keys
       submenu:
-        - label: Subfamily Table
-          link: /subfamilies
         - label: Taxa Addition
           link: /RecentTaxa
         - label: Keys

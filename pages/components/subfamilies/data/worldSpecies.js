@@ -54,7 +54,7 @@ export default {
   Sisyrostolinae: { species: 49, genera: 6, source: 'D. Dal Pos (WID), 2026' },
   Stilbopinae: { species: 30, genera: 3 },
   Tatogastrinae: { species: 1, genera: 1 },
-  Tersilochinae: { species: 450, approx: true }, // no world genus total in the source
+  Tersilochinae: { species: 524, genera: 34, source: 'D. Dal Pos (WID), 2026' },
   Tryphoninae: { species: 1250, genera: 54, approx: true },
   Xoridinae: { species: 210, genera: 4, approx: true }
 }

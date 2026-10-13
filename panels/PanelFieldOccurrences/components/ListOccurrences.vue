@@ -3,7 +3,31 @@
       <VCardHeader>Field occurrences</VCardHeader>
       <VCardContent :class="isLoading && 'min-h-[6rem]'">
         <VSpinner v-if="isLoading" />
-        <ul>
+
+        <!-- Nothing recorded: explain instead of an empty card -->
+        <div v-if="!isLoading && !list.length">
+          <p class="text-sm text-base-content/80">
+            No field occurrences have been recorded for this taxon yet. Field
+            occurrences are observations made without keeping a specimen, such
+            as sightings or photographs.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <RouterLink
+              :to="$route.path.replace(/field_occurrences\/?$/, 'specimen_records')"
+              class="inline-flex items-center rounded-lg bg-primary-color px-3 py-1.5 text-xs font-semibold text-primary-content hover:opacity-90"
+            >
+              See specimen records
+            </RouterLink>
+            <RouterLink
+              to="/help"
+              class="inline-flex items-center rounded-lg px-3 py-1.5 text-xs font-semibold text-base-content ring-1 ring-base-border hover:bg-base-muted/40"
+            >
+              Share an observation
+            </RouterLink>
+          </div>
+        </div>
+
+        <ul v-else>
           <li
             v-for="item in items"
             :key="item.id"

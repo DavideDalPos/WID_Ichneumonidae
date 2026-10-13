@@ -5,10 +5,25 @@ const round = (num) =>
     .replace(/\.0$/, '')
 const em = (px, base) => `${round(px / base)}em`
 
+function withOpacity(variableName) {
+  return ({ opacityValue }) =>
+    opacityValue !== undefined
+      ? `rgba(var(${variableName}), ${opacityValue})`
+      : `rgb(var(${variableName}))`
+}
+
 module.exports = {
   presets: [require(__tailwindCSSTaxonPagesConfigPath)],
   theme: {
     extend: {
+      // The custom panels use `bg-secondary`, `text-secondary`, `ring-secondary`…
+      // (TaxonPages v2 naming). Map them to a theme-aware UI accent.
+      colors: {
+        secondary: {
+          DEFAULT: withOpacity('--color-ui-accent')
+        }
+      },
+
       typography: {
         DEFAULT: {
           css: {

@@ -4,12 +4,40 @@
       <VSpinner v-if="isLoading" />
     </ClientOnly>
 
-            <div
-        v-if="!isLoading && taxonId === null"
-  class="mx-auto my-8 px-2 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg border border-gray-300 shadow-sm w-max text-center"
->
-        No iNaturalist records found
-      </div>
+    <!-- Not on iNaturalist / nothing research-grade: explain instead of an empty box -->
+    <template v-if="!isLoading && (taxonId === null || (taxonId && !observations.length))">
+      <VCardHeader>iNaturalist</VCardHeader>
+      <VCardContent>
+        <p class="text-sm text-base-content/80">
+          <template v-if="taxonId === null">
+            <span class="italic">{{ props.taxon.expanded_name }}</span> is not on
+            iNaturalist yet, so there are no community observations to show.
+          </template>
+          <template v-else-if="otherObservationCount">
+            iNaturalist has {{ otherObservationCount.toLocaleString('en-US') }}
+            {{ otherObservationCount === 1 ? 'observation' : 'observations' }} of
+            <span class="italic">{{ props.taxon.expanded_name }}</span>, but none
+            have reached research grade yet.
+          </template>
+          <template v-else>
+            iNaturalist has no observations of
+            <span class="italic">{{ props.taxon.expanded_name }}</span> yet.
+          </template>
+        </p>
+        <a
+          :href="
+            taxonId
+              ? `https://www.inaturalist.org/observations?taxon_id=${taxonId}`
+              : `https://www.inaturalist.org/search?q=${encodeURIComponent((props.taxon.expanded_name || '').replace(/\s*\([^)]*\)/g, ''))}`
+          "
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inat-btn mt-4 inline-flex px-3 py-1.5 text-xs font-semibold rounded shadow"
+        >
+          {{ taxonId ? 'See observations on iNaturalist' : 'Search iNaturalist' }}
+        </a>
+      </VCardContent>
+    </template>
 
 <!-- Upper section: curated taxon photos from /taxa/:id -->
     <template v-if="taxonPhotoImages.length">
@@ -46,6 +74,7 @@
     </template>
 
     <!-- Lower section: paginated research-grade observations -->
+    <template v-if="isLoading || observations.length">
     <VCardHeader>
       <a
         v-if="taxonId"
@@ -59,14 +88,6 @@
       <template v-else>Research-grade observations</template>
     </VCardHeader>
     <VCardContent class="min-h-[6rem]">
-      <div
-        v-if="!isLoading && taxonId !== null && !observations.length"
-  class="mx-auto my-8 px-2 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg border border-gray-300 shadow-sm w-max text-center"
->
-        No iNaturalist records found
-      </div>
-
-
       <div class="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-3">
         <div
           v-for="observation in observations"
@@ -102,6 +123,7 @@
         "
       />
     </VCardContent>
+    </template>
 
     <!-- ImageViewer for curated taxon photos -->
     <ImageViewer
@@ -183,6 +205,7 @@ const props = defineProps({
 
 const isLoading = ref(false)
 const observations = ref([])
+const otherObservationCount = ref(0)
 const taxonPhotoImages = ref([])
 
 /**
@@ -337,6 +360,18 @@ async function loadObservations(params = {}) {
     ])
 
     observations.value = obsData.data.results
+
+    // No research-grade records: count all observations so the empty state can say why
+    if (!obsData.data.results?.length) {
+      try {
+        const { data: anyGrade } = await axios.get('https://api.inaturalist.org/v1/observations', {
+          params: { taxon_id: taxonId.value, per_page: 0 }
+        })
+        otherObservationCount.value = anyGrade.total_results || 0
+      } catch {
+        otherObservationCount.value = 0
+      }
+    }
     pagination.value = {
       page: obsData.data.page,
       per_page: obsData.data.per_page,
@@ -353,3 +388,14 @@ onMounted(() => {
   loadObservations({ per_page: props.perPage })
 })
 </script>
+<style scoped>
+/* iNaturalist brand green */
+.inat-btn {
+  background: #74ac00;
+  color: #fff;
+}
+
+.inat-btn:hover {
+  background: #5f8f00;
+}
+</style>

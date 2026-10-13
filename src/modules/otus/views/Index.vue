@@ -1,38 +1,40 @@
 <template>
-  <div>
-    <div class="bg-base-foreground border-b border-base-muted pl-4 pr-4">
-      <div class="container mx-auto">
-        <div class="pt-6 pb-6">
+  <div class="wid-home bg-base-background min-h-full">
+    <div class="wid-otu-header text-white print:text-black print:bg-none">
+      <div class="container mx-auto px-4">
+        <div class="pt-6 pb-6 sm:pt-8">
           <div
-            class="flex flex-col-reverse md:flex-row justify-between items-start"
+            class="flex flex-col-reverse md:flex-row justify-between items-start gap-4"
           >
             <VSkeleton class="w-full md:w-3/4">
               <Breadcrumb
                 v-if="isReady"
-                class="w-full md:w-3/4"
+                class="w-full"
                 :list="otu?.parents || {}"
                 :current="taxon"
               />
             </VSkeleton>
             <Autocomplete
-              class="print:hidden min-w-full mb-2 md:min-w-fit md:ml-2 md:mb-0 md:w-96"
+              class="wid-otu-search print:hidden min-w-full md:min-w-fit md:w-80 flex-shrink-0"
               url="/otus/autocomplete"
               query-param="term"
               label="label_html"
-              placeholder="Search name..."
+              placeholder="Search another taxon…"
               :params="{ having_taxon_name_only: true }"
               @select="loadOtu"
             />
           </div>
 
-          <div class="mt-8 flex justify-between items-end">
+          <div
+            class="mt-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4"
+          >
             <VSkeleton
               :lines="2"
-              class="w-96"
+              class="w-full md:w-2/3"
             >
               <TaxaInfo v-if="isReady" />
             </VSkeleton>
-            <div class="flex flex-row gap-2">
+            <div class="wid-otu-actions flex flex-row gap-2 print:hidden">
               <ClientOnly>
                 <DataMap />
               </ClientOnly>
@@ -46,7 +48,7 @@
 
         <TabMenu
           v-if="isReady && childrenRoutes.length > 1"
-          class="print:hidden"
+          class="wid-otu-tabs print:hidden -mb-px"
         >
           <TabItem
             v-for="{ name, label } in tabs"
@@ -58,8 +60,8 @@
         </TabMenu>
       </div>
     </div>
-    <div class="pt-3 pb-4">
-      <div class="container mx-auto box-border">
+    <div class="pt-6 pb-10">
+      <div class="container mx-auto box-border px-4">
         <RouterView
           v-if="isReady"
           :key="route.fullPath"
@@ -216,3 +218,79 @@ function loadOtu({ id, otu_valid_id }) {
   })
 }
 </script>
+
+<style scoped>
+.wid-otu-header {
+  background:
+    radial-gradient(50rem 20rem at 90% 0%, rgba(42, 98, 183, 0.45), transparent 60%),
+    linear-gradient(180deg, #0f1b33 0%, #13223f 100%);
+}
+
+/* Search box on the dark band */
+.wid-otu-search :deep(input) {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.wid-otu-search :deep(input::placeholder) {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.wid-otu-search :deep(input:focus) {
+  outline: none;
+  border-color: rgb(var(--color-secondary));
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.wid-otu-search :deep(svg) {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Datamap / DwC buttons as ghost buttons on the dark band */
+.wid-otu-actions :deep(.tp-button) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-weight: 600;
+}
+
+.wid-otu-actions :deep(.tp-button:hover) {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Tabs sit on the bottom edge of the band */
+.wid-otu-tabs :deep(.tp-tab-list) {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 0.25rem;
+  scrollbar-width: none;
+}
+
+.wid-otu-tabs :deep(.tp-tab-item a) {
+  white-space: nowrap;
+  padding: 0.75rem 1rem;
+  border-radius: 0.625rem 0.625rem 0 0;
+  border-bottom: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.wid-otu-tabs :deep(.tp-tab-item a:hover) {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.wid-otu-tabs :deep(.tp-tab-item a.router-link-active),
+.wid-otu-tabs :deep(.tp-tab-item a.router-link-exact-active) {
+  background: rgb(var(--color-base-background));
+  color: rgb(var(--color-base-content));
+  font-weight: 600;
+}
+</style>

@@ -80,3 +80,57 @@
 .wid-home *::after {
   box-sizing: border-box;
 }
+
+/* ------------------------ Cards & panels ------------------------ */
+/* Softer, rounder cards used by every taxon-page panel (VCard) */
+.tp-card {
+  border-radius: 1rem !important;
+  border: 0 !important;
+  box-shadow:
+    0 0 0 1px rgba(var(--color-base-border), 0.45),
+    0 1px 2px rgba(15, 27, 51, 0.04) !important;
+  overflow: hidden;
+}
+
+.tp-card-header {
+  border-color: rgba(var(--color-base-border), 0.35) !important;
+  font-weight: 600 !important;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-base-content));
+  padding: 0.875rem 1.25rem !important;
+}
+
+.tp-card-content {
+  padding: 1rem 1.25rem !important;
+}
+
+/* Links inside panels: readable blue in light mode, gold in dark mode */
+:root:not(.dark) .tp-card .text-secondary-color,
+:root:not(.dark) .tp-card a.text-secondary {
+  color: rgb(var(--color-primary));
+}
+
+/* Table headers inside panels */
+.tp-card thead th {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: rgba(var(--color-base-content), 0.6);
+}
+
+:root:not(.dark) .tp-card a:not([class*='text-']):not([class*='bg-']) {
+  color: rgb(var(--color-primary));
+}
+
+:root:not(.dark) .tp-card a:not([class*='text-']):not([class*='bg-']):hover {
+  text-decoration: underline;
+}
+
+/* UI accent used by the custom panels (bars, toggles, links, pills) */
+:root {
+  --color-ui-accent: 42, 98, 183;
+}
+
+.dark {
+  --color-ui-accent: 96, 165, 250;
+}

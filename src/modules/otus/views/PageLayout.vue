@@ -1,12 +1,12 @@
 <template>
-  <div class="grid gap-3">
+  <div class="grid gap-5">
     <div
       v-for="row in pageLayout.panels"
-      :class="['grid', 'grid-cols-1', 'gap-3', columnClasses[row.length]]"
+      :class="['grid', 'grid-cols-1', 'gap-5', columnClasses[row.length]]"
     >
       <div
         v-for="(column, index) in row"
-        class="grid grid-cols-1 gap-3 auto-rows-min"
+        class="grid grid-cols-1 gap-5 auto-rows-min"
         :key="index"
       >
         <template

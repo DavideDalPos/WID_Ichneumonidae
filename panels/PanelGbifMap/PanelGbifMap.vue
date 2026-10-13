@@ -123,6 +123,37 @@
       </div>
     </div>
   </VCard>
+
+  <!-- Matched in GBIF but nothing to plot: say so instead of leaving the tab blank -->
+  <VCard v-else-if="showEmptyCard">
+    <VCardHeader class="flex items-center gap-3">
+      <img :src="gbifMark" alt="GBIF" class="h-8 w-auto shrink-0" />
+      <h2 class="text-md grow">GBIF</h2>
+    </VCardHeader>
+    <VCardContent>
+      <p class="text-sm text-base-content/80">
+        <template v-if="gbifRecordCount">
+          GBIF holds {{ gbifRecordCount.toLocaleString('en-US') }}
+          {{ gbifRecordCount === 1 ? 'record' : 'records' }} for
+          <span class="italic">{{ taxonDisplayName }}</span>, but none are
+          georeferenced, illustrated or flagged as type material, so there is
+          nothing to map here yet.
+        </template>
+        <template v-else>
+          GBIF has no occurrence records for
+          <span class="italic">{{ taxonDisplayName }}</span> yet.
+        </template>
+      </p>
+      <a
+        :href="gbifSpeciesUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="gbif-explore-btn mt-4 inline-flex px-3 py-1.5 text-xs rounded shadow"
+      >
+        View on GBIF.org
+      </a>
+    </VCardContent>
+  </VCard>
 </template>
 
 <script setup>
@@ -226,6 +257,33 @@ const hasAnyData = computed(
 
 const cardVisible = computed(
   () => hasAnyData.value || loading.value || noGbifMatch.value
+)
+
+// Shown when the taxon matched in GBIF but has no plottable records, so the
+// GBIF tab isn't left completely empty when the sibling panels also hide.
+const gbifRecordCount = ref(null)
+const showEmptyCard = computed(
+  () => !cardVisible.value && !matchLoading.value && !!gbifKey.value && totalCount.value !== null && gbifRecordCount.value !== null
+)
+const gbifSpeciesUrl = computed(() =>
+  gbifKey.value
+    ? `https://www.gbif.org/occurrence/search?checklist_key=${CHECKLIST_KEY}&taxon_key=${gbifKey.value}`
+    : 'https://www.gbif.org'
+)
+
+watch(
+  [gbifKey, cardVisible, matchLoading, totalCount],
+  async ([key, visible, mLoading, total]) => {
+    if (!key || visible || mLoading || total === null) return
+    try {
+      const r = await fetch(`https://api.gbif.org/v1/occurrence/search?checklistKey=${CHECKLIST_KEY}&taxonKey=${key}&limit=0`)
+      const j = await r.json()
+      gbifRecordCount.value = typeof j?.count === 'number' ? j.count : 0
+    } catch {
+      gbifRecordCount.value = 0
+    }
+  },
+  { immediate: true }
 )
 
 const modeChipLabel = computed(() => {

@@ -8,17 +8,17 @@
     >
       <IconArrowRight
         v-if="index"
-        class="w-3 h-3 mr-0.5 ml-0.5 opacity-50"
+        class="w-3 h-3 mx-1 opacity-40"
       />
       <RouterLink
-        class="inline-flex items-center text-sm font-normal hover:text-opacity-75 text-secondary-color"
+        class="inline-flex items-center text-sm font-normal text-white/60 hover:text-white transition-colors"
         :to="{ name: 'otus-id', params: { id: item.id } }"
       >
         {{ key }}
       </RouterLink>
     </li>
-    <li class="inline-flex items-center ml-0 text-sm">
-      <IconArrowRight class="w-3 h-3 mr-0.5 ml-0.5 opacity-50" />
+    <li class="inline-flex items-center ml-0 text-sm text-white/90">
+      <IconArrowRight class="w-3 h-3 mx-1 opacity-40" />
       <span v-html="current.full_name_tag" />
     </li>
   </ul>

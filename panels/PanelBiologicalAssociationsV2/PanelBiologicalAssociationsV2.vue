@@ -4,7 +4,7 @@
       <VSpinner v-if="isLoading" />
     </ClientOnly>
     <VCardHeader>
-      Biological associations ({{ pagination.total }})
+      Biological associations ({{ Number(pagination.total) || 0 }})
     </VCardHeader>
     <VCardContent class="min-h-[6rem] overflow-x-auto">
       <VPagination

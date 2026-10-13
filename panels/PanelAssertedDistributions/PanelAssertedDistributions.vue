@@ -45,7 +45,15 @@
             @click="selectedOtuId = tab.id"
           >
             <template v-if="tab.id === 'all'">All</template>
-            <em v-else>{{ tab.label }}</em>
+            <template v-else>
+              <em>{{ tab.label }}</em>
+              <span
+                v-if="tab.isSynonym"
+                class="ml-1 rounded bg-base-muted/70 px-1 py-px text-[10px] font-semibold uppercase tracking-wide not-italic"
+                title="Junior synonym — records published under this name"
+                >syn.</span
+              >
+            </template>
             <span class="ml-1 text-xs opacity-60">({{ tab.count }})</span>
           </button>
         </div>
@@ -107,6 +115,12 @@
                     :key="entry.otuId"
                   >
                     <em>{{ entry.otuName }}</em>
+                    <span
+                      v-if="entry.isSynonym"
+                      class="ml-0.5 text-[10px] opacity-60"
+                      title="Recorded under this junior synonym"
+                      >(syn.)</span
+                    >
                     <span v-if="i < item.otuEntries.length - 1">; </span>
                   </template>
                 </VTableBodyCell>
@@ -265,11 +279,16 @@ import PanelMapV2 from '../PanelMapV2/PanelMapV2.vue'
 import { useOtuPageRequest } from '@/modules/otus/helpers/useOtuPageRequest.js'
 import { makeAPIRequest } from '@/utils'
 import { computed, onMounted, ref } from 'vue'
-const otuId = computed(() => distributions.value[0]?.otuId)
+const otuId = computed(() => props.otuId || distributions.value.find((d) => !d.isSynonym)?.otuId || distributions.value[0]?.otuId)
 const props = defineProps({
   taxon: {
     type: Object,
     required: true
+  },
+
+  otuId: {
+    type: [Number, String],
+    default: null
   },
 
   // Load all at once; descendants=true can multiply record count
@@ -284,6 +303,8 @@ const isLoading = ref(false)
 const totalCount = ref(0)
 const activeCitation = ref(null)
 const selectedOtuId = ref('all')
+// otuId -> { isSynonym } from the coordinatified OTU list
+const otuMeta = ref(new Map())
 
 
 // Map modal state
@@ -307,12 +328,12 @@ const tabs = computed(() => {
   const byOtu = new Map()
   for (const d of distributions.value) {
     if (!byOtu.has(d.otuId)) {
-      byOtu.set(d.otuId, { id: d.otuId, label: d.otuName, count: 0 })
+      byOtu.set(d.otuId, { id: d.otuId, label: d.otuName, isSynonym: d.isSynonym, count: 0 })
     }
     byOtu.get(d.otuId).count++
   }
-  const otuTabs = [...byOtu.values()].sort((a, b) =>
-    a.label.localeCompare(b.label)
+  const otuTabs = [...byOtu.values()].sort(
+    (a, b) => Number(a.isSynonym) - Number(b.isSynonym) || a.label.localeCompare(b.label)
   )
   return [{ id: 'all', label: 'All', count: distributions.value.length }, ...otuTabs]
 })
@@ -353,7 +374,7 @@ function mergeByArea(dists) {
     const m = byArea.get(key)
     m.isAbsent = m.isAbsent || dist.isAbsent
     if (!m.otuEntries.some((e) => e.otuId === dist.otuId)) {
-      m.otuEntries.push({ otuId: dist.otuId, otuName: dist.otuName })
+      m.otuEntries.push({ otuId: dist.otuId, otuName: dist.otuName, isSynonym: dist.isSynonym })
     }
     m.citationList.push(...dist.citationList)
   }
@@ -408,6 +429,9 @@ function makeDistribution(item, citationList) {
     id: item.id,
     otuId: item.asserted_distribution_object_id,
     otuName: obj.taxon_name || '',
+    isSynonym:
+      !!otuMeta.value.get(item.asserted_distribution_object_id)?.isSynonym &&
+      (obj.taxon_name || '') !== (props.taxon.cached || props.taxon.expanded_name || ''),
     areaName: shape.name || '',
     areaType: shape.geographic_area_type?.name || '',
     parentName: shape.parent?.name || 'Earth',
@@ -542,17 +566,57 @@ async function loadDistributions() {
   isLoading.value = true
 
   try {
-    const { data, headers } = await useOtuPageRequest(
-      'panel:asserted-distributions',
-      () =>
-        makeAPIRequest.get('/asserted_distributions', {
-          params: {
-            'taxon_name_id[]': props.taxon.id,
-            descendants: true,
-            per: props.per
-          }
-        })
+    // Include synonyms: "coordinatify" returns every OTU whose name is (or is
+    // a synonym/combination of) this taxon, plus descendants (e.g. subspecies),
+    // so records published under a junior synonym are shown too.
+    const { data: otus } = await makeAPIRequest.get('/otus', {
+      params: {
+        'taxon_name_id[]': props.taxon.id,
+        descendants: true,
+        coordinatify: true,
+        per: 500
+      }
+    })
+
+    otuMeta.value = new Map(
+      (otus || []).map((o) => [
+        o.id,
+        { isSynonym: / now /.test(String(o.object_tag || '').replace(/<[^>]+>/g, '')) }
+      ])
     )
+
+    const scopeOtuIds = (otus || []).map((o) => o.id)
+    const chunks = []
+    for (let i = 0; i < scopeOtuIds.length; i += 80) chunks.push(scopeOtuIds.slice(i, i + 80))
+
+    const responses = scopeOtuIds.length
+      ? await Promise.all(
+          chunks.map((chunk, index) => {
+            const request = () =>
+              makeAPIRequest.get('/asserted_distributions', {
+                params: { 'otu_id[]': chunk, per: props.per }
+              })
+            // Register the first request with the page's Datamap / JSON menu
+            return index === 0 ? useOtuPageRequest('panel:asserted-distributions', request) : request()
+          })
+        )
+      : [
+          await useOtuPageRequest('panel:asserted-distributions', () =>
+            makeAPIRequest.get('/asserted_distributions', {
+              params: {
+                'taxon_name_id[]': props.taxon.id,
+                descendants: true,
+                per: props.per
+              }
+            })
+          )
+        ]
+
+    const seen = new Set()
+    const data = responses
+      .flatMap((r) => r.data || [])
+      .filter((d) => !seen.has(d.id) && seen.add(d.id))
+    const headers = { 'pagination-total': data.length }
 
     totalCount.value = Number(headers['pagination-total']) || data.length
 

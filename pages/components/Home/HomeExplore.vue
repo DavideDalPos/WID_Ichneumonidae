@@ -70,7 +70,7 @@ const cards = [
     to: '/resources/tw/filter/bibliography',
     icon: 'book',
     title: 'Bibliography',
-    text: 'Search the literature on Ichneumonidae by author, year, title or taxon.',
+    text: 'Search the literature on Ichneumonidae by author, year, title or taxon, and request PDFs you cannot access.',
     cta: 'Search literature'
   },
   {

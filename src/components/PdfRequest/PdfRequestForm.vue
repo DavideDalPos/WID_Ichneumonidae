@@ -26,24 +26,134 @@
       class="grid gap-4"
       @submit.prevent="submit"
     >
-      <!-- Reference -->
-      <div>
+      <!-- Reference: fixed (from the WID bibliography) -->
+      <div v-if="lockedCitation">
         <span class="pdf-label">Reference</span>
         <p
-          v-if="lockedCitation"
           class="rounded-lg bg-base-background p-3 leading-relaxed text-base-content/85 ring-1 ring-base-border/50 [&_i]:italic"
           v-html="citation"
         />
-        <textarea
-          v-else
-          v-model="form.citation"
-          rows="3"
-          required
-          maxlength="2000"
-          placeholder="Author(s), year, title, journal, volume: pages — or a DOI"
-          class="pdf-input"
-        />
+        <a
+          v-if="doi"
+          :href="doiUrl(doi)"
+          target="_blank"
+          rel="noopener"
+          class="mt-1 inline-block text-xs text-primary-color dark:text-secondary-color hover:underline"
+          >doi:{{ doi }}</a
+        >
       </div>
+
+      <!-- Reference: typed in, or filled from a DOI -->
+      <fieldset
+        v-else
+        class="grid gap-3 rounded-xl bg-base-background/60 p-4 ring-1 ring-base-border/50"
+      >
+        <legend class="sr-only">Reference</legend>
+        <div>
+          <label
+            class="pdf-label"
+            for="pdf-doi"
+            >DOI <span class="normal-case font-normal tracking-normal">(fills in the details below)</span></label
+          >
+          <div class="flex gap-2">
+            <input
+              id="pdf-doi"
+              v-model="form.doi"
+              type="text"
+              inputmode="url"
+              placeholder="10.3897/zookeys.… or https://doi.org/…"
+              class="pdf-input flex-1"
+              @keydown.enter.prevent="lookup"
+            />
+            <button
+              type="button"
+              :disabled="!parsedDoi || isLooking"
+              class="shrink-0 rounded-lg px-3 py-2 text-xs font-semibold ring-1 ring-base-border hover:bg-base-muted/40 disabled:opacity-50"
+              @click="lookup"
+            >
+              {{ isLooking ? 'Looking up…' : 'Look up' }}
+            </button>
+          </div>
+          <p
+            v-if="lookupMessage"
+            class="mt-1.5 text-xs"
+            :class="lookupOk ? 'text-green-700 dark:text-green-400' : 'text-base-content/60'"
+          >
+            {{ lookupMessage }}
+            <a
+              v-if="lookupOk && parsedDoi"
+              :href="doiUrl(parsedDoi)"
+              target="_blank"
+              rel="noopener"
+              class="underline"
+              >Open</a
+            >
+          </p>
+        </div>
+
+        <p class="text-xs text-base-content/55 -mb-1">No DOI? Fill in what you know.</p>
+
+        <label class="block min-w-0">
+          <span class="pdf-label">Author(s)</span>
+          <input
+            v-model="form.authors"
+            type="text"
+            maxlength="600"
+            placeholder="e.g. Townes, H. & Townes, M."
+            class="pdf-input"
+          />
+        </label>
+        <div class="grid gap-3 sm:grid-cols-[6rem_1fr]">
+          <label class="block min-w-0">
+            <span class="pdf-label">Year</span>
+            <input
+              v-model="form.year"
+              type="text"
+              inputmode="numeric"
+              maxlength="10"
+              class="pdf-input"
+            />
+          </label>
+          <label class="block min-w-0">
+            <span class="pdf-label">Title</span>
+            <input
+              v-model="form.title"
+              type="text"
+              maxlength="800"
+              class="pdf-input"
+            />
+          </label>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-[1fr_7rem_7rem]">
+          <label class="block min-w-0">
+            <span class="pdf-label">Journal or book</span>
+            <input
+              v-model="form.journal"
+              type="text"
+              maxlength="400"
+              class="pdf-input"
+            />
+          </label>
+          <label class="block min-w-0">
+            <span class="pdf-label">Volume</span>
+            <input
+              v-model="form.volume"
+              type="text"
+              maxlength="40"
+              class="pdf-input"
+            />
+          </label>
+          <label class="block min-w-0">
+            <span class="pdf-label">Pages</span>
+            <input
+              v-model="form.pages"
+              type="text"
+              maxlength="40"
+              class="pdf-input"
+            />
+          </label>
+        </div>
+      </fieldset>
 
       <div class="grid gap-4 sm:grid-cols-2">
         <label class="block min-w-0">
@@ -134,7 +244,8 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
+import { doiUrl, formatReference, lookupDoi, parseDoi } from './doiLookup.js'
 import {
   TURNSTILE_SITE_KEY,
   loadContact,
@@ -146,7 +257,7 @@ import {
 const props = defineProps({
   citation: { type: String, default: '' }, // formatted reference (HTML allowed)
   sourceId: { type: [Number, String], default: '' }, // TaxonWorks source id
-  doi: { type: String, default: '' },
+  doi: { type: String, default: '' }, // DOI of a fixed citation, or a DOI to pre-fill the free form
   inModal: { type: Boolean, default: false }
 })
 const emit = defineEmits(['sent'])
@@ -157,10 +268,56 @@ const form = reactive({
   name: '',
   email: '',
   institution: '',
-  citation: '',
+  doi: '',
+  authors: '',
+  year: '',
+  title: '',
+  journal: '',
+  volume: '',
+  pages: '',
   note: '',
   website: ''
 })
+// DOI look-up (free-entry form only)
+const parsedDoi = computed(() => parseDoi(form.doi))
+const isLooking = ref(false)
+const lookupMessage = ref('')
+const lookupOk = ref(false)
+let lastLooked = ''
+
+async function lookup() {
+  const doi = parsedDoi.value
+  if (!doi || isLooking.value) return
+  lastLooked = doi
+  isLooking.value = true
+  lookupMessage.value = ''
+  try {
+    const found = await lookupDoi(doi)
+    if (found && (found.title || found.authors)) {
+      Object.assign(form, found)
+      lookupOk.value = true
+      lookupMessage.value = 'Details filled in from the DOI — check them below.'
+    } else {
+      lookupOk.value = false
+      lookupMessage.value = 'This DOI was not found. Please fill in the details below.'
+    }
+  } catch {
+    lookupOk.value = false
+    lookupMessage.value = 'The DOI could not be looked up right now. Please fill in the details below.'
+  } finally {
+    isLooking.value = false
+  }
+}
+
+// Look up automatically once a complete DOI has been pasted or typed
+let lookupTimer
+watch(parsedDoi, (doi) => {
+  clearTimeout(lookupTimer)
+  if (doi && doi !== lastLooked) lookupTimer = setTimeout(lookup, 600)
+})
+
+const typedCitation = computed(() => formatReference(form))
+
 const isSending = ref(false)
 const isSent = ref(false)
 const error = ref('')
@@ -189,15 +346,19 @@ async function renderTurnstile() {
 
 async function submit() {
   error.value = ''
+  if (!lockedCitation.value && !form.title.trim() && !parsedDoi.value) {
+    error.value = 'Please give at least the title of the work, or its DOI.'
+    return
+  }
   isSending.value = true
   try {
     await sendPdfRequest({
       name: form.name,
       email: form.email,
       institution: form.institution,
-      citation: props.citation || form.citation,
+      citation: props.citation || typedCitation.value || `DOI ${parsedDoi.value}`,
       sourceId: props.sourceId ? String(props.sourceId) : '',
-      doi: props.doi,
+      doi: props.doi || parsedDoi.value,
       note: form.note,
       website: form.website,
       turnstileToken: turnstileToken.value
@@ -215,14 +376,16 @@ async function submit() {
 }
 
 function startOver() {
-  form.citation = ''
-  form.note = ''
+  Object.assign(form, { doi: '', authors: '', year: '', title: '', journal: '', volume: '', pages: '', note: '' })
+  lookupMessage.value = ''
+  lastLooked = ''
   isSent.value = false
   renderTurnstile()
 }
 
 onMounted(() => {
   Object.assign(form, loadContact())
+  if (!props.citation && props.doi) form.doi = props.doi
   renderTurnstile()
 })
 onBeforeUnmount(() => {

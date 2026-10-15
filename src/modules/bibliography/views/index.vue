@@ -4,7 +4,15 @@
       eyebrow="Literature"
       title="Bibliography"
       subtitle="Search the references in WID by any part of the citation, by author or by publication year. Open “Linked taxa” to see the names cited in each work."
-    />
+    >
+      <RouterLink
+        to="/request-pdf"
+        class="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/25 hover:bg-white/20"
+      >
+        <IconDocument class="size-4" />
+        Can’t access a paper? Request a PDF
+      </RouterLink>
+    </PageHeader>
 
     <ClientOnly>
       <VSpinner
@@ -165,6 +173,7 @@
               <RequestPdfButton
                 :source-id="item.id"
                 :citation="item.cached"
+                :doi="item.doi || ''"
               />
               <span
                 v-if="item.year"

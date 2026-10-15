@@ -5,6 +5,11 @@
       :title="stripHTML(reference)"
       v-html="reference"
     />
+    <RequestPdfButton
+      :citation="reference"
+      compact
+      class="mt-1"
+    />
   </li>
 </template>
 

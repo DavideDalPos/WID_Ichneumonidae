@@ -15,9 +15,11 @@ Files that differ from TaxonPages (as of October 2026):
 | `modules/otus/components/CiteButton.vue` | New: cite button on taxon pages |
 | `modules/otus/components/TaxaInfo.vue`, `views/Index.vue`, `views/PageLayout.vue`, `components/Breadcrumb/Breadcrumb.vue`, `components/Panel/PanelNomenclature/PanelCitationRow.vue` | Taxon-page header, search box, layout and breadcrumb |
 | `modules/DwCFilter/…` (`views/index.vue`, `components/FilterBar.vue`, facets, `OtuModal.vue`) | Darwin Core search page |
-| `modules/bibliography/…` (`views/index.vue`, `components/OtuModal.vue`, `utils/convertUrlsToLinks.js`) | Bibliography search page |
+| `modules/bibliography/…` (`views/index.vue`, `components/OtuModal.vue`, `utils/convertUrlsToLinks.js`) | Bibliography search page, with a **Request PDF** button on each reference |
 | `modules/news/…` (`views/index.vue`, `views/id.vue`, `components/NewsCard.vue`, `components/PinnedNews.vue`) | News list and news page |
 | `utils/index.js` | Extra shared helpers |
+| `components/PdfRequest/` | New: **Request PDF** button and form (settings in `config/pdf_requests.yml`; requests go to the PDF_Requests repository) |
+| `modules/otus/components/Panel/PanelNomenclatureReferences/PanelReferenceRow.vue` | Adds a small **Request PDF** link under each nomenclature reference |
 
 Every other file in `src/` is identical to TaxonPages. To list the differences yourself:
 

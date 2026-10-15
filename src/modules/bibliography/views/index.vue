@@ -162,6 +162,10 @@
                 :source-id="item.id"
                 :label="item.cached"
               />
+              <RequestPdfButton
+                :source-id="item.id"
+                :citation="item.cached"
+              />
               <span
                 v-if="item.year"
                 class="sm:hidden text-xs text-base-content/50"

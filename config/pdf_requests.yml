@@ -1,0 +1,5 @@
+# "Request a PDF" form — see the PDF_Requests repository for the Worker that
+# receives it. Leave endpoint empty to hide every Request PDF button.
+pdf_requests:
+  endpoint: 'https://wid-pdf-requests.worldichneumonidae.workers.dev/request'
+  turnstile_site_key: '0x4AAAAAAFXpYF3PoFvhnDeI' # Cloudflare Turnstile site key (public)

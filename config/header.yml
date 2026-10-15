@@ -25,6 +25,8 @@
           link: /resources/tw/filter/bibliography
         - label: Latest Addition
           link: /RecentReferences
+        - label: Request a PDF
+          link: /request-pdf
 
     - label: Search DwC
       link: /resources/tw/filter/dwc_otus

@@ -13,6 +13,7 @@ Site settings. TaxonPages reads every `.yml` file here at build time; the values
 | `maps.yml` | Base-map tile servers offered on maps (OpenStreetMap, GBIF). |
 | `news.yml` | Layout of the news list, news page and home-page news widget. News items themselves are written in TaxonWorks. |
 | `tracker.yml` | Targets of the **Report** button (data issues and website issues). |
+| `pdf_requests.yml` | Address of the PDF-request Worker and the Turnstile site key. Empty `endpoint` hides all **Request PDF** buttons. See the private `PDF_Requests` repository. |
 | `copyright.yml` | Footer licence text and badge (CC BY 4.0). |
 | `metadata.yml` | `<meta>` tags (description, keywords, social-sharing image). |
 | `analytics.yml` | Google Analytics id. `enableDev: true` also counts visits from local development; set it to `false` to keep test visits out of the statistics. |

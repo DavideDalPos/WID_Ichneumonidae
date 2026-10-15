@@ -78,6 +78,7 @@ Every `.vue` or `.md` file in `pages/` becomes a page; the file name is the rout
 | `taxonomy.vue` | `/taxonomy` | Classification tree of the family (`components/TaxonomyPanel/`); not in the menu |
 | `recenttaxa.vue` | `/RecentTaxa` | Recently added taxa and references (`components/Recent/`) — menu: Taxa & Keys › Taxa Addition |
 | `RecentReferences.vue` | `/RecentReferences` | Recently added references and taxa — menu: Bibliography › Latest Addition |
+| `request-pdf.vue` | `/request-pdf` | Request a PDF form — menu: Bibliography › Request a PDF |
 | `cite.vue` | `/cite` | How to cite WID |
 | `help.vue` | `/help` | How to contribute data and report errors |
 | `announcements.vue` | `/announcements` | Announcements (`components/Section/SectionAnnouncements.vue`); not in the menu |
@@ -116,6 +117,7 @@ Other routes in the menu come from TaxonPages or from `modules/`: `/news`, `/key
 | Post news | In TaxonWorks (news is read from the project); display options in `config/news.yml` |
 | Change colours | `config/style/theme.css` |
 | Replace logos or images | `public/images/` |
+| PDF requests | Requests arrive as issues in the private `WorldIchneumonidaeDatabase/PDF_Requests` repository; settings in `config/pdf_requests.yml` |
 | Update TaxonPages | Sync `main` with SpeciesFileGroup/taxonpages, then test locally before pushing |
 
 ## Reporting problems

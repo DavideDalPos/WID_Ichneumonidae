@@ -109,10 +109,8 @@
             every contribution makes WID more complete and more reliable.
           </p>
           <div class="mt-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3">
-            <a
-              href="https://benevolent-cuchufli-47bd77.netlify.app"
-              target="_blank"
-              rel="noopener noreferrer"
+            <RouterLink
+              to="/submit-publication"
               class="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary-color px-4 py-2.5 text-sm font-semibold text-secondary-content hover:brightness-105 transition"
             >
               <HomeIcon
@@ -120,11 +118,9 @@
                 class="h-5 w-5"
               />
               Submit a paper
-            </a>
-            <a
-              href="https://benevolent-cuchufli-47bd77.netlify.app/correction.html"
-              target="_blank"
-              rel="noopener noreferrer"
+            </RouterLink>
+            <RouterLink
+              to="/report-error"
               class="inline-flex items-center justify-center gap-2 rounded-lg bg-white/10 px-4 py-2.5 text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/20 transition"
             >
               <HomeIcon
@@ -132,7 +128,7 @@
                 class="h-5 w-5"
               />
               Report a correction
-            </a>
+            </RouterLink>
           </div>
         </div>
       </div>

@@ -39,7 +39,7 @@
 <script setup>
 import { ref } from 'vue'
 import PdfRequestForm from './PdfRequestForm.vue'
-import { isPdfRequestEnabled } from './usePdfRequest.js'
+import { isInboxEnabled } from './useInbox.js'
 
 defineProps({
   citation: { type: String, required: true },
@@ -48,6 +48,6 @@ defineProps({
   compact: { type: Boolean, default: false } // small text link, for reference lists on taxon pages
 })
 
-const enabled = isPdfRequestEnabled()
+const enabled = isInboxEnabled()
 const isOpen = ref(false)
 </script>

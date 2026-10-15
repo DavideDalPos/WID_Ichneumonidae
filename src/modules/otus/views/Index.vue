@@ -35,6 +35,10 @@
                 <DataMap />
               </ClientOnly>
               <CiteButton v-if="isReady" />
+              <ReportErrorButton
+                v-if="isReady"
+                :subject="taxon.full_name"
+              />
               <DWCDownload
                 v-if="isReady"
                 :otu="otu"

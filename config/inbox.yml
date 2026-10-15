@@ -1,0 +1,7 @@
+# WID inbox: the "Request a PDF", "Submit a publication" and "Report an error"
+# forms. Each form posts to a Cloudflare Worker that opens an issue in the
+# private WorldIchneumonidaeDatabase/PDF_Requests repository (see its README).
+# Leave endpoint empty to hide all the forms and buttons.
+inbox:
+  endpoint: 'https://wid-pdf-requests.worldichneumonidae.workers.dev/request'
+  turnstile_site_key: '0x4AAAAAAFXpYF3PoFvhnDeI' # Cloudflare Turnstile site key (public)

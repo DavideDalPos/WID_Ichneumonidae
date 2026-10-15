@@ -18,7 +18,9 @@ Files that differ from TaxonPages (as of October 2026):
 | `modules/bibliography/…` (`views/index.vue`, `components/OtuModal.vue`, `utils/convertUrlsToLinks.js`) | Bibliography search page, with a **Request PDF** button on each reference |
 | `modules/news/…` (`views/index.vue`, `views/id.vue`, `components/NewsCard.vue`, `components/PinnedNews.vue`) | News list and news page |
 | `utils/index.js` | Extra shared helpers |
-| `components/PdfRequest/` | New: **Request PDF** button and form (settings in `config/pdf_requests.yml`; requests go to the PDF_Requests repository) |
+| `components/Inbox/` | New: the three inbox forms (Request a PDF, Submit a missing publication, Report an error), the DOI look-up, and the **Request PDF** / **Report error** buttons. Settings in `config/inbox.yml`; messages become issues in the private PDF_Requests repository |
+| `components/TrackerReport.global.vue` | Links to WID's own forms carry the page the visitor was on |
+| `modules/otus/views/Index.vue` | Also adds the **Report error** button next to **Cite** on taxon pages |
 | `modules/otus/components/Panel/PanelNomenclatureReferences/PanelReferenceRow.vue` | Adds a small **Request PDF** link under each nomenclature reference |
 
 Every other file in `src/` is identical to TaxonPages. To list the differences yourself:

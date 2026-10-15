@@ -1,8 +1,12 @@
 issue_trackers:
   - label: Data
-    description: E.g. missing data that I'd like to add, misspellings, or invalid data
-    url: https://github.com/WorldIchneumonidaeDatabase/WID_Database/issues
+    description: A wrong name, author, year, distribution, record or other data error
+    url: /#/report-error
+
+  - label: Missing publication
+    description: A paper on Ichneumonidae that is not in WID yet
+    url: /#/submit-publication
 
   - label: Website
-    description: E.g. a link, panel, or other feature is not working as expected
-    url: https://github.com/WorldIchneumonidaeDatabase/WID_Database/issues
+    description: A link, panel, or other feature is not working as expected
+    url: /#/report-error?subject=Website

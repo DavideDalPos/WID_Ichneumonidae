@@ -19,6 +19,12 @@ const initials = (given = '') =>
     .map((p) => p.split('-').map((q) => q[0].toUpperCase() + '.').join('-'))
     .join(' ')
 
+// "ÁLVAREZ-ARELLANO" → "Álvarez-Arellano" (some publishers send names in capitals)
+const fixCase = (s = '') =>
+  s === s.toUpperCase() && /\p{L}{2}/u.test(s)
+    ? s.toLowerCase().replace(/(^|[\s\-'’])(\p{L})/gu, (m, sep, ch) => sep + ch.toUpperCase())
+    : s
+
 function joinAuthors(list) {
   const names = list.filter(Boolean)
   if (names.length <= 1) return names[0] || ''
@@ -38,7 +44,7 @@ async function fromCrossref(doi) {
   const date = w.issued?.['date-parts']?.[0] || w['published-print']?.['date-parts']?.[0] || w['published-online']?.['date-parts']?.[0]
   return {
     authors: joinAuthors(
-      (w.author || []).map((a) => (a.family ? `${a.family}${a.given ? ', ' + initials(a.given) : ''}` : clean(a.name)))
+      (w.author || []).map((a) => (a.family ? `${fixCase(a.family)}${a.given ? ', ' + initials(a.given) : ''}` : clean(a.name)))
     ),
     year: date?.[0] ? String(date[0]) : '',
     title: clean(w.title?.[0]),
@@ -54,7 +60,7 @@ async function fromDataCite(doi) {
   const a = (await r.json()).data?.attributes || {}
   return {
     authors: joinAuthors(
-      (a.creators || []).map((c) => (c.familyName ? `${c.familyName}${c.givenName ? ', ' + initials(c.givenName) : ''}` : clean(c.name)))
+      (a.creators || []).map((c) => (c.familyName ? `${fixCase(c.familyName)}${c.givenName ? ', ' + initials(c.givenName) : ''}` : clean(c.name)))
     ),
     year: a.publicationYear ? String(a.publicationYear) : '',
     title: clean(a.titles?.[0]?.title),
@@ -76,3 +82,6 @@ export function formatReference({ authors, year, title, journal, volume, pages }
   const tail = where ? where + (pages ? `: ${pages}` : '') + '.' : pages ? `${pages}.` : ''
   return [head, t, tail].filter(Boolean).join(' ').trim()
 }
+
+// Empty reference object for a form: reactive(emptyReference())
+export const emptyReference = () => ({ doi: '', authors: '', year: '', title: '', journal: '', volume: '', pages: '' })

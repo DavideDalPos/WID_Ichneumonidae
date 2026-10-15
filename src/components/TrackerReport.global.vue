@@ -27,7 +27,7 @@
       <ul class="mx-5 my-2">
         <li v-for="item in issue_trackers">
           <a
-            :href="item.url"
+            :href="withPage(item.url)"
             target="_blank"
             rel="noopener"
           >
@@ -81,6 +81,13 @@ defineProps({
 })
 
 const isModalVisible = ref(false)
+
+// WID: our own report forms get the page the visitor was on
+function withPage(url) {
+  if (!String(url).startsWith('/') || typeof window === 'undefined') return url
+  const sep = url.includes('?') ? '&' : '?'
+  return `${url}${sep}page=${encodeURIComponent(window.location.href)}`
+}
 
 function openTracker() {
   if (issue_trackers) {

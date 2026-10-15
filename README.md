@@ -79,6 +79,8 @@ Every `.vue` or `.md` file in `pages/` becomes a page; the file name is the rout
 | `recenttaxa.vue` | `/RecentTaxa` | Recently added taxa and references (`components/Recent/`) — menu: Taxa & Keys › Taxa Addition |
 | `RecentReferences.vue` | `/RecentReferences` | Recently added references and taxa — menu: Bibliography › Latest Addition |
 | `request-pdf.vue` | `/request-pdf` | Request a PDF form — menu: Bibliography › Request a PDF |
+| `submit-publication.vue` | `/submit-publication` | Submit a missing publication — menu: How to |
+| `report-error.vue` | `/report-error` | Report an error — menu: How to; also the **Report error** button on taxon pages |
 | `cite.vue` | `/cite` | How to cite WID |
 | `help.vue` | `/help` | How to contribute data and report errors |
 | `announcements.vue` | `/announcements` | Announcements (`components/Section/SectionAnnouncements.vue`); not in the menu |
@@ -117,7 +119,7 @@ Other routes in the menu come from TaxonPages or from `modules/`: `/news`, `/key
 | Post news | In TaxonWorks (news is read from the project); display options in `config/news.yml` |
 | Change colours | `config/style/theme.css` |
 | Replace logos or images | `public/images/` |
-| PDF requests | Requests arrive as issues in the private `WorldIchneumonidaeDatabase/PDF_Requests` repository; settings in `config/pdf_requests.yml` |
+| PDF requests, missing publications, error reports | Arrive as issues in the private `WorldIchneumonidaeDatabase/PDF_Requests` repository; settings in `config/inbox.yml` |
 | Update TaxonPages | Sync `main` with SpeciesFileGroup/taxonpages, then test locally before pushing |
 
 ## Reporting problems

@@ -42,6 +42,10 @@
           link: /help
         - label: How to Request a PDF
           link: /request-pdf
+        - label: Submit a Missing Publication
+          link: /submit-publication
+        - label: Report an Error
+          link: /report-error
 
 
   

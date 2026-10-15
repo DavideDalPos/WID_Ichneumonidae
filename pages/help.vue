@@ -7,10 +7,10 @@
     />
 
     <section class="container mx-auto px-4 py-12 sm:py-16">
-      <div class="grid gap-6 md:grid-cols-2">
+      <div class="grid gap-6 md:grid-cols-3">
         <article
           v-for="action in actions"
-          :key="action.href"
+          :key="action.to"
           class="flex flex-col rounded-2xl bg-base-foreground p-6 sm:p-8 ring-1 ring-base-border/40"
         >
           <span
@@ -27,10 +27,8 @@
           <p class="mt-2 leading-relaxed text-base-content/70 flex-grow">
             {{ action.text }}
           </p>
-          <a
-            :href="action.href"
-            target="_blank"
-            rel="noopener noreferrer"
+          <RouterLink
+            :to="action.to"
             class="mt-6 inline-flex items-center justify-center gap-2 self-start rounded-lg bg-primary-color px-5 py-3 font-semibold text-primary-content hover:opacity-90 transition"
           >
             {{ action.cta }}
@@ -38,7 +36,7 @@
               name="arrow"
               class="h-4 w-4"
             />
-          </a>
+          </RouterLink>
         </article>
       </div>
 
@@ -77,16 +75,23 @@ const actions = [
   {
     icon: 'document',
     title: 'Submit a missing publication',
-    text: 'Know of a published paper that is not yet in WID? No account is needed: fill in the citation details and an optional DOI, and we will take care of the rest.',
-    href: 'https://benevolent-cuchufli-47bd77.netlify.app',
+    text: 'Know of a published paper that is not yet in WID? No account is needed: paste the DOI or fill in the citation, and we will take care of the rest.',
+    to: '/submit-publication',
     cta: 'Submit a published paper'
   },
   {
     icon: 'pencil',
     title: 'Report an error or correction',
     text: 'Spotted a wrong authorship, a misspelled name, an outdated synonymy, or a distribution that looks off? Tell us what should be fixed and, if you can, a reference to back it up.',
-    href: 'https://benevolent-cuchufli-47bd77.netlify.app/correction.html',
+    to: '/report-error',
     cta: 'Report a correction'
+  },
+  {
+    icon: 'book',
+    title: 'Request a PDF',
+    text: 'Cannot access a paper cited in WID, or another work on Ichneumonidae? Send us the reference and a WID editor will e-mail you the PDF if we have it.',
+    to: '/request-pdf',
+    cta: 'Request a PDF'
   }
 ]
 </script>

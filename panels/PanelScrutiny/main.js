@@ -1,6 +1,6 @@
 import PanelScrutiny from './PanelScrutiny.vue'
 
 export default {
-  id: 'panel:scrutiy',
+  id: 'panel:scrutiny',
   component: PanelScrutiny
 }

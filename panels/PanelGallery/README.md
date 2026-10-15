@@ -1,5 +1,7 @@
 # PanelGallery (`panel:gallery-v2`)
 
+> **Status (October 2026):** not shown on the site. The overview tab in `config/taxa_page.yml` uses the built-in `panel:gallery`; replace it with `panel:gallery-v2` to use this panel.
+
 Image gallery panel for OTU pages. Falls back to subordinate-taxa images, then iNaturalist, when no direct TaxonWorks images exist.
 
 **Data depictions** (`is_metadata_depiction` — label photos, ledger pages, etc.) attached to a CollectionObject / FieldOccurrence are excluded from this OTU-scoped gallery; they remain visible in the specimen detail modal. A data depiction attached directly to the OTU is shown. See [ARCHITECTURE.md](./ARCHITECTURE.md#data-depiction-exclusion).

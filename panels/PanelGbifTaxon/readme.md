@@ -1,5 +1,7 @@
 # PanelGbifTaxon
 
+> **Status (October 2026):** not shown on the site. It was taken out of the GBIF tab in `config/taxa_page.yml` pending a redesign; add `panel:gbif-taxon` back there to re-enable it.
+
 > **Compatibility:** `@sfgrp/taxonpages` ≥ 0.5.4 (npm package setup)
 
 Originally copied from [MortenHofft/taxonpages](https://github.com/MortenHofft/taxonpages) by [Morten Høfft](https://github.com/MortenHofft) on 2026-05-21. **Rebuilt 2026-08-31** from a name-overlap Venn into a concept alignment; almost nothing of the original remains.

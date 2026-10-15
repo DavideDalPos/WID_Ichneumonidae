@@ -1,8 +1,8 @@
 issue_trackers:
   - label: Data
     description: E.g. missing data that I'd like to add, misspellings, or invalid data
-    url: https://github.com/DavideDalPos/WID_Ichneumonidae/issues
+    url: https://github.com/WorldIchneumonidaeDatabase/WID_Database/issues
 
   - label: Website
     description: E.g. a link, panel, or other feature is not working as expected
-    url: https://github.com/SpeciesFileGroup/taxonpages/issues
+    url: https://github.com/WorldIchneumonidaeDatabase/WID_Database/issues

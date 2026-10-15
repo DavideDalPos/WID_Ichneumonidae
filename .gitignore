@@ -14,3 +14,4 @@ config/**/*.development.yml
 !modules
 !modules/**
 !index.html
+!.gitattributes

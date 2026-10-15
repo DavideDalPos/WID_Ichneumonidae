@@ -1,311 +1,136 @@
-# TaxonPages
+# World Ichneumonidae Database (WID)
 
-TaxonPages is a tool to serve taxon pages. At present it draws data from TaxonWorks' API, however we seek to keep the TaxonPages platform agnostic therefor facilitating the modular addition of functionality that may reference data from any biodiversity data-serving API.
+The website of the **World Ichneumonidae Database** — taxonomy, literature, specimens, distributions, images and identification keys for the world's Ichneumonidae (Hymenoptera).
 
-## Status Warning
+- **Website:** <https://worldichneumonidae.com>
+- **Data:** curated in [TaxonWorks](https://sfg.taxonworks.org) and read live through its public API
+- **Software:** [TaxonPages](https://github.com/SpeciesFileGroup/taxonpages) (Species File Group), with WID-specific pages, panels and modules
+- **Organization:** [WorldIchneumonidaeDatabase](https://github.com/WorldIchneumonidaeDatabase)
 
-TaxonPages software is in active development and changes are expected that will cause the early first-adopters' instances to require rebuilding by refreshing one's forked branch using `git pull`. A first _stable version_ is expected by Spring 2023.
+The site has no database of its own. Every taxon page, bibliography search and statistic is requested from TaxonWorks when someone opens it, so corrections to names, specimens or references are made in TaxonWorks, not in this repository. This repository holds only the website: its configuration, pages, layout and custom components.
 
-## Usage
+## How the repository works
 
-1. Click on "Fork" button to create your own repository from this.
-2. Uncheck `Copy the setup branch only` and press `Save`
-3. After create your repo, go to `Settings > Pages`, on "Branch" select `gh-pages` and `/(root)`. Then press save
-4. Open `router.yml` file and change `base_url` to the name of your repository.
-5. After a couple of minutes, your public page should be available at `https://<your_user_name>.github.io/<your_repo_name>`
+TaxonPages keeps the software and a project's own files on two branches:
 
-### Setup
+| Branch | Contains | Edit it? |
+|---|---|---|
+| `setup` (default) | Everything specific to WID: `config/`, `pages/`, `panels/`, `modules/`, `public/`, plus WID's changed versions of a few TaxonPages files in `src/` | Yes — almost all work happens here |
+| `main` | The TaxonPages application, kept in step with [SpeciesFileGroup/taxonpages](https://github.com/SpeciesFileGroup/taxonpages) | Only to pull in TaxonPages updates |
 
-1. Switch to `setup` branch in your TaxonPages repository.
-2. We provide some settings by default to setup your public pages, but API parameters are required and must be configured to get the data from your TaxonWorks project.
+Other branches (`gh-pages`, `development`, `ssr`, …) are older or experimental and are not used by the live site.
 
-```yaml
-# config/api.yml
----
-url: https://<your.taxonworks.server>/api/v1
-project_token: yourprojecttoken
-```
+### Deployment
 
-3. Push the changes after update the configuration files inside `setup` branch
-4. GitHub actions will build TaxonPages with the current configuration in `setup` branch and publish it to the `gh-pages` branch
+`.github/workflows/gh-pages.yml` runs on every push to `setup` or `main` (or by hand from the **Actions** tab). It:
 
-# Install
+1. checks out `main` (the TaxonPages application);
+2. copies the `setup` branch on top of it, so WID's files replace the defaults;
+3. runs `npm ci` and `npm run build`;
+4. publishes `dist/` with GitHub Pages.
 
-Follow this steps to run TaxonPages in your local machine.
+The site is live a few minutes after a push. The custom domain `worldichneumonidae.com` is set under **Settings › Pages**; the build uses hash routing (`hash_mode: true` in `config/router.yml`), so taxon pages look like `https://worldichneumonidae.com/#/otus/<id>/overview`.
 
-1. Install [NodeJS](https://nodejs.org/en/download/)
-2. We recommend you to fork this repository to keep getting updates. Use [GIT](https://git-scm.com/) to clone the repo.
+## Repository layout
 
-```
-git clone https://github.com/<your_username>/<your_repository_name>.git
-```
+| Folder | What it holds | Docs |
+|---|---|---|
+| `config/` | Site settings: TaxonWorks API, header menu, taxon-page layout, maps, news, theme colours | [config/README.md](config/README.md) |
+| `pages/` | Site pages (home, about, subfamilies, cite, help, recent additions, …) and their components | [Pages](#pages) below |
+| `panels/` | Custom panels shown on taxon pages | [panels/README.md](panels/README.md) |
+| `modules/` | Extra routes: dichotomous keys and interactive keys | [modules/keys](modules/keys/README.md), [modules/interactiveKeys](modules/interactiveKeys/README.md) |
+| `src/` | WID's modified copies of TaxonPages core files (they overwrite the `main` versions at build time) | [src/README.md](src/README.md) |
+| `public/` | Static files served from the site root: logos, favicon, team photos, `robots.txt` | [public/README.md](public/README.md) |
+| `index.html` | Page shell with WID's metadata and social-sharing tags | |
+| `.github/workflows/` | The build-and-deploy workflow | |
 
-But if you don't want to fork it, you can clone directly from this
+`.gitignore` ignores everything except the folders above, so the TaxonPages files you bring in for local development (next section) are never committed to `setup`.
 
-```
-git clone https://github.com/SpeciesFileGroup/taxonpages.git
-```
+## Running the site locally
 
-3. Go to `taxonpages` folder and enter the following commands to copy the software to your `setup` branch
+You need [Node.js](https://nodejs.org) 20 or later and Git.
 
-```
-git checkout main
-git checkout setup
-git checkout main .
-git reset
-git checkout .
-```
-
-5. Setup `config/api.yml` with the API server configuration
-
-6. Install node dependencies
-
-```
+```bash
+git clone https://github.com/WorldIchneumonidaeDatabase/WID_Database.git
+cd WID_Database                 # opens on the setup branch
+git checkout origin/main -- .   # bring in the TaxonPages application files
+git reset                       # unstage them (they are ignored on setup)
+git checkout .                  # restore WID's own versions of the overlapping files
 npm install
-```
-
-## Start TaxonPages
-
-```
 npm run dev
 ```
 
-TaxonPages will be running at http://localhost:5173/
+The site runs at <http://localhost:5173>. Edits to `config/`, `pages/`, `panels/` and `modules/` reload automatically; restart `npm run dev` after changing a `.yml` file.
 
-# Customization
+To preview the production build: `npm run build`, then `npm run preview`.
+
+After TaxonPages is updated on `main`, repeat the three `git checkout` / `git reset` lines and `npm install`.
 
 ## Pages
 
-TaxonPages out of the box support markdown and vue for content sites. Add your content pages inside `pages` folder. By default, TaxonPages use the file name to create the route.
-For example, if the filename is "contributors.md" the route to access it will be http://yourtaxonpagessite/contributors
+Every `.vue` or `.md` file in `pages/` becomes a page; the file name is the route (`about.vue` → `/#/about`). `components/` holds the pieces these pages use and is not routed.
 
-### Markdown pages
+| Page | Route | Content |
+|---|---|---|
+| `home.vue` | `/` | Hero with search, live statistics and "explore" cards (`components/Home/`) |
+| `about.vue` | `/about` | About WID, the team list and collaborator map (`components/Section/map/`) |
+| `subfamilies.vue` | `/subfamilies` | Subfamily explorer with live counts and curation status ([subfamilies README](pages/components/subfamilies/README.markdown)) |
+| `taxonomy.vue` | `/taxonomy` | Classification tree of the family (`components/TaxonomyPanel/`); not in the menu |
+| `recenttaxa.vue` | `/RecentTaxa` | Recently added taxa and references (`components/Recent/`) — menu: Taxa & Keys › Taxa Addition |
+| `RecentReferences.vue` | `/RecentReferences` | Recently added references and taxa — menu: Bibliography › Latest Addition |
+| `cite.vue` | `/cite` | How to cite WID |
+| `help.vue` | `/help` | How to contribute data and report errors |
+| `announcements.vue` | `/announcements` | Announcements (`components/Section/SectionAnnouncements.vue`); not in the menu |
+| `Acaenitinae.vue` | `/Acaenitinae` | Subfamily description page (`components/Section/Description/`); not in the menu |
 
-This software use [vite-plugin-md](https://github.com/antfu/vite-plugin-md) to render pages in Markdown format, the engine of this plugin is [markdown-it](https://github.com/markdown-it/markdown-it). For plugins and other configuration you can refer to this section https://github.com/antfu/vite-plugin-md#configuration--options
+Other routes in the menu come from TaxonPages or from `modules/`: `/news`, `/keys`, `/key/:id`, `/resources/tw/filter/bibliography` (bibliography search) and `/resources/tw/filter/dwc_otus` (Darwin Core search).
 
-Example: `welcome.md` file
+### Page components (`pages/components/`)
 
-```
----
-name: 'Charles Darwin'
----
+| Folder | Used by | Notes |
+|---|---|---|
+| `Home/` | `home.vue`, `cite.vue`, `help.vue` | `HomeStats.vue` asks TaxonWorks for live totals; `HomeIcon.vue` is the shared icon set. |
+| `Recent/` | `recenttaxa.vue`, `RecentReferences.vue` | Lists of the newest taxon names and sources, plus a weekly activity chart. |
+| `Search/` | home hero, taxon pages | `GlobalSearch.vue` — taxon and reference search box. |
+| `Section/` | about, announcements, subfamily pages | `map/AboutMapData.js` is the **team list** (name, institution, coordinates, links, photo in `public/images/collaborators/`). `Description/SubfamilyData.js` holds the text of subfamily description pages. |
+| `TaxonomyPanel/` | `taxonomy.vue` | Descendants tree without synonyms. |
+| `subfamilies/` | `subfamilies.vue` | See its [README](pages/components/subfamilies/README.markdown). One data file per subfamily in `data/`. |
+| `AnimateNumber.vue` | statistics | Counting-up number animation. |
 
-# Welcome, {{ name }}!
-```
+### Adding a page
 
-To use TaxonPage internal variables in `config/*.yml`, you can either do so by adding the prefix {{ app:var_name }} or use the script tag in your markdown page and get them from the global object `__APP_ENV__`
+1. Create `pages/<name>.vue` (or `<name>.md` for plain text; Markdown pages can use `{{ app:project_name }}` and the TaxonPages global components).
+2. Add a menu entry in `config/header.yml` if it should appear in the header.
 
-#### Prefix
+> Because `.md` files under `pages/` are turned into pages too, documentation for this folder lives here in the root README rather than in a `pages/README.md`. Notes kept inside `pages/` use the `.markdown` extension (GitHub still displays them), which the page builder ignores.
 
-```markdown
-# Welcome to {{ app:project_name }}!
-```
+## Common tasks
 
-#### Script tag
+| Task | Where |
+|---|---|
+| Change the menu | `config/header.yml` |
+| Add, move or remove panels on taxon pages | `config/taxa_page.yml` (panel ids are listed in [panels/README.md](panels/README.md)) |
+| Edit a page (About, How to cite, How to help, …) | `pages/*.vue` |
+| Update a subfamily's curation status | `pages/components/subfamilies/data/<Subfamily>.js` |
+| Update the team list and map on the About page | `pages/components/Section/map/AboutMapData.js` |
+| Post news | In TaxonWorks (news is read from the project); display options in `config/news.yml` |
+| Change colours | `config/style/theme.css` |
+| Replace logos or images | `public/images/` |
+| Update TaxonPages | Sync `main` with SpeciesFileGroup/taxonpages, then test locally before pushing |
 
-```javascript
-# Welcome to {{ project_name }}!
+## Reporting problems
 
-<script setup>
-const { project_name } = __APP_ENV__
-</script>
-```
+- **Data** (a missing or wrong name, specimen, reference or image): open an [issue](https://github.com/WorldIchneumonidaeDatabase/WID_Database/issues) in this repository, or contact the editors listed on the [About](https://worldichneumonidae.com/#/about) page.
+- **Website** (a broken link, panel or page): open an [issue](https://github.com/WorldIchneumonidaeDatabase/WID_Database/issues) in this repository. Problems in TaxonPages itself can be reported to [SpeciesFileGroup/taxonpages](https://github.com/SpeciesFileGroup/taxonpages/issues).
 
-#### Components
+The **Report** links on the site are set in `config/tracker.yml`.
 
-TaxonPages global components are enable in your markdown pages, by default we provide a set of global components that you don't need to import them to use it. You can see the list of this global components [here](#global-components)
+## Citation and licence
 
-### Style
+Cite the database as shown on the [How to cite](https://worldichneumonidae.com/#/cite) page. The authors and editors are listed in `config/project.yml` and on the About page.
 
-If you want to change the color palette, you can edit `/config/style/theme.css` file, colors must be in RGB format.
-TaxonPages use [TailwindCSS](https://tailwindcss.com/docs/configuration) framework for the style. We already provide default settings for colors and markdown. If you want to make any change to your configuration, you must do so in the `config/vendor/tailwind.config.js` file. This file uses the TaxonPages configuration as a default. It is possible to overwrite it as long as you use it as a preset.
+Except where otherwise noted, site content is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (`config/copyright.yml`). TaxonPages is developed by the [Species File Group](https://speciesfilegroup.org); see its repository for the software licence.
 
-## Analytics
+## Acknowledgements
 
-TaxonPages has out-of-the-box support for the following list of analytics services:
-
-```yaml
-analytics_services:
-  enableDev: false # Set true to work in development mode
-  analytics:   # Google Analytics
-    - id: 'G-XXXXX'
-  gtm:         # Google Tag Manager
-    - id: 'GTM-XXXXX'
-  pixel:       # Facebook Pixel
-    - id: 'XXXXXXX'
-  retargeting: # VK Retargeting
-    - id: 'VK-RTRG-XXXXXX-XXXXX',
-  linkedin:    # Linkedin Insight
-    - id: 'XXXXXXX'
-  tongji:      # Baidu Tongji
-    - id: 'XXXXXXX',
-  metrica:     # Yendex Metrica
-    - id: 'XXXXXXX',
-  microsoft:   # Microsoft Analytics
-    id: 'XXXXXXX'
-  hotjar:      # Hotjar Analytics
-    id: 'XXXXXXX',
-  fullStory:   # Full story Analytics
-    org: 'X-XXXXXX-XXX'
-  tiktok:      # TikTok Pixel Analytics
-    id: 'XXXXXXX'
-```
-
-# Deep dive into TaxonPages
-
-## Access internal configuration vars
-
-To access the configuration in \*.yml files, we provide a global object that contains all the configuration values. This variable can be used in either JavaScript, Vue, or Markdown files. To access these values you must use the `__APP_ENV__` variable:
-
-```javascript
-const { project_name } = __APP_ENV__
-// or
-const projectName = __APP_ENV__.project_name
-```
-
-
-## Taxa Page
-
-### Layout
-
-To modify the position of the panels in the layout of the Taxa page, edit the `taxa_page.yml` file. There you can add/move/remove panels from the layout, also you can add new tabs and include new panels there. If you want to make some tabs visible or not depending the rank group, you can include `rankGroup`
-
-```yaml
-taxa_page:
-  overview:
-    panels:
-      - - - panel:gallery
-          - panel:type
-          - panel:type-specimen
-          - panel:nomenclature
-          - panel:nomenclature-references
-
-        - - panel:map
-          - panel:descendants
-          - panel:content
-          - panel:statistics
-#
-# An example of a new tab:
-#
-# type_specimens:
-#   rank_group: ['SpeciesGroup']
-#   panels:
-#     - - - panel:specimen-records
-```
-
-### Lifecycle hooks (Experimental feature)
-
-The `onCreatePage` and `onSSRPageCreate` functions allow you to execute code at the time the taxa page is created. `onSSRPageCreate` will be executed only on the server side in SSR mode. To make use of them it is necessary to include them in a file object called `pages/otus.config.js`. Both functions accept `otu`, `taxon`, `route` and `router` objects as parameters. Since `onCreatePage` runs on Taxa page component, it is possible to use hooks like `onMounted` or `onBeforeMount` inside it
-
-```javascript
-export default {
-  onSSRCreatePage: async ({ otu, taxon, route, router }) => {
-    // Your code here
-  },
-
-  onCreatePage: ({ otu, taxon, route, router }) => {
-    // Your code here
-  }
-}
-```
-
-### External panels
-
-To add panels in Taxa pages, create a folder called `panels` in your `setup` branch, and inside it create another folder for your panel. For example: `panels/PanelTest`
-
-In `PanelTest` folder, create a `main.js` file, with the following structure:
-
-```javascript
-import MyPanelComponent from './MyPanelComponent.vue'
-
-Export default {
-   id: 'panel:test', // ID to identify this panel
-   component: MyPanelComponent, // Vue component for your panel
-   rankGroup: ['HigherClassificationGroup', 'FamilyGroup', 'GenusGroup', 'SpeciesGroup'] // <-- OPTIONAL: This will define for which rank group will be available, remove it if your panel will be available for all.
-}
-```
-
-This file is used to load your panel component in taxa page. Use the `id` to include and define the position in the layout in `taxa_page.yml`
-
-```yaml
-taxa_page_overview:
-  panels:
-    - - - panel:gallery
-        - panel:test # <--- Your new panel
-        - panel:type
-        - panel:type-specimen
-        - panel:nomenclature
-        - panel:nomenclature-references
-
-      - - panel:map
-        - panel:descendants
-        - panel:content
-        - panel:statistics
-```
-
-## Defining global components
-
-TaxonPages provides an auto-import component from `src/components` and `/components` folders using special extensions for it. Some objects and functions are only present in the browser and not in the NodeJs server environment. When you run code that is not supported by the server, it ends up crashing. Some JavaScript libraries like `Leaflet` use the `document` or `window` object, which do not exist in the node environment. To handle this problem, TaxonPages provides 2 ways to import the components.
-
-### Client Side only (CSR):
-
-This auto import method will only load the component on the client side, while on the server it will create a fake empty component, which will be used later on the client side to be replaced by the original one when the hydration process occurs. To define this type of import, the component name must contain the word `.client.` before `.vue` extension.
-
-Example: `MyAmazingComponent.client.vue`
-
-### Global (CSR & SSR)
-
-This auto-import method will load the component both client and server side. To define this type of import, the component must contain the word `.client.` before the `.vue` extension.
-
-Example: `MyAmazingComponent.global.vue`
-
-### Global components
-
-TaxonPages provides a set of global components that could be used to create your own panels or pages. Here is the complete list:
-
-| Component             | Description                                    | Props                                                                                                                    |
-| --------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `<AnimationOpacity/>` | Add an opacity animation for a child component |                                                                                                                          |
-| `<Autocomplete/>`     | Used to perform searches in TaxonWorks         | [Link](https://github.com/SpeciesFileGroup/taxonpages/blob/main/src/components/Autocomplete/Autocomplete.global.vue#L42) |
-| `<AutocompleteOtu/>`  | A specific autocomplete for OTU search         |                                                                                                                          |
-| `<ClientOnly/>`       | Render child components only from client side  |                                                                                                                          |
-| `<VButton/>`          | Button component                               |                                                                                                                          |
-| `<VCard/>`            | Card component style                           |                                                                                                                          |
-| `<VCardContent/>`     | Card content body                              |                                                                                                                          |
-| `<VCardHeader/>`      | Card Header                                    |                                                                                                                          |
-| `<VClipboard/>`       | Copy a text to clipboard                       |                                                                                                                          |
-| `<Dropdown/>`         | Dropdown menu                                  |                                                                                                                          |
-| `<GalleryImage/>`     |                                                | [Link](https://github.com/SpeciesFileGroup/taxonpages/blob/main/src/components/Gallery/GalleryImage.global.vue#L40)      |
-| `<ImageViewer/>`      |                                                |                                                                                                                          |
-| `<TrackerReport/>`    | Show trackers to report issues                 | [Link](https://github.com/SpeciesFileGroup/taxonpages/blob/main/src/components/TrackerReport.global.vue#L47)             |
-| `<TabMenu/>`          |                                                |                                                                                                                          |
-| `<TabItem/>`          |                                                |                                                                                                                          |
-| `<VMap/>`             | Interactive map that use Leaflet library       |                                                                                                                          |
-| `<VModal/>`           | Create lightboxes                              |                                                                                                                          |
-| `<VSkeleton/>`        | Content loading placeholder                    |                                                                                                                          |
-| `<VSpinner/>`         | Loading spinner                                |                                                                                                                          |
-| `<VTable/>`           |                                                |                                                                                                                          |
-| `<VTableBody/>`       |                                                |                                                                                                                          |
-| `<VTableBodyCell/>`   |                                                |                                                                                                                          |
-| `<VTableBodyRow/>`    |                                                |                                                                                                                          |
-| `<VTableHeader/>`     |                                                |                                                                                                                          |
-| `<VTableHeaderCell/>` |                                                |                                                                                                                          |
-| `<VTableHeaderRow/>`  |                                                |                                                                                                                          |
-
-| Icons                |
-| -------------------- |
-| `<IconArrowDown/>`   |
-| `<IconArrowLeft/>`   |
-| `<IconArrowRight/>`  |
-| `<IconCheck/>`       |
-| `<IconClipboard/>`   |
-| `<IconClose/>`       |
-| `<IconDocument/>`    |
-| `<IconDownload/>`    |
-| `<IconHamburger/>`   |
-| `<IconJson/>`        |
-| `<IconMinusCircle/>` |
-| `<IconPlusCircle/>`  |
-| `<IconSearch/>`      |
-| `<IconTrash/>`       |
-| `<IconWarning/>`     |
+WID is built on TaxonWorks and TaxonPages, developed by the Species File Group. The GBIF panels started from [Morten Høfft's TaxonPages panels](https://github.com/MortenHofft/taxonpages); the panel READMEs give the details of each one.

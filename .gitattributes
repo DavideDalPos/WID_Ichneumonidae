@@ -1,0 +1,3 @@
+# Store text files with LF in the repository and check them out in the
+# platform's native style, so Windows CRLF files don't show up as changed.
+* text=auto
